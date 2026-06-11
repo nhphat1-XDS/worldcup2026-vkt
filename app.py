@@ -21,9 +21,8 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
     
     /* Thiết lập font chữ cho toàn trang */
-    html, body, [class*="css"], .stApp {
+    html, body, .stApp {
         font-family: 'Outfit', sans-serif !important;
-        color: #ffffff !important;
     }
 
     /* Nền tối sâu và các hiệu ứng phát sáng */
@@ -32,9 +31,9 @@ st.markdown("""
     }
     
     /* Cải thiện hiển thị nhãn widget của Streamlit (Độ tương phản cao) */
-    .stWidgetLabel, label, p, span, div, .stMarkdown {
+    .stWidgetLabel, label, .stMarkdown, .stMarkdown p {
         color: #ffffff !important;
-        font-weight: 500 !important;
+        font-weight: 600 !important;
     }
     
     /* Header labels in Bold White */
@@ -47,28 +46,47 @@ st.markdown("""
     div[data-testid="stSegmentedControl"] {
         background: rgba(255, 255, 255, 0.04) !important;
         border-radius: 12px !important;
-        padding: 4px !important;
+        padding: 3px !important;
         border: 1px solid rgba(255, 255, 255, 0.12) !important;
         width: fit-content !important;
     }
     div[data-testid="stSegmentedControl"] button {
-        color: #ffffff !important;
         background: transparent !important;
         border: none !important;
-        font-weight: 700 !important;
-        font-size: 0.92rem !important;
-        padding: 8px 18px !important;
+        padding: 6px 14px !important;
         border-radius: 8px !important;
         transition: all 0.2s ease !important;
+    }
+    div[data-testid="stSegmentedControl"] button div,
+    div[data-testid="stSegmentedControl"] button span,
+    div[data-testid="stSegmentedControl"] button p {
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        font-size: 0.9rem !important;
     }
     div[data-testid="stSegmentedControl"] button:hover {
         background: rgba(255, 255, 255, 0.08) !important;
     }
+    div[data-testid="stSegmentedControl"] button[aria-pressed="true"],
     div[data-testid="stSegmentedControl"] button[aria-selected="true"] {
         background: linear-gradient(135deg, #00e676 0%, #00b0ff 100%) !important;
-        color: #050811 !important;
-        font-weight: 800 !important;
         box-shadow: 0 4px 12px rgba(0, 230, 118, 0.35) !important;
+    }
+    div[data-testid="stSegmentedControl"] button[aria-pressed="true"] div,
+    div[data-testid="stSegmentedControl"] button[aria-pressed="true"] span,
+    div[data-testid="stSegmentedControl"] button[aria-pressed="true"] p,
+    div[data-testid="stSegmentedControl"] button[aria-selected="true"] div,
+    div[data-testid="stSegmentedControl"] button[aria-selected="true"] span,
+    div[data-testid="stSegmentedControl"] button[aria-selected="true"] p {
+        color: #050811 !important;
+        font-weight: 900 !important;
+    }
+    div[data-testid="stSegmentedControl"] button:focus,
+    div[data-testid="stSegmentedControl"] button:focus-visible,
+    div[data-testid="stSegmentedControl"] button:active {
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
     }
     
     /* Hiệu ứng trôi nổi nhẹ cho cúp/bóng/icon */
@@ -82,18 +100,18 @@ st.markdown("""
     div[data-testid="stVerticalBlockBorderContainer"] {
         background: linear-gradient(135deg, rgba(18, 30, 54, 0.8) 0%, rgba(9, 17, 30, 0.95) 100%) !important;
         border: 1px solid rgba(255, 255, 255, 0.09) !important;
-        border-radius: 20px !important;
-        padding: 22px !important;
-        margin-bottom: 15px !important;
+        border-radius: 16px !important;
+        padding: 12px 14px !important;
+        margin-bottom: 10px !important;
         backdrop-filter: blur(20px) !important;
         -webkit-backdrop-filter: blur(20px) !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45) !important;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
     div[data-testid="stVerticalBlockBorderContainer"]:hover {
         border-color: rgba(0, 230, 118, 0.35) !important;
-        transform: translateY(-4px) !important;
-        box-shadow: 0 15px 35px rgba(0, 230, 118, 0.15) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 10px 30px rgba(0, 230, 118, 0.15) !important;
     }
     
     /* Chữ Highlight Neon */
@@ -110,16 +128,16 @@ st.markdown("""
     div[data-testid="stMetric"] {
         background: linear-gradient(135deg, rgba(16, 28, 48, 0.85) 0%, rgba(8, 15, 27, 0.95) 100%) !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        border-radius: 18px !important;
-        padding: 16px 20px !important;
+        border-radius: 14px !important;
+        padding: 10px 15px !important;
         text-align: center !important;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3) !important;
     }
     div[data-testid="stMetricValue"] {
-        font-size: 2.2rem !important;
+        font-size: 1.8rem !important;
         font-weight: 900 !important;
         color: #ffd700 !important;
-        text-shadow: 0 0 15px rgba(255, 215, 0, 0.35);
+        text-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
     }
     
     /* Cải biến ô nhập số st.number_input (Sáng sủa, chữ to rõ) */
@@ -127,17 +145,26 @@ st.markdown("""
         color: #ffffff !important;
         background-color: rgba(13, 22, 38, 0.95) !important;
         border: 2px solid rgba(255, 255, 255, 0.2) !important;
-        border-radius: 12px !important;
+        border-radius: 10px !important;
         text-align: center !important;
-        font-size: 1.25rem !important;
+        font-size: 1.15rem !important;
         font-weight: 800 !important;
-        padding: 8px 0 !important;
+        padding: 4px 0 !important;
         box-shadow: 0 3px 8px rgba(0,0,0,0.3) !important;
         transition: border-color 0.2s ease !important;
     }
     div[data-testid="stNumberInput"] input:focus {
         border-color: #00e676 !important;
         box-shadow: 0 0 10px rgba(0, 230, 118, 0.3) !important;
+    }
+    /* Hiển thị tỷ số rõ ràng khi ô nhập bị disabled */
+    div[data-testid="stNumberInput"] input:disabled {
+        color: #00e676 !important;
+        -webkit-text-fill-color: #00e676 !important;
+        background-color: rgba(13, 22, 38, 0.75) !important;
+        opacity: 1 !important;
+        border-color: rgba(0, 230, 118, 0.3) !important;
+        font-weight: 900 !important;
     }
     /* Ẩn nút tăng giảm của number input Streamlit */
     div[data-testid="stNumberInput"] button {
@@ -150,23 +177,32 @@ st.markdown("""
         color: #050811 !important;
         font-weight: 800 !important;
         border: none !important;
-        border-radius: 14px !important;
-        padding: 12px 28px !important;
-        font-size: 0.98rem !important;
-        box-shadow: 0 5px 18px rgba(0, 230, 118, 0.3) !important;
+        border-radius: 12px !important;
+        padding: 8px 20px !important;
+        font-size: 0.92rem !important;
+        box-shadow: 0 4px 14px rgba(0, 230, 118, 0.25) !important;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
     div.stButton > button:hover {
-        transform: translateY(-3px) !important;
-        box-shadow: 0 8px 25px rgba(0, 230, 118, 0.55) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 18px rgba(0, 230, 118, 0.45) !important;
         color: #000000 !important;
+    }
+    /* Nút bị vô hiệu hóa */
+    div.stButton > button:disabled {
+        background: rgba(255, 255, 255, 0.08) !important;
+        color: rgba(255, 255, 255, 0.3) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: none !important;
+        transform: none !important;
+        cursor: not-allowed !important;
     }
     
     /* Badge trạng thái */
     .status-badge {
-        padding: 6px 14px;
-        border-radius: 10px;
-        font-size: 0.75rem;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 0.7rem;
         font-weight: 800;
         text-transform: uppercase;
         display: inline-block;
@@ -175,53 +211,53 @@ st.markdown("""
     .status-badge.pending {
         background: rgba(0, 229, 255, 0.15) !important;
         color: #00e5ff !important;
-        border: 1px solid rgba(0, 229, 255, 0.35) !important;
-        box-shadow: 0 0 10px rgba(0, 229, 255, 0.1) !important;
+        border: 1px solid rgba(0, 229, 255, 0.3) !important;
+        box-shadow: 0 0 8px rgba(0, 229, 255, 0.1) !important;
     }
     .status-badge.finished {
-        background: rgba(148, 163, 184, 0.15) !important;
+        background: rgba(148, 163, 184, 0.12) !important;
         color: #94a3b8 !important;
-        border: 1px solid rgba(148, 163, 184, 0.3) !important;
+        border: 1px solid rgba(148, 163, 184, 0.25) !important;
     }
     
     /* Thẻ tỷ số thực tế */
     .actual-score-badge {
-        background: linear-gradient(90deg, rgba(255, 215, 0, 0.18) 0%, rgba(255, 160, 0, 0.18) 100%) !important;
+        background: linear-gradient(90deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 160, 0, 0.15) 100%) !important;
         color: #ffd700 !important;
-        border: 1px solid rgba(255, 215, 0, 0.35) !important;
-        padding: 8px 16px !important;
-        border-radius: 12px !important;
+        border: 1px solid rgba(255, 215, 0, 0.3) !important;
+        padding: 6px 12px !important;
+        border-radius: 10px !important;
         font-weight: 800 !important;
         text-align: center;
-        margin-top: 14px;
-        font-size: 0.9rem !important;
-        box-shadow: 0 0 15px rgba(255, 215, 0, 0.1) !important;
+        margin-top: 10px;
+        font-size: 0.85rem !important;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.08) !important;
     }
     
     /* Thẻ điểm số kiếm được */
     .point-badge {
-        padding: 6px 14px !important;
-        border-radius: 20px !important;
-        font-size: 0.8rem !important;
+        padding: 4px 10px !important;
+        border-radius: 15px !important;
+        font-size: 0.75rem !important;
         font-weight: 800 !important;
         display: inline-block !important;
-        margin-top: 8px !important;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.2) !important;
+        margin-top: 6px !important;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
     }
     .point-badge.correct {
-        background: rgba(0, 230, 118, 0.18) !important;
+        background: rgba(0, 230, 118, 0.15) !important;
         color: #00e676 !important;
-        border: 1px solid rgba(0, 230, 118, 0.4) !important;
+        border: 1px solid rgba(0, 230, 118, 0.35) !important;
     }
     .point-badge.wrong {
-        background: rgba(255, 82, 82, 0.18) !important;
+        background: rgba(255, 82, 82, 0.15) !important;
         color: #ff5252 !important;
-        border: 1px solid rgba(255, 82, 82, 0.4) !important;
+        border: 1px solid rgba(255, 82, 82, 0.35) !important;
     }
     .point-badge.unpredicted {
-        background: rgba(148, 163, 184, 0.15) !important;
+        background: rgba(148, 163, 184, 0.12) !important;
         color: #94a3b8 !important;
-        border: 1px solid rgba(148, 163, 184, 0.3) !important;
+        border: 1px solid rgba(148, 163, 184, 0.25) !important;
     }
     
     /* Custom flag image */
@@ -229,14 +265,14 @@ st.markdown("""
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 32px;
-        height: 32px;
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
         overflow: hidden;
-        border: 2px solid #ffd700;
-        margin-right: 8px;
+        border: 1.5px solid #ffd700;
+        margin-right: 6px;
         vertical-align: middle;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.4);
     }
     .flag-img {
         width: 100%;
@@ -246,23 +282,23 @@ st.markdown("""
     
     /* Label tranh giải ba */
     .third-place {
-        background: rgba(255, 215, 0, 0.18) !important;
+        background: rgba(255, 215, 0, 0.15) !important;
         color: #ffd700 !important;
-        padding: 3px 10px !important;
-        border-radius: 6px !important;
-        font-size: 0.68rem !important;
+        padding: 2px 8px !important;
+        border-radius: 5px !important;
+        font-size: 0.65rem !important;
         font-weight: 800 !important;
         text-transform: uppercase !important;
-        border: 1px solid rgba(255, 215, 0, 0.3) !important;
+        border: 1px solid rgba(255, 215, 0, 0.25) !important;
         display: inline-block !important;
-        margin-bottom: 8px !important;
+        margin-bottom: 6px !important;
     }
     
     /* Định dạng cột trong Bracket */
     [data-testid="column"] {
-        background: rgba(255, 255, 255, 0.003) !important;
-        padding: 10px !important;
-        border-radius: 14px !important;
+        background: rgba(255, 255, 255, 0.002) !important;
+        padding: 6px !important;
+        border-radius: 10px !important;
     }
 
     /* Leaderboard Table Styles */
@@ -270,66 +306,67 @@ st.markdown("""
         width: 100%;
         background: linear-gradient(135deg, rgba(16, 28, 48, 0.75) 0%, rgba(8, 15, 27, 0.9) 100%) !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        border-radius: 20px !important;
+        border-radius: 16px !important;
         overflow: hidden !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
-        margin-top: 15px !important;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
+        margin-top: 10px !important;
         backdrop-filter: blur(16px) !important;
     }
     .leaderboard-table {
         width: 100%;
         border-collapse: collapse !important;
         text-align: left !important;
-        font-size: 0.95rem !important;
+        font-size: 0.9rem !important;
     }
     .leaderboard-table th {
         background: rgba(21, 38, 68, 0.8) !important;
         color: #00e676 !important;
         font-weight: 800 !important;
-        padding: 16px 20px !important;
+        padding: 12px 16px !important;
         border-bottom: 2px solid rgba(0, 230, 118, 0.3) !important;
         text-transform: uppercase !important;
-        font-size: 0.85rem !important;
+        font-size: 0.8rem !important;
         letter-spacing: 0.5px !important;
     }
     .leaderboard-table td {
-        padding: 15px 20px !important;
+        padding: 10px 16px !important;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
         color: #e2e8f0 !important;
         vertical-align: middle !important;
     }
     .leaderboard-table tr:hover {
-        background: rgba(255, 255, 255, 0.04) !important;
+        background: rgba(255, 255, 255, 0.03) !important;
     }
     .leaderboard-table tr.top-1 {
-        background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.02) 100%) !important;
+        background: linear-gradient(90deg, rgba(255, 215, 0, 0.08) 0%, rgba(255, 215, 0, 0.01) 100%) !important;
     }
     .leaderboard-table tr.top-2 {
-        background: linear-gradient(90deg, rgba(192, 192, 192, 0.08) 0%, rgba(192, 192, 192, 0.01) 100%) !important;
+        background: linear-gradient(90deg, rgba(192, 192, 192, 0.06) 0%, rgba(192, 192, 192, 0.01) 100%) !important;
     }
     .leaderboard-table tr.top-3 {
-        background: linear-gradient(90deg, rgba(205, 127, 50, 0.08) 0%, rgba(205, 127, 50, 0.01) 100%) !important;
+        background: linear-gradient(90deg, rgba(205, 127, 50, 0.06) 0%, rgba(205, 127, 50, 0.01) 100%) !important;
     }
     .rank-badge {
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
-        width: 30px !important;
-        height: 30px !important;
+        width: 26px !important;
+        height: 26px !important;
         border-radius: 50% !important;
         font-weight: 800 !important;
-        font-size: 1rem !important;
+        font-size: 0.95rem !important;
     }
-    .rank-1 { background: #ffd700 !important; color: #000000 !important; box-shadow: 0 0 12px rgba(255,215,0,0.6) !important; }
-    .rank-2 { background: #c0c0c0 !important; color: #000000 !important; box-shadow: 0 0 10px rgba(192,192,192,0.4) !important; }
-    .rank-3 { background: #cd7f32 !important; color: #000000 !important; box-shadow: 0 0 10px rgba(205,127,50,0.4) !important; }
+    .rank-1 { background: #ffd700 !important; color: #000000 !important; box-shadow: 0 0 10px rgba(255,215,0,0.5) !important; }
+    .rank-2 { background: #c0c0c0 !important; color: #000000 !important; box-shadow: 0 0 8px rgba(192,192,192,0.3) !important; }
+    .rank-3 { background: #cd7f32 !important; color: #000000 !important; box-shadow: 0 0 8px rgba(205,127,50,0.3) !important; }
     .rank-normal { color: #94a3b8 !important; }
     
     .points-column {
         font-weight: 900 !important;
         color: #ffd700 !important;
-        font-size: 1.15rem !important;
-        text-shadow: 0 0 12px rgba(255, 215, 0, 0.35) !important;
+        font-size: 1.1rem !important;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.3) !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -597,10 +634,13 @@ selected_tab = st.radio("Thanh điều hướng", tabs, horizontal=True, label_v
 # ================= TAB 1: DỰ ĐOÁN CỦA TÔI =================
 if selected_tab == "⚽ Dự Đoán Của Tôi":
     st.write("---")
-    col_header, col_action = st.columns([0.7, 0.3])
+    col_header, col_action = st.columns([0.65, 0.35])
     with col_header:
         st.subheader("Dự Đoán Kết Quả")
         st.write("Nhập tỷ số dự đoán của bạn. Hệ thống sẽ tự động khóa và tính điểm sau khi bạn lưu.")
+    with col_action:
+        # Placeholder container để vẽ nút lưu ở đầu trang
+        save_btn_placeholder = st.container()
     
     # Hiển thị Điểm số nhanh
     if not st.session_state.is_admin:
@@ -634,10 +674,10 @@ if selected_tab == "⚽ Dự Đoán Của Tôi":
     if not filtered_matches:
         st.info("Không có trận đấu nào trong danh mục này.")
     else:
-        # Vẽ grid cards
-        col_grid = st.columns(2)
+        # Vẽ grid cards - Đổi sang 3 cột để đỡ phải cuộn!
+        col_grid = st.columns(3)
         for idx, match in enumerate(filtered_matches):
-            with col_grid[idx % 2]:
+            with col_grid[idx % 3]:
                 m_id = match["id"]
                 is_finished = match["status"] == "finished"
                 pred = user_preds.get(m_id, { "score1": "", "score2": "" })
@@ -647,17 +687,17 @@ if selected_tab == "⚽ Dự Đoán Của Tôi":
                 is_disabled = is_finished or st.session_state.is_admin or has_pred
                 
                 with st.container(border=True):
-                    # Header card
+                    # Header card (tối giản để compact hơn)
                     status_text = "Đã kết thúc" if is_finished else "Chưa diễn ra"
                     status_class = "finished" if is_finished else "pending"
-                    date_formatted = datetime.fromisoformat(match["date"]).strftime("%d/%m/%Y %H:%M")
-                    st.markdown(f"<div><span class='status-badge {status_class}'>{status_text}</span> <span style='font-size:0.85rem; color:#e2e8f0; margin-left:10px;'>📅 {date_formatted}</span></div>", unsafe_allow_html=True)
+                    date_formatted = datetime.fromisoformat(match["date"]).strftime("%d/%m %H:%M")
+                    st.markdown(f"<div><span class='status-badge {status_class}'>{status_text}</span> <span style='font-size:0.8rem; color:#e2e8f0; margin-left:6px;'>📅 {date_formatted}</span></div>", unsafe_allow_html=True)
                     
                     # Đội và Inputs
                     st.write("")
                     col_t1, col_score, col_t2 = st.columns([0.38, 0.24, 0.38])
                     with col_t1:
-                        st.markdown(f"<div style='text-align:right; font-size:1.1rem; font-weight:700; color:#ffffff;'>{get_flag_html(match['team1'])} {match['team1']}</div>", unsafe_allow_html=True)
+                        st.markdown(f"<div style='text-align:right; font-size:0.95rem; font-weight:700; color:#ffffff; line-height:1.2;'>{get_flag_html(match['team1'])} {match['team1']}</div>", unsafe_allow_html=True)
                     with col_score:
                         # Input Tỉ số dự đoán
                         val1 = pred.get("score1") if pred.get("score1") is not None else ""
@@ -673,7 +713,7 @@ if selected_tab == "⚽ Dự Đoán Của Tôi":
                         with col_in2:
                             score2 = st.number_input("", min_value=0, max_value=20, step=1, value=default_2, key=f"p2_{m_id}", disabled=is_disabled, label_visibility="collapsed")
                     with col_t2:
-                        st.markdown(f"<div style='text-align:left; font-size:1.1rem; font-weight:700; color:#ffffff;'>{get_flag_html(match['team2'])} {match['team2']}</div>", unsafe_allow_html=True)
+                        st.markdown(f"<div style='text-align:left; font-size:0.95rem; font-weight:700; color:#ffffff; line-height:1.2;'>{get_flag_html(match['team2'])} {match['team2']}</div>", unsafe_allow_html=True)
                     
                     # Lưu dự đoán mới vào temp map
                     if score1 is not None and score2 is not None and not is_disabled:
@@ -689,48 +729,53 @@ if selected_tab == "⚽ Dự Đoán Của Tôi":
                             p1 = int(pred["score1"])
                             p2 = int(pred["score2"])
                             if p1 == act1 and p2 == act2:
-                                st.markdown("<div style='text-align:center;'><span class='point-badge correct'>🏆 Đoán Đúng Tỷ Số (+2đ)</span></div>", unsafe_allow_html=True)
+                                st.markdown("<div style='text-align:center;'><span class='point-badge correct'>🏆 Đúng tỷ số (+2đ)</span></div>", unsafe_allow_html=True)
                             else:
-                                st.markdown("<div style='text-align:center;'><span class='point-badge wrong'>❌ Đoán Sai Tỷ Số (-1đ)</span></div>", unsafe_allow_html=True)
+                                st.markdown("<div style='text-align:center;'><span class='point-badge wrong'>❌ Sai tỷ số (-1đ)</span></div>", unsafe_allow_html=True)
                         else:
-                            st.markdown("<div style='text-align:center;'><span class='point-badge wrong'>⚠️ Mặc định đoán sai do không dự đoán (-1đ)</span></div>", unsafe_allow_html=True)
+                            st.markdown("<div style='text-align:center;'><span class='point-badge wrong'>⚠️ Phạt không dự đoán (-1đ)</span></div>", unsafe_allow_html=True)
                     else:
                         if has_pred:
-                            st.markdown(f"<div style='text-align:center; color:#00e676; font-size:0.85rem; font-weight:800; margin-top:8px;'>🔒 Đã dự đoán: {pred['score1']} - {pred['score2']} (Đã khóa)</div>", unsafe_allow_html=True)
+                            st.markdown(f"<div style='text-align:center; color:#00e676; font-size:0.8rem; font-weight:800; margin-top:6px;'>🔒 Đã khóa: {pred['score1']} - {pred['score2']}</div>", unsafe_allow_html=True)
                         else:
-                            st.markdown("<div style='text-align:center; color:#ffd700; font-size:0.8rem; font-weight:600; margin-top:8px;'>✍️ Nhập tỷ số và bấm nút Lưu ở dưới (Chỉ đoán 1 lần)</div>", unsafe_allow_html=True)
+                            st.markdown("<div style='text-align:center; color:#ffd700; font-size:0.75rem; font-weight:600; margin-top:6px;'>✍️ Dự đoán (Chỉ 1 lần)</div>", unsafe_allow_html=True)
                 
-        # Nút lưu dự đoán
-        st.write("---")
-        if not st.session_state.is_admin and new_preds:
-            if st.button("💾 Lưu Dự Đoán", use_container_width=True, type="primary"):
-                # Ghi vào database
-                if is_local:
-                    if user_key not in predictions:
-                        predictions[user_key] = {}
-                    for mId, vals in new_preds.items():
-                        predictions[user_key][mId] = vals
-                    recalculate_local_points(matches, users, predictions)
-                    write_local_db(matches, users, predictions)
-                    st.success("Đã lưu dự đoán của bạn thành công!")
-                    st.rerun()
-                else:
-                    api_url = get_api_url()
-                    try:
-                        res = requests.post(api_url, json={
-                            "action": "save_predictions",
-                            "userKey": user_key,
-                            "name": st.session_state.username,
-                            "unit": st.session_state.unit,
-                            "predictions": new_preds
-                        }, timeout=10)
-                        if res.status_code == 200:
-                            st.success("Đã lưu dự đoán thành công lên Google Sheets!")
+        # Nút lưu dự đoán ở đầu trang (sử dụng placeholder)
+        if not st.session_state.is_admin:
+            with save_btn_placeholder:
+                # Đưa nút lưu lên đầu trang
+                if new_preds:
+                    if st.button("💾 Lưu Dự Đoán", use_container_width=True, type="primary"):
+                        # Ghi vào database
+                        if is_local:
+                            if user_key not in predictions:
+                                predictions[user_key] = {}
+                            for mId, vals in new_preds.items():
+                                predictions[user_key][mId] = vals
+                            recalculate_local_points(matches, users, predictions)
+                            write_local_db(matches, users, predictions)
+                            st.success("Đã lưu dự đoán thành công!")
                             st.rerun()
                         else:
-                            st.error("Không thể lưu dự đoán lên Cloud Server.")
-                    except Exception as e:
-                        st.error(f"Lỗi kết nối tới Cloud Server: {e}")
+                            api_url = get_api_url()
+                            try:
+                                res = requests.post(api_url, json={
+                                    "action": "save_predictions",
+                                    "userKey": user_key,
+                                    "name": st.session_state.username,
+                                    "unit": st.session_state.unit,
+                                    "predictions": new_preds
+                                }, timeout=10)
+                                if res.status_code == 200:
+                                    st.success("Đã lưu dự đoán thành công!")
+                                    st.rerun()
+                                else:
+                                    st.error("Lỗi lưu dự đoán lên Cloud Server.")
+                            except Exception as e:
+                                st.error(f"Lỗi kết nối Cloud: {e}")
+                else:
+                    # Nút bị mờ đi khi chưa điền tỷ số
+                    st.button("💾 Lưu Dự Đoán", use_container_width=True, type="secondary", disabled=True, help="Hãy điền tỷ số dự đoán của bạn trước khi bấm lưu.")
 
 # ================= TAB 2: BẢNG XẾP HẠNG =================
 elif selected_tab == "🏆 Bảng Xếp Hạng":
