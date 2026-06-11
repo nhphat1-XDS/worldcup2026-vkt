@@ -23,12 +23,52 @@ st.markdown("""
     /* Thiết lập font chữ cho toàn trang */
     html, body, [class*="css"], .stApp {
         font-family: 'Outfit', sans-serif !important;
+        color: #ffffff !important;
     }
 
     /* Nền tối sâu và các hiệu ứng phát sáng */
     .stApp {
-        background: radial-gradient(circle at 50% 0%, #112240 0%, #0a192f 50%, #020c1b 100%) !important;
-        color: #f1f5f9 !important;
+        background: radial-gradient(circle at 50% 0%, #0d1e36 0%, #071224 50%, #020712 100%) !important;
+    }
+    
+    /* Cải thiện hiển thị nhãn widget của Streamlit (Độ tương phản cao) */
+    .stWidgetLabel, label, p, span, div, .stMarkdown {
+        color: #ffffff !important;
+        font-weight: 500 !important;
+    }
+    
+    /* Header labels in Bold White */
+    h1, h2, h3, h4, h5, h6 {
+        color: #ffffff !important;
+        font-weight: 800 !important;
+    }
+    
+    /* Style cho st.segmented_control (Dễ đọc tuyệt đối) */
+    div[data-testid="stSegmentedControl"] {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border-radius: 12px !important;
+        padding: 4px !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        width: fit-content !important;
+    }
+    div[data-testid="stSegmentedControl"] button {
+        color: #ffffff !important;
+        background: transparent !important;
+        border: none !important;
+        font-weight: 700 !important;
+        font-size: 0.92rem !important;
+        padding: 8px 18px !important;
+        border-radius: 8px !important;
+        transition: all 0.2s ease !important;
+    }
+    div[data-testid="stSegmentedControl"] button:hover {
+        background: rgba(255, 255, 255, 0.08) !important;
+    }
+    div[data-testid="stSegmentedControl"] button[aria-selected="true"] {
+        background: linear-gradient(135deg, #00e676 0%, #00b0ff 100%) !important;
+        color: #050811 !important;
+        font-weight: 800 !important;
+        box-shadow: 0 4px 12px rgba(0, 230, 118, 0.35) !important;
     }
     
     /* Hiệu ứng trôi nổi nhẹ cho cúp/bóng/icon */
@@ -38,28 +78,22 @@ st.markdown("""
         100% { transform: translateY(0px) rotate(0deg); }
     }
     
-    /* Custom Card Style cao cấp - Glassmorphism */
-    .custom-card {
-        background: linear-gradient(135deg, rgba(16, 28, 48, 0.75) 0%, rgba(8, 15, 27, 0.9) 100%) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        border-radius: 24px !important;
-        padding: 24px;
-        margin-bottom: 22px;
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Cải biến st.container(border=True) thành Glassmorphism Cards */
+    div[data-testid="stVerticalBlockBorderContainer"] {
+        background: linear-gradient(135deg, rgba(18, 30, 54, 0.8) 0%, rgba(9, 17, 30, 0.95) 100%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.09) !important;
+        border-radius: 20px !important;
+        padding: 22px !important;
+        margin-bottom: 15px !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45) !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
-    .custom-card:hover {
-        background: linear-gradient(135deg, rgba(22, 38, 65, 0.8) 0%, rgba(12, 22, 39, 0.95) 100%) !important;
-        border-color: rgba(0, 230, 118, 0.4) !important;
-        transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0, 230, 118, 0.18);
-    }
-    .custom-card.predicted {
-        border-color: rgba(0, 230, 118, 0.45) !important;
-        background: linear-gradient(135deg, rgba(0, 230, 118, 0.05) 0%, rgba(8, 15, 27, 0.9) 100%) !important;
-        box-shadow: 0 10px 30px rgba(0, 230, 118, 0.08);
+    div[data-testid="stVerticalBlockBorderContainer"]:hover {
+        border-color: rgba(0, 230, 118, 0.35) !important;
+        transform: translateY(-4px) !important;
+        box-shadow: 0 15px 35px rgba(0, 230, 118, 0.15) !important;
     }
     
     /* Chữ Highlight Neon */
@@ -74,7 +108,7 @@ st.markdown("""
     
     /* Custom style cho Metric (thẻ thông số điểm số) */
     div[data-testid="stMetric"] {
-        background: linear-gradient(135deg, rgba(16, 28, 48, 0.8) 0%, rgba(8, 15, 27, 0.9) 100%) !important;
+        background: linear-gradient(135deg, rgba(16, 28, 48, 0.85) 0%, rgba(8, 15, 27, 0.95) 100%) !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
         border-radius: 18px !important;
         padding: 16px 20px !important;
@@ -83,9 +117,31 @@ st.markdown("""
     }
     div[data-testid="stMetricValue"] {
         font-size: 2.2rem !important;
-        font-weight: 800 !important;
+        font-weight: 900 !important;
         color: #ffd700 !important;
-        text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        text-shadow: 0 0 15px rgba(255, 215, 0, 0.35);
+    }
+    
+    /* Cải biến ô nhập số st.number_input (Sáng sủa, chữ to rõ) */
+    div[data-testid="stNumberInput"] input {
+        color: #ffffff !important;
+        background-color: rgba(13, 22, 38, 0.95) !important;
+        border: 2px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 12px !important;
+        text-align: center !important;
+        font-size: 1.25rem !important;
+        font-weight: 800 !important;
+        padding: 8px 0 !important;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.3) !important;
+        transition: border-color 0.2s ease !important;
+    }
+    div[data-testid="stNumberInput"] input:focus {
+        border-color: #00e676 !important;
+        box-shadow: 0 0 10px rgba(0, 230, 118, 0.3) !important;
+    }
+    /* Ẩn nút tăng giảm của number input Streamlit */
+    div[data-testid="stNumberInput"] button {
+        display: none !important;
     }
     
     /* Tùy biến nút bấm Streamlit (Gradient & Glow) */
@@ -108,7 +164,7 @@ st.markdown("""
     
     /* Badge trạng thái */
     .status-badge {
-        padding: 5px 14px;
+        padding: 6px 14px;
         border-radius: 10px;
         font-size: 0.75rem;
         font-weight: 800;
@@ -117,40 +173,40 @@ st.markdown("""
         letter-spacing: 0.5px;
     }
     .status-badge.pending {
-        background: rgba(0, 229, 255, 0.15);
-        color: #00e5ff;
-        border: 1px solid rgba(0, 229, 255, 0.35);
-        box-shadow: 0 0 10px rgba(0, 229, 255, 0.1);
+        background: rgba(0, 229, 255, 0.15) !important;
+        color: #00e5ff !important;
+        border: 1px solid rgba(0, 229, 255, 0.35) !important;
+        box-shadow: 0 0 10px rgba(0, 229, 255, 0.1) !important;
     }
     .status-badge.finished {
-        background: rgba(148, 163, 184, 0.15);
-        color: #94a3b8;
-        border: 1px solid rgba(148, 163, 184, 0.3);
+        background: rgba(148, 163, 184, 0.15) !important;
+        color: #94a3b8 !important;
+        border: 1px solid rgba(148, 163, 184, 0.3) !important;
     }
     
     /* Thẻ tỷ số thực tế */
     .actual-score-badge {
-        background: linear-gradient(90deg, rgba(255, 215, 0, 0.18) 0%, rgba(255, 160, 0, 0.18) 100%);
-        color: #ffd700;
-        border: 1px solid rgba(255, 215, 0, 0.35);
-        padding: 8px 16px;
-        border-radius: 12px;
-        font-weight: 800;
+        background: linear-gradient(90deg, rgba(255, 215, 0, 0.18) 0%, rgba(255, 160, 0, 0.18) 100%) !important;
+        color: #ffd700 !important;
+        border: 1px solid rgba(255, 215, 0, 0.35) !important;
+        padding: 8px 16px !important;
+        border-radius: 12px !important;
+        font-weight: 800 !important;
         text-align: center;
         margin-top: 14px;
-        font-size: 0.9rem;
-        box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+        font-size: 0.9rem !important;
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.1) !important;
     }
     
     /* Thẻ điểm số kiếm được */
     .point-badge {
-        padding: 5px 14px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 800;
-        display: inline-block;
-        margin-top: 8px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        padding: 6px 14px !important;
+        border-radius: 20px !important;
+        font-size: 0.8rem !important;
+        font-weight: 800 !important;
+        display: inline-block !important;
+        margin-top: 8px !important;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2) !important;
     }
     .point-badge.correct {
         background: rgba(0, 230, 118, 0.18) !important;
@@ -168,35 +224,13 @@ st.markdown("""
         border: 1px solid rgba(148, 163, 184, 0.3) !important;
     }
     
-    /* Thiết kế Sơ đồ Bracket Node */
-    .bracket-node {
-        background: linear-gradient(135deg, rgba(16, 28, 48, 0.85) 0%, rgba(8, 15, 27, 0.95) 100%) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        border-radius: 18px !important;
-        padding: 16px;
-        margin-bottom: 20px;
-        font-size: 0.85rem;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.35);
-        transition: all 0.3s ease;
-    }
-    .bracket-node.round-r16 { border-left: 4px solid #00b0ff !important; }
-    .bracket-node.round-qf { border-left: 4px solid #ff9100 !important; }
-    .bracket-node.round-sf { border-left: 4px solid #ff1744 !important; }
-    .bracket-node.round-final { border-left: 4px solid #ffd700 !important; border-right: 4px solid #ffd700 !important; }
-    
-    .bracket-node:hover {
-        border-color: rgba(255, 215, 0, 0.4) !important;
-        box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
-        transform: scale(1.03);
-    }
-    
     /* Custom flag image */
     .flag-container {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 30px;
-        height: 30px;
+        width: 32px;
+        height: 32px;
         border-radius: 50%;
         overflow: hidden;
         border: 2px solid #ffd700;
@@ -212,91 +246,90 @@ st.markdown("""
     
     /* Label tranh giải ba */
     .third-place {
-        background: rgba(255, 215, 0, 0.18);
-        color: #ffd700;
-        padding: 3px 10px;
-        border-radius: 6px;
-        font-size: 0.68rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        border: 1px solid rgba(255, 215, 0, 0.3);
-        display: inline-block;
-        margin-bottom: 8px;
+        background: rgba(255, 215, 0, 0.18) !important;
+        color: #ffd700 !important;
+        padding: 3px 10px !important;
+        border-radius: 6px !important;
+        font-size: 0.68rem !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        border: 1px solid rgba(255, 215, 0, 0.3) !important;
+        display: inline-block !important;
+        margin-bottom: 8px !important;
     }
     
     /* Định dạng cột trong Bracket */
     [data-testid="column"] {
-        background: rgba(255, 255, 255, 0.003);
-        padding: 10px;
-        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.003) !important;
+        padding: 10px !important;
+        border-radius: 14px !important;
     }
 
     /* Leaderboard Table Styles */
     .leaderboard-container {
         width: 100%;
-        background: linear-gradient(135deg, rgba(16, 28, 48, 0.75) 0%, rgba(8, 15, 27, 0.9) 100%);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-        margin-top: 15px;
-        backdrop-filter: blur(16px);
+        background: linear-gradient(135deg, rgba(16, 28, 48, 0.75) 0%, rgba(8, 15, 27, 0.9) 100%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 20px !important;
+        overflow: hidden !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+        margin-top: 15px !important;
+        backdrop-filter: blur(16px) !important;
     }
     .leaderboard-table {
         width: 100%;
-        border-collapse: collapse;
-        text-align: left;
-        font-size: 0.95rem;
+        border-collapse: collapse !important;
+        text-align: left !important;
+        font-size: 0.95rem !important;
     }
     .leaderboard-table th {
-        background: rgba(21, 38, 68, 0.8);
-        color: #00e676;
-        font-weight: 800;
-        padding: 16px 20px;
-        border-bottom: 2px solid rgba(0, 230, 118, 0.3);
-        text-transform: uppercase;
-        font-size: 0.85rem;
-        letter-spacing: 0.5px;
+        background: rgba(21, 38, 68, 0.8) !important;
+        color: #00e676 !important;
+        font-weight: 800 !important;
+        padding: 16px 20px !important;
+        border-bottom: 2px solid rgba(0, 230, 118, 0.3) !important;
+        text-transform: uppercase !important;
+        font-size: 0.85rem !important;
+        letter-spacing: 0.5px !important;
     }
     .leaderboard-table td {
-        padding: 15px 20px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        color: #e2e8f0;
-        vertical-align: middle;
+        padding: 15px 20px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        color: #e2e8f0 !important;
+        vertical-align: middle !important;
     }
     .leaderboard-table tr:hover {
-        background: rgba(255, 255, 255, 0.04);
+        background: rgba(255, 255, 255, 0.04) !important;
     }
     .leaderboard-table tr.top-1 {
-        background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.02) 100%);
+        background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.02) 100%) !important;
     }
     .leaderboard-table tr.top-2 {
-        background: linear-gradient(90deg, rgba(192, 192, 192, 0.08) 0%, rgba(192, 192, 192, 0.01) 100%);
+        background: linear-gradient(90deg, rgba(192, 192, 192, 0.08) 0%, rgba(192, 192, 192, 0.01) 100%) !important;
     }
     .leaderboard-table tr.top-3 {
-        background: linear-gradient(90deg, rgba(205, 127, 50, 0.08) 0%, rgba(205, 127, 50, 0.01) 100%);
+        background: linear-gradient(90deg, rgba(205, 127, 50, 0.08) 0%, rgba(205, 127, 50, 0.01) 100%) !important;
     }
     .rank-badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        font-weight: 800;
-        font-size: 1rem;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 30px !important;
+        height: 30px !important;
+        border-radius: 50% !important;
+        font-weight: 800 !important;
+        font-size: 1rem !important;
     }
-    .rank-1 { background: #ffd700; color: #000000; box-shadow: 0 0 12px rgba(255,215,0,0.6); }
-    .rank-2 { background: #c0c0c0; color: #000000; box-shadow: 0 0 10px rgba(192,192,192,0.4); }
-    .rank-3 { background: #cd7f32; color: #000000; box-shadow: 0 0 10px rgba(205,127,50,0.4); }
-    .rank-normal { color: #94a3b8; }
+    .rank-1 { background: #ffd700 !important; color: #000000 !important; box-shadow: 0 0 12px rgba(255,215,0,0.6) !important; }
+    .rank-2 { background: #c0c0c0 !important; color: #000000 !important; box-shadow: 0 0 10px rgba(192,192,192,0.4) !important; }
+    .rank-3 { background: #cd7f32 !important; color: #000000 !important; box-shadow: 0 0 10px rgba(205,127,50,0.4) !important; }
+    .rank-normal { color: #94a3b8 !important; }
     
     .points-column {
         font-weight: 900 !important;
         color: #ffd700 !important;
         font-size: 1.15rem !important;
-        text-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
-    }
+        text-shadow: 0 0 12px rgba(255, 215, 0, 0.35) !important;
 </style>
 """, unsafe_allow_html=True)
 
@@ -485,59 +518,58 @@ if not st.session_state.logged_in:
     col_auth_left, col_auth_card, col_auth_right = st.columns([1, 1.2, 1])
     
     with col_auth_card:
-        st.markdown("<div class='custom-card'>", unsafe_allow_html=True)
-        st.subheader("Tham Gia Dự Đoán")
-        st.write("Đăng nhập bằng Họ tên và Đơn vị để bắt đầu dự báo kết quả World Cup 2026")
-        
-        input_name = st.text_input("Họ và Tên", placeholder="Nhập đầy đủ họ tên...")
-        input_unit = st.text_input("Đơn vị / Phòng ban", placeholder="Ví dụ: Phòng Kỹ thuật, Tổ 1...")
-        
-        check_admin = st.checkbox("Đăng nhập tài khoản Ban Tổ Chức (Admin)")
-        admin_password = ""
-        if check_admin:
-            admin_password = st.text_input("Mật khẩu Admin", type="password", placeholder="Nhập mật khẩu quản trị...")
+        with st.container(border=True):
+            st.subheader("Tham Gia Dự Đoán")
+            st.write("Đăng nhập bằng Họ tên và Đơn vị để bắt đầu dự báo kết quả World Cup 2026")
             
-        if st.button("Đăng Nhập", use_container_width=True):
-            if not input_name.strip() or not input_unit.strip():
-                st.error("Vui lòng điền đầy đủ Họ tên và Đơn vị!")
-            else:
-                trimmed_name = input_name.strip()
-                trimmed_unit = input_unit.strip()
+            input_name = st.text_input("Họ và Tên", placeholder="Nhập đầy đủ họ tên...")
+            input_unit = st.text_input("Đơn vị / Phòng ban", placeholder="Ví dụ: Phòng Kỹ thuật, Tổ 1...")
+            
+            check_admin = st.checkbox("Đăng nhập tài khoản Ban Tổ Chức (Admin)")
+            admin_password = ""
+            if check_admin:
+                admin_password = st.text_input("Mật khẩu Admin", type="password", placeholder="Nhập mật khẩu quản trị...")
                 
-                # Check đăng nhập admin
-                if trimmed_name.lower() == "admin" and trimmed_unit.lower() == "btc":
-                    if admin_password == "admin2026":
-                        st.session_state.logged_in = True
-                        st.session_state.username = "Admin"
-                        st.session_state.unit = "BTC"
-                        st.session_state.is_admin = True
-                        st.rerun()
-                    else:
-                        st.error("Mật khẩu quản trị viên không chính xác!")
+            if st.button("Đăng Nhập", use_container_width=True):
+                if not input_name.strip() or not input_unit.strip():
+                    st.error("Vui lòng điền đầy đủ Họ tên và Đơn vị!")
                 else:
-                    if check_admin:
-                        st.error("Thông tin đăng nhập Admin không chính xác!")
+                    trimmed_name = input_name.strip()
+                    trimmed_unit = input_unit.strip()
+                    
+                    # Check đăng nhập admin
+                    if trimmed_name.lower() == "admin" and trimmed_unit.lower() == "btc":
+                        if admin_password == "admin2026":
+                            st.session_state.logged_in = True
+                            st.session_state.username = "Admin"
+                            st.session_state.unit = "BTC"
+                            st.session_state.is_admin = True
+                            st.rerun()
+                        else:
+                            st.error("Mật khẩu quản trị viên không chính xác!")
                     else:
-                        # Đăng nhập user thường, đăng ký nếu là local
-                        st.session_state.logged_in = True
-                        st.session_state.username = trimmed_name
-                        st.session_state.unit = trimmed_unit
-                        st.session_state.is_admin = False
-                        
-                        if is_local:
-                            user_exists = any(u["name"].lower() == trimmed_name.lower() and u["unit"].lower() == trimmed_unit.lower() for u in users)
-                            if not user_exists:
-                                users.append({
-                                    "name": trimmed_name,
-                                    "unit": trimmed_unit,
-                                    "isAdmin": False,
-                                    "points": 0,
-                                    "correctScores": 0,
-                                    "correctOutcomes": 0
-                                })
-                                write_local_db(matches, users, predictions)
-                        st.rerun()
-        st.markdown("</div>", unsafe_allow_html=True)
+                        if check_admin:
+                            st.error("Thông tin đăng nhập Admin không chính xác!")
+                        else:
+                            # Đăng nhập user thường, đăng ký nếu là local
+                            st.session_state.logged_in = True
+                            st.session_state.username = trimmed_name
+                            st.session_state.unit = trimmed_unit
+                            st.session_state.is_admin = False
+                            
+                            if is_local:
+                                user_exists = any(u["name"].lower() == trimmed_name.lower() and u["unit"].lower() == trimmed_unit.lower() for u in users)
+                                if not user_exists:
+                                    users.append({
+                                        "name": trimmed_name,
+                                        "unit": trimmed_unit,
+                                        "isAdmin": False,
+                                        "points": 0,
+                                        "correctScores": 0,
+                                        "correctOutcomes": 0
+                                    })
+                                    write_local_db(matches, users, predictions)
+                            st.rerun()
         
     st.stop()
 
@@ -614,59 +646,59 @@ if selected_tab == "⚽ Dự Đoán Của Tôi":
                 has_pred = pred.get("score1") is not None and pred.get("score1") != "" and pred.get("score2") is not None and pred.get("score2") != ""
                 is_disabled = is_finished or st.session_state.is_admin or has_pred
                 
-                card_class = "custom-card predicted" if has_pred else "custom-card"
-                
-                st.markdown(f"<div class='{card_class}'>", unsafe_allow_html=True)
-                
-                # Header card
-                status_text = "Đã kết thúc" if is_finished else "Chưa diễn ra"
-                status_class = "finished" if is_finished else "pending"
-                date_formatted = datetime.fromisoformat(match["date"]).strftime("%d/%m/%Y %H:%M")
-                st.markdown(f"<div><span class='status-badge {status_class}'>{status_text}</span> <span style='font-size:0.8rem; color:#94a3b8; margin-left:10px;'>📅 {date_formatted}</span></div>", unsafe_allow_html=True)
-                
-                # Đội và Inputs
-                st.write("")
-                col_t1, col_score, col_t2 = st.columns([0.4, 0.2, 0.4])
-                with col_t1:
-                    st.markdown(f"<div style='text-align:right;'>{get_flag_html(match['team1'])} <b>{match['team1']}</b></div>", unsafe_allow_html=True)
-                with col_score:
-                    # Input Tỉ số dự đoán
-                    val1 = pred.get("score1") if pred.get("score1") is not None else ""
-                    val2 = pred.get("score2") if pred.get("score2") is not None else ""
+                with st.container(border=True):
+                    # Header card
+                    status_text = "Đã kết thúc" if is_finished else "Chưa diễn ra"
+                    status_class = "finished" if is_finished else "pending"
+                    date_formatted = datetime.fromisoformat(match["date"]).strftime("%d/%m/%Y %H:%M")
+                    st.markdown(f"<div><span class='status-badge {status_class}'>{status_text}</span> <span style='font-size:0.85rem; color:#e2e8f0; margin-left:10px;'>📅 {date_formatted}</span></div>", unsafe_allow_html=True)
                     
-                    # Streamlit number input
-                    default_1 = int(val1) if val1 != "" else None
-                    default_2 = int(val2) if val2 != "" else None
-                    
-                    col_in1, col_in2 = st.columns(2)
-                    with col_in1:
-                        score1 = st.number_input("", min_value=0, max_value=20, step=1, value=default_1, key=f"p1_{m_id}", disabled=is_disabled, label_visibility="collapsed")
-                    with col_in2:
-                        score2 = st.number_input("", min_value=0, max_value=20, step=1, value=default_2, key=f"p2_{m_id}", disabled=is_disabled, label_visibility="collapsed")
-                with col_t2:
-                    st.markdown(f"<div style='text-align:left;'>{get_flag_html(match['team2'])} <b>{match['team2']}</b></div>", unsafe_allow_html=True)
-                
-                # Lưu dự đoán mới vào temp map
-                if score1 is not None and score2 is not None and not is_disabled:
-                    new_preds[m_id] = { "score1": int(score1), "score2": int(score2) }
-                
-                # Hiển thị kết quả thực tế và điểm số
-                if is_finished:
-                    act1 = int(match["score1"])
-                    act2 = int(match["score2"])
-                    st.markdown(f"<div class='actual-score-badge'>Tỷ số thực tế: {act1} - {act2}</div>", unsafe_allow_html=True)
-                    
-                    if has_pred:
-                        p1 = int(pred["score1"])
-                        p2 = int(pred["score2"])
-                        if p1 == act1 and p2 == act2:
-                            st.markdown("<div style='text-align:center;'><span class='point-badge correct'>Đoán Đúng (+2đ)</span></div>", unsafe_allow_html=True)
-                        else:
-                            st.markdown("<div style='text-align:center;'><span class='point-badge wrong'>Đoán Sai (-1đ)</span></div>", unsafe_allow_html=True)
-                    else:
-                        st.markdown("<div style='text-align:center;'><span class='point-badge wrong'>Mặc định đoán sai do không dự đoán (-1đ)</span></div>", unsafe_allow_html=True)
+                    # Đội và Inputs
+                    st.write("")
+                    col_t1, col_score, col_t2 = st.columns([0.38, 0.24, 0.38])
+                    with col_t1:
+                        st.markdown(f"<div style='text-align:right; font-size:1.1rem; font-weight:700; color:#ffffff;'>{get_flag_html(match['team1'])} {match['team1']}</div>", unsafe_allow_html=True)
+                    with col_score:
+                        # Input Tỉ số dự đoán
+                        val1 = pred.get("score1") if pred.get("score1") is not None else ""
+                        val2 = pred.get("score2") if pred.get("score2") is not None else ""
                         
-                st.markdown("</div>", unsafe_allow_html=True)
+                        # Streamlit number input
+                        default_1 = int(val1) if val1 != "" else None
+                        default_2 = int(val2) if val2 != "" else None
+                        
+                        col_in1, col_in2 = st.columns(2)
+                        with col_in1:
+                            score1 = st.number_input("", min_value=0, max_value=20, step=1, value=default_1, key=f"p1_{m_id}", disabled=is_disabled, label_visibility="collapsed")
+                        with col_in2:
+                            score2 = st.number_input("", min_value=0, max_value=20, step=1, value=default_2, key=f"p2_{m_id}", disabled=is_disabled, label_visibility="collapsed")
+                    with col_t2:
+                        st.markdown(f"<div style='text-align:left; font-size:1.1rem; font-weight:700; color:#ffffff;'>{get_flag_html(match['team2'])} {match['team2']}</div>", unsafe_allow_html=True)
+                    
+                    # Lưu dự đoán mới vào temp map
+                    if score1 is not None and score2 is not None and not is_disabled:
+                        new_preds[m_id] = { "score1": int(score1), "score2": int(score2) }
+                    
+                    # Hiển thị kết quả thực tế và điểm số
+                    if is_finished:
+                        act1 = int(match["score1"])
+                        act2 = int(match["score2"])
+                        st.markdown(f"<div class='actual-score-badge'>Tỷ số thực tế: {act1} - {act2}</div>", unsafe_allow_html=True)
+                        
+                        if has_pred:
+                            p1 = int(pred["score1"])
+                            p2 = int(pred["score2"])
+                            if p1 == act1 and p2 == act2:
+                                st.markdown("<div style='text-align:center;'><span class='point-badge correct'>🏆 Đoán Đúng Tỷ Số (+2đ)</span></div>", unsafe_allow_html=True)
+                            else:
+                                st.markdown("<div style='text-align:center;'><span class='point-badge wrong'>❌ Đoán Sai Tỷ Số (-1đ)</span></div>", unsafe_allow_html=True)
+                        else:
+                            st.markdown("<div style='text-align:center;'><span class='point-badge wrong'>⚠️ Mặc định đoán sai do không dự đoán (-1đ)</span></div>", unsafe_allow_html=True)
+                    else:
+                        if has_pred:
+                            st.markdown(f"<div style='text-align:center; color:#00e676; font-size:0.85rem; font-weight:800; margin-top:8px;'>🔒 Đã dự đoán: {pred['score1']} - {pred['score2']} (Đã khóa)</div>", unsafe_allow_html=True)
+                        else:
+                            st.markdown("<div style='text-align:center; color:#ffd700; font-size:0.8rem; font-weight:600; margin-top:8px;'>✍️ Nhập tỷ số và bấm nút Lưu ở dưới (Chỉ đoán 1 lần)</div>", unsafe_allow_html=True)
                 
         # Nút lưu dự đoán
         st.write("---")
@@ -820,35 +852,41 @@ elif selected_tab == "🌳 Sơ Đồ Thi Đấu":
                     has_pred = pred.get("score1") is not None and pred.get("score1") != "" and pred.get("score2") is not None and pred.get("score2") != ""
                     is_disabled = is_finished or st.session_state.is_admin or has_pred
                     
-                    # Cập nhật class có viền màu neon riêng biệt
-                    round_class = f"round-{round_info['key']}"
-                    st.markdown(f"<div class='bracket-node {round_class}'>", unsafe_allow_html=True)
-                    
-                    # Label đặc biệt cho trận Tranh Hạng 3
-                    if mId == "third":
-                        st.markdown("<span class='third-place'>Tranh Hạng 3</span>", unsafe_allow_html=True)
-                    
-                    # Đội 1
-                    col_t1, col_in1 = st.columns([0.75, 0.25])
-                    with col_t1:
-                        st.markdown(f"{get_flag_html(match['team1'])} <span style='font-size:0.85rem;'>{match['team1']}</span>", unsafe_allow_html=True)
-                    with col_in1:
-                        val1 = pred.get("score1") if pred.get("score1") is not None else ""
-                        score1 = st.number_input("", min_value=0, max_value=20, step=1, value=int(val1) if val1 != "" else None, key=f"br_p1_{mId}", disabled=is_disabled, label_visibility="collapsed")
-                    
-                    # Đội 2
-                    col_t2, col_in2 = st.columns([0.75, 0.25])
-                    with col_t2:
-                        st.markdown(f"{get_flag_html(match['team2'])} <span style='font-size:0.85rem;'>{match['team2']}</span>", unsafe_allow_html=True)
-                    with col_in2:
-                        val2 = pred.get("score2") if pred.get("score2") is not None else ""
-                        score2 = st.number_input("", min_value=0, max_value=20, step=1, value=int(val2) if val2 != "" else None, key=f"br_p2_{mId}", disabled=is_disabled, label_visibility="collapsed")
-                    
-                    # Kết quả thực tế
-                    if is_finished:
-                        st.markdown(f"<div style='font-size:0.75rem; color:#ffd700; text-align:center; margin-top:5px;'>Tỉ số: <b>{match['score1']} - {match['score2']}</b></div>", unsafe_allow_html=True)
+                    # Sử dụng st.container(border=True) thay vì html div
+                    with st.container(border=True):
+                        # Hiển thị tiêu đề vòng đấu nhỏ trên đầu node để nhận biết
+                        if round_info['key'] == 'r16':
+                            st.markdown("<div style='color: #00b0ff; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.5px; margin-bottom: 5px;'>🔵 VÒNG 1/8</div>", unsafe_allow_html=True)
+                        elif round_info['key'] == 'qf':
+                            st.markdown("<div style='color: #ff9100; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.5px; margin-bottom: 5px;'>🧡 TỨ KẾT</div>", unsafe_allow_html=True)
+                        elif round_info['key'] == 'sf':
+                            st.markdown("<div style='color: #ff1744; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.5px; margin-bottom: 5px;'>❤️ BÁN KẾT</div>", unsafe_allow_html=True)
+                        elif round_info['key'] == 'final' and mId != 'third':
+                            st.markdown("<div style='color: #ffd700; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.5px; margin-bottom: 5px;'>👑 CHUNG KẾT</div>", unsafe_allow_html=True)
                         
-                    st.markdown("</div>", unsafe_allow_html=True)
+                        # Label đặc biệt cho trận Tranh Hạng 3
+                        if mId == "third":
+                            st.markdown("<div style='margin-bottom: 5px;'><span class='third-place'>🥉 Tranh Hạng 3</span></div>", unsafe_allow_html=True)
+                        
+                        # Đội 1
+                        col_t1, col_in1 = st.columns([0.72, 0.28])
+                        with col_t1:
+                            st.markdown(f"<div style='font-size:0.95rem; font-weight:700; color:#ffffff;'>{get_flag_html(match['team1'])} {match['team1']}</div>", unsafe_allow_html=True)
+                        with col_in1:
+                            val1 = pred.get("score1") if pred.get("score1") is not None else ""
+                            score1 = st.number_input("", min_value=0, max_value=20, step=1, value=int(val1) if val1 != "" else None, key=f"br_p1_{mId}", disabled=is_disabled, label_visibility="collapsed")
+                        
+                        # Đội 2
+                        col_t2, col_in2 = st.columns([0.72, 0.28])
+                        with col_t2:
+                            st.markdown(f"<div style='font-size:0.95rem; font-weight:700; color:#ffffff;'>{get_flag_html(match['team2'])} {match['team2']}</div>", unsafe_allow_html=True)
+                        with col_in2:
+                            val2 = pred.get("score2") if pred.get("score2") is not None else ""
+                            score2 = st.number_input("", min_value=0, max_value=20, step=1, value=int(val2) if val2 != "" else None, key=f"br_p2_{mId}", disabled=is_disabled, label_visibility="collapsed")
+                        
+                        # Kết quả thực tế
+                        if is_finished:
+                            st.markdown(f"<div style='font-size:0.8rem; color:#ffd700; text-align:center; margin-top:5px; font-weight:800;'>Tỷ số thực tế: {match['score1']} - {match['score2']}</div>", unsafe_allow_html=True)
                     
                     # Lưu dự đoán sơ đồ mới vào temp map
                     if score1 is not None and score2 is not None and not is_disabled:
@@ -915,82 +953,80 @@ elif selected_tab == "⚙️ Quản Trị (BTC)" and st.session_state.is_admin:
             match = next((m for m in matches if m["id"] == m_id), None)
             
             if match:
-                st.markdown("<div class='custom-card'>", unsafe_allow_html=True)
-                st.write(f"**Trận đấu ID:** {match['id']}")
-                date_formatted = datetime.fromisoformat(match["date"]).strftime("%d/%m/%Y %H:%M")
-                st.write(f"**Thời gian:** 📅 {date_formatted}")
-                
-                col_adm_score_1, col_adm_divider, col_adm_score_2 = st.columns([0.4, 0.2, 0.4])
-                with col_adm_score_1:
-                    st.markdown(f"<div style='text-align:center;'>{get_flag_html(match['team1'])}<br/><b>{match['team1']}</b></div>", unsafe_allow_html=True)
-                    s1_val = match["score1"] if match["score1"] is not None and match["score1"] != "" else 0
-                    admin_score_1 = st.number_input("Tỷ số đội nhà", min_value=0, max_value=20, step=1, value=int(s1_val), key="adm_s1")
-                with col_adm_divider:
-                    st.markdown("<h2 style='text-align:center; margin-top:25px;'>:</h2>", unsafe_allow_html=True)
-                with col_adm_score_2:
-                    st.markdown(f"<div style='text-align:center;'>{get_flag_html(match['team2'])}<br/><b>{match['team2']}</b></div>", unsafe_allow_html=True)
-                    s2_val = match["score2"] if match["score2"] is not None and match["score2"] != "" else 0
-                    admin_score_2 = st.number_input("Tỷ số đội khách", min_value=0, max_value=20, step=1, value=int(s2_val), key="adm_s2")
-                
-                is_fin = st.checkbox("Đã kết thúc (Khóa trận đấu & Tính điểm)", value=(match["status"] == "finished"))
-                
-                if st.button("💾 Cập nhật kết quả", use_container_width=True, type="primary"):
-                    status_val = "finished" if is_fin else "pending"
+                with st.container(border=True):
+                    st.write(f"**Trận đấu ID:** {match['id']}")
+                    date_formatted = datetime.fromisoformat(match["date"]).strftime("%d/%m/%Y %H:%M")
+                    st.write(f"**Thời gian:** 📅 {date_formatted}")
                     
-                    if is_local:
-                        match["status"] = status_val
-                        match["score1"] = int(admin_score_1) if is_fin else None
-                        match["score2"] = int(admin_score_2) if is_fin else None
+                    col_adm_score_1, col_adm_divider, col_adm_score_2 = st.columns([0.4, 0.2, 0.4])
+                    with col_adm_score_1:
+                        st.markdown(f"<div style='text-align:center;'>{get_flag_html(match['team1'])}<br/><b>{match['team1']}</b></div>", unsafe_allow_html=True)
+                        s1_val = match["score1"] if match["score1"] is not None and match["score1"] != "" else 0
+                        admin_score_1 = st.number_input("Tỷ số đội nhà", min_value=0, max_value=20, step=1, value=int(s1_val), key="adm_s1")
+                    with col_adm_divider:
+                        st.markdown("<h2 style='text-align:center; margin-top:25px;'>:</h2>", unsafe_allow_html=True)
+                    with col_adm_score_2:
+                        st.markdown(f"<div style='text-align:center;'>{get_flag_html(match['team2'])}<br/><b>{match['team2']}</b></div>", unsafe_allow_html=True)
+                        s2_val = match["score2"] if match["score2"] is not None and match["score2"] != "" else 0
+                        admin_score_2 = st.number_input("Tỷ số đội khách", min_value=0, max_value=20, step=1, value=int(s2_val), key="adm_s2")
+                    
+                    is_fin = st.checkbox("Đã kết thúc (Khóa trận đấu & Tính điểm)", value=(match["status"] == "finished"))
+                    
+                    if st.button("💾 Cập nhật kết quả", use_container_width=True, type="primary"):
+                        status_val = "finished" if is_fin else "pending"
                         
-                        if is_fin:
-                            s1 = int(admin_score_1)
-                            s2 = int(admin_score_2)
-                            match["outcome"] = "team1" if s1 > s2 else ("team2" if s1 < s2 else "draw")
+                        if is_local:
+                            match["status"] = status_val
+                            match["score1"] = int(admin_score_1) if is_fin else None
+                            match["score2"] = int(admin_score_2) if is_fin else None
                             
-                            # Knockout auto-advance logic
-                            winner = match["team1"] if s1 > s2 else match["team2"]
-                            loser = match["team2"] if s1 > s2 else match["team1"]
-                            
-                            next_match_id = match.get("nextMatchId")
-                            if next_match_id:
-                                next_match = next((m for m in matches if m["id"] == next_match_id), None)
-                                if next_match:
-                                    last_char = match["id"][-1]
-                                    if last_char in ['1', '3', '5', '7']:
-                                        next_match["team1"] = winner
-                                    else:
-                                        next_match["team2"] = winner
-                            # Tranh hạng 3
-                            if match["id"] == "sf_1":
-                                third_match = next((m for m in matches if m["id"] == "third"), None)
-                                if third_match: third_match["team1"] = loser
-                            elif match["id"] == "sf_2":
-                                third_match = next((m for m in matches if m["id"] == "third"), None)
-                                if third_match: third_match["team2"] = loser
+                            if is_fin:
+                                s1 = int(admin_score_1)
+                                s2 = int(admin_score_2)
+                                match["outcome"] = "team1" if s1 > s2 else ("team2" if s1 < s2 else "draw")
                                 
-                        recalculate_local_points(matches, users, predictions)
-                        write_local_db(matches, users, predictions)
-                        st.success("Đã cập nhật tỷ số và tính lại điểm thành công!")
-                        st.rerun()
-                    else:
-                        api_url = get_api_url()
-                        try:
-                            res = requests.post(api_url, json={
-                                "action": "admin_update_match",
-                                "matchId": match["id"],
-                                "status": status_val,
-                                "score1": int(admin_score_1) if is_fin else None,
-                                "score2": int(admin_score_2) if is_fin else None
-                            }, timeout=10)
-                            if res.status_code == 200:
-                                st.success("Đã gửi cập nhật thành công lên Google Sheets Cloud!")
-                                st.rerun()
-                            else:
-                                st.error("Lỗi cập nhật trên Cloud.")
-                        except Exception as e:
-                            st.error(f"Lỗi kết nối tới Cloud: {e}")
-                            
-                st.markdown("</div>", unsafe_allow_html=True)
+                                # Knockout auto-advance logic
+                                winner = match["team1"] if s1 > s2 else match["team2"]
+                                loser = match["team2"] if s1 > s2 else match["team1"]
+                                
+                                next_match_id = match.get("nextMatchId")
+                                if next_match_id:
+                                    next_match = next((m for m in matches if m["id"] == next_match_id), None)
+                                    if next_match:
+                                        last_char = match["id"][-1]
+                                        if last_char in ['1', '3', '5', '7']:
+                                            next_match["team1"] = winner
+                                        else:
+                                            next_match["team2"] = winner
+                                # Tranh hạng 3
+                                if match["id"] == "sf_1":
+                                    third_match = next((m for m in matches if m["id"] == "third"), None)
+                                    if third_match: third_match["team1"] = loser
+                                elif match["id"] == "sf_2":
+                                    third_match = next((m for m in matches if m["id"] == "third"), None)
+                                    if third_match: third_match["team2"] = loser
+                                    
+                            recalculate_local_points(matches, users, predictions)
+                            write_local_db(matches, users, predictions)
+                            st.success("Đã cập nhật tỷ số và tính lại điểm thành công!")
+                            st.rerun()
+                        else:
+                            api_url = get_api_url()
+                            try:
+                                res = requests.post(api_url, json={
+                                    "action": "admin_update_match",
+                                    "matchId": match["id"],
+                                    "status": status_val,
+                                    "score1": int(admin_score_1) if is_fin else None,
+                                    "score2": int(admin_score_2) if is_fin else None
+                                }, timeout=10)
+                                if res.status_code == 200:
+                                    st.success("Đã gửi cập nhật thành công lên Google Sheets Cloud!")
+                                    st.rerun()
+                                else:
+                                    st.error("Lỗi cập nhật trên Cloud.")
+                            except Exception as e:
+                                st.error(f"Lỗi kết nối tới Cloud: {e}")
                 
     with col_admin_r:
         st.markdown("### Thống Kê Tổng Hợp Dự Đoán")
