@@ -380,7 +380,7 @@ TEAM_CODES = {
     'Canada': 'ca', 'Bosnia': 'ba', 'Bosnia and Herzegovina': 'ba',
     'Mỹ': 'us', 'USA': 'us', 'Paraguay': 'py',
     'Qatar': 'qa', 'Thụy Sĩ': 'ch', 'Switzerland': 'ch',
-    'Brazil': 'br', 'Maroc': 'ma', 'Morocco': 'ma',
+    'Brazil': 'br', 'Maroc': 'ma', 'Morocco': 'ma', 'Marocco': 'ma',
     'Haiti': 'ht', 'Scotland': 'gb-sct',
     'Úc': 'au', 'Australia': 'au', 'Thổ Nhĩ Kỳ': 'tr', 'Turkey': 'tr',
     'Đức': 'de', 'Germany': 'de', 'Curacao': 'cw',
@@ -393,7 +393,11 @@ TEAM_CODES = {
     'Anh': 'gb-eng', 'England': 'gb-eng', 'Ý': 'it', 'Italy': 'it',
     'Bồ Đào Nha': 'pt', 'Portugal': 'pt', 'Senegal': 'sn', 'Croatia': 'hr',
     'Việt Nam': 'vn', 'Vietnam': 'vn', 'Thái Lan': 'th', 'Thailand': 'th',
-    'Cameroon': 'cm', 'Colombia': 'co'
+    'Cameroon': 'cm', 'Colombia': 'co',
+    'Iran': 'ir', 'Na Uy': 'no', 'Norway': 'no', 'Iraq': 'iq', 'Algeria': 'dz',
+    'Áo': 'at', 'Austria': 'at', 'CHDC Congo': 'cd', 'DR Congo': 'cd',
+    'Ghana': 'gh', 'Panama': 'pa', 'Uzbekistan': 'uz', 'Jordan': 'jo',
+    'New Zealand': 'nz', 'Ý': 'it'
 }
 
 def get_flag_html(team_name):
@@ -407,7 +411,7 @@ DEFAULT_MATCHES = [
     { 'id': 'm3', 'team1': 'Canada', 'team2': 'Bosnia', 'date': '2026-06-13T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
     { 'id': 'm4', 'team1': 'Mỹ', 'team2': 'Paraguay', 'date': '2026-06-13T08:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
     { 'id': 'm5', 'team1': 'Qatar', 'team2': 'Thụy Sĩ', 'date': '2026-06-14T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
-    { 'id': 'm6', 'team1': 'Brazil', 'team2': 'Maroc', 'date': '2026-06-14T05:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm6', 'team1': 'Brazil', 'team2': 'Marocco', 'date': '2026-06-14T05:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
     { 'id': 'm7', 'team1': 'Haiti', 'team2': 'Scotland', 'date': '2026-06-14T08:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
     { 'id': 'm8', 'team1': 'Úc', 'team2': 'Thổ Nhĩ Kỳ', 'date': '2026-06-14T11:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
     { 'id': 'm9', 'team1': 'Đức', 'team2': 'Curacao', 'date': '2026-06-15T00:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
@@ -417,32 +421,95 @@ DEFAULT_MATCHES = [
     { 'id': 'm13', 'team1': 'Tây Ban Nha', 'team2': 'Cabo Verde', 'date': '2026-06-15T23:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
     { 'id': 'm14', 'team1': 'Bỉ', 'team2': 'Ai Cập', 'date': '2026-06-16T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
     { 'id': 'm15', 'team1': 'Saudi Arabia', 'team2': 'Uruguay', 'date': '2026-06-16T05:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
-
-    # --- VÒNG 1/8 (ROUND OF 16) ---
-    { 'id': 'r16_1', 'team1': 'Tây Ban Nha', 'team2': 'Thụy Sĩ', 'date': '2026-06-27T18:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16', 'nextMatchId': 'qf_1' },
-    { 'id': 'r16_2', 'team1': 'Đức', 'team2': 'Nhật Bản', 'date': '2026-06-27T21:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16', 'nextMatchId': 'qf_1' },
-    { 'id': 'r16_3', 'team1': 'Argentina', 'team2': 'Úc', 'date': '2026-06-28T18:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16', 'nextMatchId': 'qf_2' },
-    { 'id': 'r16_4', 'team1': 'Hà Lan', 'team2': 'Mỹ', 'date': '2026-06-28T21:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16', 'nextMatchId': 'qf_2' },
-    { 'id': 'r16_5', 'team1': 'Anh', 'team2': 'Senegal', 'date': '2026-06-29T18:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16', 'nextMatchId': 'qf_3' },
-    { 'id': 'r16_6', 'team1': 'Pháp', 'team2': 'Hàn Quốc', 'date': '2026-06-29T21:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16', 'nextMatchId': 'qf_3' },
-    { 'id': 'r16_7', 'team1': 'Bồ Đào Nha', 'team2': 'Croatia', 'date': '2026-06-30T18:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16', 'nextMatchId': 'qf_4' },
-    { 'id': 'r16_8', 'team1': 'Brazil', 'team2': 'Maroc', 'date': '2026-06-30T21:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16', 'nextMatchId': 'qf_4' },
-
-    # --- TỨ KẾT (QUARTER FINALS) ---
-    { 'id': 'qf_1', 'team1': 'Thắng 1/8 Trận 1', 'team2': 'Thắng 1/8 Trận 2', 'date': '2026-07-03T18:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'qf', 'nextMatchId': 'sf_1' },
-    { 'id': 'qf_2', 'team1': 'Thắng 1/8 Trận 3', 'team2': 'Thắng 1/8 Trận 4', 'date': '2026-07-03T21:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'qf', 'nextMatchId': 'sf_1' },
-    { 'id': 'qf_3', 'team1': 'Thắng 1/8 Trận 5', 'team2': 'Thắng 1/8 Trận 6', 'date': '2026-07-04T18:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'qf', 'nextMatchId': 'sf_2' },
-    { 'id': 'qf_4', 'team1': 'Thắng 1/8 Trận 7', 'team2': 'Thắng 1/8 Trận 8', 'date': '2026-07-04T21:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'qf', 'nextMatchId': 'sf_2' },
-
-    # --- BÁN KẾT (SEMI FINALS) ---
-    { 'id': 'sf_1', 'team1': 'Thắng Tứ Kết 1', 'team2': 'Thắng Tứ Kết 2', 'date': '2026-07-07T20:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'sf', 'nextMatchId': 'final' },
-    { 'id': 'sf_2', 'team1': 'Thắng Tứ Kết 3', 'team2': 'Thắng Tứ Kết 4', 'date': '2026-07-08T20:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'sf', 'nextMatchId': 'final' },
-
-    # --- TRANH HẠNG BA (THIRD PLACE) ---
-    { 'id': 'third', 'team1': 'Thua Bán Kết 1', 'team2': 'Thua Bán Kết 2', 'date': '2026-07-11T20:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'third' },
-
-    # --- CHUNG KẾT (FINAL) ---
-    { 'id': 'final', 'team1': 'Thắng Bán Kết 1', 'team2': 'Thắng Bán Kết 2', 'date': '2026-07-12T20:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'final' }
+    { 'id': 'm16', 'team1': 'Iran', 'team2': 'New Zealand', 'date': '2026-06-16T08:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm17', 'team1': 'Pháp', 'team2': 'Senegal', 'date': '2026-06-17T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm18', 'team1': 'Iraq', 'team2': 'Na Uy', 'date': '2026-06-17T05:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm19', 'team1': 'Argentina', 'team2': 'Algeria', 'date': '2026-06-17T08:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm20', 'team1': 'Áo', 'team2': 'Jordan', 'date': '2026-06-17T11:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm21', 'team1': 'Bồ Đào Nha', 'team2': 'CHDC Congo', 'date': '2026-06-18T00:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm22', 'team1': 'Anh', 'team2': 'Croatia', 'date': '2026-06-18T03:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm23', 'team1': 'Ghana', 'team2': 'Panama', 'date': '2026-06-18T06:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm24', 'team1': 'Uzbekistan', 'team2': 'Colombia', 'date': '2026-06-18T09:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm25', 'team1': 'CH Séc', 'team2': 'Nam Phi', 'date': '2026-06-18T23:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm26', 'team1': 'Thụy Sĩ', 'team2': 'Bosnia', 'date': '2026-06-19T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm27', 'team1': 'Canada', 'team2': 'Qatar', 'date': '2026-06-19T05:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm28', 'team1': 'Mexico', 'team2': 'Hàn Quốc', 'date': '2026-06-19T08:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm29', 'team1': 'Mỹ', 'team2': 'Úc', 'date': '2026-06-20T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm30', 'team1': 'Scotland', 'team2': 'Marocco', 'date': '2026-06-20T05:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm31', 'team1': 'Brazil', 'team2': 'Haiti', 'date': '2026-06-20T07:30:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm32', 'team1': 'Thổ Nhĩ Kỳ', 'team2': 'Paraguay', 'date': '2026-06-20T10:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm33', 'team1': 'Hà Lan', 'team2': 'Thụy Điển', 'date': '2026-06-21T00:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm34', 'team1': 'Đức', 'team2': 'Bờ Biển Ngà', 'date': '2026-06-21T03:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm35', 'team1': 'Ecuador', 'team2': 'Curacao', 'date': '2026-06-21T07:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm36', 'team1': 'Tunisia', 'team2': 'Nhật Bản', 'date': '2026-06-21T11:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm37', 'team1': 'Tây Ban Nha', 'team2': 'Saudi Arabia', 'date': '2026-06-21T23:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm38', 'team1': 'Bỉ', 'team2': 'Iran', 'date': '2026-06-22T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm39', 'team1': 'Uruguay', 'team2': 'Cabo Verde', 'date': '2026-06-22T05:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm40', 'team1': 'New Zealand', 'team2': 'Ai Cập', 'date': '2026-06-22T08:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm41', 'team1': 'Argentina', 'team2': 'Áo', 'date': '2026-06-23T00:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm42', 'team1': 'Pháp', 'team2': 'Iraq', 'date': '2026-06-23T04:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm43', 'team1': 'Na Uy', 'team2': 'Senegal', 'date': '2026-06-23T07:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm44', 'team1': 'Jordan', 'team2': 'Algeria', 'date': '2026-06-23T10:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm45', 'team1': 'Bồ Đào Nha', 'team2': 'Uzbekistan', 'date': '2026-06-24T00:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm46', 'team1': 'Anh', 'team2': 'Ghana', 'date': '2026-06-24T03:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm47', 'team1': 'Panama', 'team2': 'Croatia', 'date': '2026-06-24T06:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm48', 'team1': 'Colombia', 'team2': 'CHDC Congo', 'date': '2026-06-24T09:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm49', 'team1': 'Bosnia', 'team2': 'Qatar', 'date': '2026-06-25T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm50', 'team1': 'Thụy Sĩ', 'team2': 'Canada', 'date': '2026-06-25T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm51', 'team1': 'Marocco', 'team2': 'Haiti', 'date': '2026-06-25T05:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm52', 'team1': 'Scotland', 'team2': 'Brazil', 'date': '2026-06-25T05:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm53', 'team1': 'Nam Phi', 'team2': 'Hàn Quốc', 'date': '2026-06-25T08:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm54', 'team1': 'CH Séc', 'team2': 'Mexico', 'date': '2026-06-25T08:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm55', 'team1': 'Curacao', 'team2': 'Bờ Biển Ngà', 'date': '2026-06-26T03:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm56', 'team1': 'Ecuador', 'team2': 'Đức', 'date': '2026-06-26T03:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm57', 'team1': 'Tunisia', 'team2': 'Hà Lan', 'date': '2026-06-26T06:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm58', 'team1': 'Nhật Bản', 'team2': 'Thụy Điển', 'date': '2026-06-26T06:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm59', 'team1': 'Thổ Nhĩ Kỳ', 'team2': 'Mỹ', 'date': '2026-06-26T09:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm60', 'team1': 'Paraguay', 'team2': 'Úc', 'date': '2026-06-26T09:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm61', 'team1': 'Na Uy', 'team2': 'Pháp', 'date': '2026-06-27T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm62', 'team1': 'Senegal', 'team2': 'Iraq', 'date': '2026-06-27T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm63', 'team1': 'Cabo Verde', 'team2': 'Saudi Arabia', 'date': '2026-06-27T07:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm64', 'team1': 'Uruguay', 'team2': 'Tây Ban Nha', 'date': '2026-06-27T07:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm65', 'team1': 'New Zealand', 'team2': 'Bỉ', 'date': '2026-06-27T10:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm66', 'team1': 'Ai Cập', 'team2': 'Iran', 'date': '2026-06-27T10:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm67', 'team1': 'Panama', 'team2': 'Anh', 'date': '2026-06-28T04:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm68', 'team1': 'Croatia', 'team2': 'Ghana', 'date': '2026-06-28T04:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm69', 'team1': 'Colombia', 'team2': 'Bồ Đào Nha', 'date': '2026-06-28T06:30:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm70', 'team1': 'CHDC Congo', 'team2': 'Uzbekistan', 'date': '2026-06-28T06:30:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm71', 'team1': 'Algeria', 'team2': 'Áo', 'date': '2026-06-28T09:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'm72', 'team1': 'Jordan', 'team2': 'Argentina', 'date': '2026-06-28T09:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'group' },
+    { 'id': 'r32_1', 'team1': 'Á quân Bảng A', 'team2': 'Á quân Bảng B', 'date': '2026-06-29T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r32_4', 'team1': 'Nhất Bảng C', 'team2': 'Á quân Bảng F', 'date': '2026-06-30T00:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r32_2', 'team1': 'Nhất Bảng E', 'team2': 'Hạng 3 A/B/C/D/F', 'date': '2026-06-30T03:30:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r32_3', 'team1': 'Nhất Bảng F', 'team2': 'Á quân Bảng C', 'date': '2026-06-30T08:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r32_6', 'team1': 'Á quân Bảng E', 'team2': 'Á quân Bảng I', 'date': '2026-07-01T00:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r32_5', 'team1': 'Nhất Bảng I', 'team2': 'Hạng 3 C/D/F/G/H', 'date': '2026-07-01T04:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r32_7', 'team1': 'Nhất Bảng A', 'team2': 'Hạng 3 C/E/F/H/I', 'date': '2026-07-01T08:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r32_8', 'team1': 'Nhất Bảng L', 'team2': 'Hạng 3 E/H/I/J/K', 'date': '2026-07-01T23:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r32_11', 'team1': 'Nhất Bảng G', 'team2': 'Hạng 3 A/E/H/I/J', 'date': '2026-07-02T03:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r32_10', 'team1': 'Nhất Bảng D', 'team2': 'Hạng 3 B/E/F/I/J', 'date': '2026-07-02T07:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r32_12', 'team1': 'Nhất Bảng H', 'team2': 'Á quân Bảng J', 'date': '2026-07-03T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r32_9', 'team1': 'Á quân Bảng K', 'team2': 'Á quân Bảng L', 'date': '2026-07-03T06:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r32_13', 'team1': 'Nhất Bảng B', 'team2': 'Hạng 3 E/F/G/I/J', 'date': '2026-07-03T10:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r32_16', 'team1': 'Á quân Bảng D', 'team2': 'Á quân Bảng G', 'date': '2026-07-04T01:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r32_14', 'team1': 'Nhất Bảng J', 'team2': 'Á quân Bảng H', 'date': '2026-07-04T05:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r32_15', 'team1': 'Nhất Bảng K', 'team2': 'Hạng 3 D/E/I/J/L', 'date': '2026-07-04T08:30:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r32' },
+    { 'id': 'r16_2', 'team1': 'Thắng 73', 'team2': 'Thắng 75', 'date': '2026-07-05T00:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16' },
+    { 'id': 'r16_1', 'team1': 'Thắng 74', 'team2': 'Thắng 77', 'date': '2026-07-05T04:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16' },
+    { 'id': 'r16_3', 'team1': 'Thắng 76', 'team2': 'Thắng 78', 'date': '2026-07-06T03:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16' },
+    { 'id': 'r16_4', 'team1': 'Thắng 79', 'team2': 'Thắng 80', 'date': '2026-07-06T07:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16' },
+    { 'id': 'r16_5', 'team1': 'Thắng 83', 'team2': 'Thắng 84', 'date': '2026-07-07T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16' },
+    { 'id': 'r16_6', 'team1': 'Thắng 81', 'team2': 'Thắng 82', 'date': '2026-07-07T07:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16' },
+    { 'id': 'r16_7', 'team1': 'Thắng 86', 'team2': 'Thắng 88', 'date': '2026-07-07T23:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16' },
+    { 'id': 'r16_8', 'team1': 'Thắng 85', 'team2': 'Thắng 87', 'date': '2026-07-08T03:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'r16' },
+    { 'id': 'qf_1', 'team1': 'Thắng 89', 'team2': 'Thắng 90', 'date': '2026-07-10T03:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'qf' },
+    { 'id': 'qf_2', 'team1': 'Thắng 93', 'team2': 'Thắng 94', 'date': '2026-07-11T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'qf' },
+    { 'id': 'qf_3', 'team1': 'Thắng 91', 'team2': 'Thắng 92', 'date': '2026-07-12T04:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'qf' },
+    { 'id': 'qf_4', 'team1': 'Thắng 95', 'team2': 'Thắng 96', 'date': '2026-07-12T08:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'qf' },
+    { 'id': 'sf_1', 'team1': 'Thắng 97', 'team2': 'Thắng 98', 'date': '2026-07-15T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'sf' },
+    { 'id': 'sf_2', 'team1': 'Thắng 99', 'team2': 'Thắng 100', 'date': '2026-07-16T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'sf' },
+    { 'id': 'third', 'team1': 'Thua 101', 'team2': 'Thua 102', 'date': '2026-07-19T04:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'third' },
+    { 'id': 'final', 'team1': 'Thắng 101', 'team2': 'Thắng 102', 'date': '2026-07-20T02:00:00', 'status': 'pending', 'score1': None, 'score2': None, 'outcome': None, 'round': 'final' },
 ]
 
 # --- HÀM GIAO TIẾP DATABASE (LOCAL & CLOUD) ---
@@ -625,7 +692,7 @@ if st.sidebar.button("Đăng xuất"):
     st.rerun()
 
 # --- THIẾT LẬP CÁC TAB ---
-tabs = ["⚽ Dự Đoán Của Tôi", "🏆 Bảng Xếp Hạng", "🌳 Sơ Đồ Thi Đấu"]
+tabs = ["⚽ Dự Đoán Của Tôi", "🏆 Bảng Xếp Hạng"]
 if st.session_state.is_admin:
     tabs.append("⚙️ Quản Trị (BTC)")
     
@@ -799,12 +866,10 @@ elif selected_tab == "🏆 Bảng Xếp Hạng":
             <table class="leaderboard-table">
                 <thead>
                     <tr>
-                        <th style="text-align: center; width: 80px;">Hạng</th>
+                        <th style="text-align: center; width: 100px;">Vị trí</th>
                         <th>Họ và Tên</th>
                         <th>Đơn vị / Phòng ban</th>
-                        <th style="text-align: center; width: 150px;">Đoán Đúng (+2đ)</th>
-                        <th style="text-align: center; width: 150px;">Đoán Sai (-1đ)</th>
-                        <th style="text-align: center; width: 120px;">Tổng Điểm</th>
+                        <th style="text-align: center; width: 120px;">Số điểm</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -829,8 +894,6 @@ elif selected_tab == "🏆 Bảng Xếp Hạng":
                     <td style="text-align: center;">{rank_html}</td>
                     <td style="font-weight: 600;">{u['name']}</td>
                     <td>{u['unit']}</td>
-                    <td style="text-align: center; color: #00e676; font-weight: bold;">{u.get('correctScores', 0)}</td>
-                    <td style="text-align: center; color: #ff5252; font-weight: bold;">{u.get('correctOutcomes', 0)}</td>
                     <td class="points-column" style="text-align: center;">{u['points']}</td>
                 </tr>
             """
@@ -844,137 +907,6 @@ elif selected_tab == "🏆 Bảng Xếp Hạng":
 
 
 # ================= TAB 3: SƠ ĐỒ THI ĐẤU =================
-elif selected_tab == "🌳 Sơ Đồ Thi Đấu":
-    st.write("---")
-    col_bracket_header, col_bracket_save = st.columns([0.7, 0.3])
-    with col_bracket_header:
-        st.subheader("Sơ Đồ Thi Đấu Loại Trực Tiếp VKT")
-        st.write("Nhập trực tiếp kết quả dự đoán của bạn trên sơ đồ cây!")
-
-    # Cấu trúc nhánh đấu loại trực tiếp
-    rounds = [
-        { 'key': 'r16', 'name': 'Vòng 1/8', 'matchIds': ['r16_1', 'r16_2', 'r16_3', 'r16_4', 'r16_5', 'r16_6', 'r16_7', 'r16_8'] },
-        { 'key': 'qf', 'name': 'Tứ kết', 'matchIds': ['qf_1', 'qf_2', 'qf_3', 'qf_4'] },
-        { 'key': 'sf', 'name': 'Bán kết', 'matchIds': ['sf_1', 'sf_2'] },
-        { 'key': 'final', 'name': 'Chung kết', 'matchIds': ['final', 'third'] }
-    ]
-
-    col1, col2, col3, col4 = st.columns(4)
-    cols = [col1, col2, col3, col4]
-    
-    new_bracket_preds = {}
-
-    for col_idx, round_info in enumerate(rounds):
-        with cols[col_idx]:
-            st.markdown(f"<h3 style='text-align:center; color:#00e676;'>{round_info['name']}</h3>", unsafe_allow_html=True)
-            st.write("---")
-            
-            # Thêm Cúp vàng nổi bật ở đỉnh cột Chung kết
-            if round_info['key'] == 'final':
-                st.markdown("""
-                <div style="text-align:center; margin-bottom: 25px; animation: float 3s ease-in-out infinite;">
-                    <span style="font-size: 3.5rem; filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));">🏆</span>
-                    <div style="color: #ffd700; font-weight: 800; font-size: 0.95rem; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px;">CÚP VÀNG THẾ GIỚI</div>
-                </div>
-                """, unsafe_allow_html=True)
-            
-            # Sắp xếp giãn cách đứng cho các cột để tạo cấu trúc hình cây
-            # Vòng 1/8: 8 trận, Tứ kết: 4 trận, Bán kết: 2 trận, Chung kết: 2 trận
-            # Để tạo sơ đồ cây cân đối, ta chèn padding động
-            padding_factor = 2 ** col_idx
-            
-            for match_idx, mId in enumerate(round_info["matchIds"]):
-                # Chèn khoảng trống đứng trước mỗi box
-                if col_idx > 0:
-                    for _ in range(padding_factor - 1):
-                        st.write("")
-                
-                match = next((m for m in matches if m["id"] == mId), None)
-                if match:
-                    is_finished = match["status"] == "finished"
-                    pred = user_preds.get(mId, { "score1": "", "score2": "" })
-                    
-                    has_pred = pred.get("score1") is not None and pred.get("score1") != "" and pred.get("score2") is not None and pred.get("score2") != ""
-                    is_disabled = is_finished or st.session_state.is_admin or has_pred
-                    
-                    # Sử dụng st.container(border=True) thay vì html div
-                    with st.container(border=True):
-                        # Hiển thị tiêu đề vòng đấu nhỏ trên đầu node để nhận biết
-                        if round_info['key'] == 'r16':
-                            st.markdown("<div style='color: #00b0ff; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.5px; margin-bottom: 5px;'>🔵 VÒNG 1/8</div>", unsafe_allow_html=True)
-                        elif round_info['key'] == 'qf':
-                            st.markdown("<div style='color: #ff9100; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.5px; margin-bottom: 5px;'>🧡 TỨ KẾT</div>", unsafe_allow_html=True)
-                        elif round_info['key'] == 'sf':
-                            st.markdown("<div style='color: #ff1744; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.5px; margin-bottom: 5px;'>❤️ BÁN KẾT</div>", unsafe_allow_html=True)
-                        elif round_info['key'] == 'final' and mId != 'third':
-                            st.markdown("<div style='color: #ffd700; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.5px; margin-bottom: 5px;'>👑 CHUNG KẾT</div>", unsafe_allow_html=True)
-                        
-                        # Label đặc biệt cho trận Tranh Hạng 3
-                        if mId == "third":
-                            st.markdown("<div style='margin-bottom: 5px;'><span class='third-place'>🥉 Tranh Hạng 3</span></div>", unsafe_allow_html=True)
-                        
-                        # Đội 1
-                        col_t1, col_in1 = st.columns([0.72, 0.28])
-                        with col_t1:
-                            st.markdown(f"<div style='font-size:0.95rem; font-weight:700; color:#ffffff;'>{get_flag_html(match['team1'])} {match['team1']}</div>", unsafe_allow_html=True)
-                        with col_in1:
-                            val1 = pred.get("score1") if pred.get("score1") is not None else ""
-                            score1 = st.number_input("", min_value=0, max_value=20, step=1, value=int(val1) if val1 != "" else None, key=f"br_p1_{mId}", disabled=is_disabled, label_visibility="collapsed")
-                        
-                        # Đội 2
-                        col_t2, col_in2 = st.columns([0.72, 0.28])
-                        with col_t2:
-                            st.markdown(f"<div style='font-size:0.95rem; font-weight:700; color:#ffffff;'>{get_flag_html(match['team2'])} {match['team2']}</div>", unsafe_allow_html=True)
-                        with col_in2:
-                            val2 = pred.get("score2") if pred.get("score2") is not None else ""
-                            score2 = st.number_input("", min_value=0, max_value=20, step=1, value=int(val2) if val2 != "" else None, key=f"br_p2_{mId}", disabled=is_disabled, label_visibility="collapsed")
-                        
-                        # Kết quả thực tế
-                        if is_finished:
-                            st.markdown(f"<div style='font-size:0.8rem; color:#ffd700; text-align:center; margin-top:5px; font-weight:800;'>Tỷ số thực tế: {match['score1']} - {match['score2']}</div>", unsafe_allow_html=True)
-                    
-                    # Lưu dự đoán sơ đồ mới vào temp map
-                    if score1 is not None and score2 is not None and not is_disabled:
-                        new_bracket_preds[mId] = { "score1": int(score1), "score2": int(score2) }
-                        
-                # Chèn khoảng trống đứng sau mỗi box để giãn cách
-                if col_idx > 0:
-                    for _ in range(padding_factor - 1):
-                        st.write("")
-
-    # Nút lưu dự đoán sơ đồ
-    if not st.session_state.is_admin and new_bracket_preds:
-        with col_bracket_save:
-            st.write("")
-            if st.button("💾 Lưu Dự Đoán Sơ Đồ", use_container_width=True, type="primary"):
-                # Ghi database
-                if is_local:
-                    if user_key not in predictions:
-                        predictions[user_key] = {}
-                    for mId, vals in new_bracket_preds.items():
-                        predictions[user_key][mId] = vals
-                    recalculate_local_points(matches, users, predictions)
-                    write_local_db(matches, users, predictions)
-                    st.success("Đã lưu sơ đồ dự đoán thành công!")
-                    st.rerun()
-                else:
-                    api_url = get_api_url()
-                    try:
-                        res = requests.post(api_url, json={
-                            "action": "save_predictions",
-                            "userKey": user_key,
-                            "name": st.session_state.username,
-                            "unit": st.session_state.unit,
-                            "predictions": new_bracket_preds
-                        }, timeout=10)
-                        if res.status_code == 200:
-                            st.success("Đã lưu sơ đồ thành công lên Google Sheets!")
-                            st.rerun()
-                        else:
-                            st.error("Không thể lưu sơ đồ lên Cloud.")
-                    except Exception as e:
-                        st.error(f"Lỗi kết nối Cloud: {e}")
-
 # ================= TAB 4: QUẢN TRỊ VIÊN (ADMIN) =================
 elif selected_tab == "⚙️ Quản Trị (BTC)" and st.session_state.is_admin:
     st.write("---")
