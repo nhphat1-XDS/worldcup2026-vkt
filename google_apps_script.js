@@ -58,7 +58,7 @@ function doPost(e) {
     });
     
     if (!userExists && name.toLowerCase() !== "admin") {
-      usersSheet.appendRow([name, unit, false, 0, 0, 0]);
+      usersSheet.appendRow([name, unit, false, 0, 0, 0, 0]);
     }
     
     // 2. Lưu dự đoán, bỏ qua nếu đã có dự đoán từ trước
@@ -180,7 +180,7 @@ function initSheets() {
   matchesSheet.appendRow(["id", "team1", "team2", "date", "status", "score1", "score2", "outcome", "round", "nextMatchId"]);
   
   usersSheet.clear();
-  usersSheet.appendRow(["name", "unit", "isAdmin", "points", "correctScores", "correctOutcomes"]);
+  usersSheet.appendRow(["name", "unit", "isAdmin", "points", "correctScores", "correctOutcomes", "unpredicted"]);
   
   predsSheet.clear();
   predsSheet.appendRow(["userKey", "matchId", "score1", "score2"]);
@@ -337,6 +337,7 @@ function recalculatePoints(sheet) {
     u.points = 0;
     u.correctScores = 0;
     u.correctOutcomes = 0;
+    u.unpredicted = 0;
     userMap[u.name + "-" + u.unit] = u;
   });
   
@@ -384,9 +385,9 @@ function recalculatePoints(sheet) {
         }
       }
       
-      // Không dự đoán -> Mặc định đoán sai tỷ số (-1đ)
+      // Không dự đoán -> Phạt -1đ và cộng vào unpredicted
       user.points -= 1;
-      user.correctOutcomes += 1;
+      user.unpredicted += 1;
     });
   });
   
@@ -401,6 +402,7 @@ function recalculatePoints(sheet) {
       usersSheet.getRange(i + 1, 4).setValue(user.points);
       usersSheet.getRange(i + 1, 5).setValue(user.correctScores);
       usersSheet.getRange(i + 1, 6).setValue(user.correctOutcomes);
+      usersSheet.getRange(i + 1, 7).setValue(user.unpredicted);
     }
   }
 }
