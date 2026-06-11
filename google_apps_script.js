@@ -404,3 +404,150 @@ function recalculatePoints(sheet) {
     }
   }
 }
+
+// Hàm cập nhật 104 trận đấu World Cup 2026 mà KHÔNG làm mất thông tin Users và Predictions
+function updateMatchesOnly() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet();
+  var matchesSheet = getOrCreateSheet(sheet, "Matches");
+  
+  // 1. Sao lưu tỷ số các trận đã kết thúc để không bị mất kết quả khi ghi đè
+  var oldMatches = getRowsData(matchesSheet);
+  var oldScoresMap = {};
+  oldMatches.forEach(function(m) {
+    if (m.status === "finished") {
+      oldScoresMap[m.id] = {
+        status: m.status,
+        score1: m.score1,
+        score2: m.score2,
+        outcome: m.outcome
+      };
+    }
+  });
+  
+  // 2. Xóa và khởi tạo lại tiêu đề bảng Matches
+  matchesSheet.clear();
+  matchesSheet.appendRow(["id", "team1", "team2", "date", "status", "score1", "score2", "outcome", "round", "nextMatchId"]);
+  
+  var DEFAULT_MATCHES = [
+    ['m1', 'Mexico', 'Nam Phi', '2026-06-12T02:00:00', 'pending', '', '', '', 'group', ''],
+    ['m2', 'Hàn Quốc', 'CH Séc', '2026-06-12T09:00:00', 'pending', '', '', '', 'group', ''],
+    ['m3', 'Canada', 'Bosnia', '2026-06-13T02:00:00', 'pending', '', '', '', 'group', ''],
+    ['m4', 'Mỹ', 'Paraguay', '2026-06-13T08:00:00', 'pending', '', '', '', 'group', ''],
+    ['m5', 'Qatar', 'Thụy Sĩ', '2026-06-14T02:00:00', 'pending', '', '', '', 'group', ''],
+    ['m6', 'Brazil', 'Marocco', '2026-06-14T05:00:00', 'pending', '', '', '', 'group', ''],
+    ['m7', 'Haiti', 'Scotland', '2026-06-14T08:00:00', 'pending', '', '', '', 'group', ''],
+    ['m8', 'Úc', 'Thổ Nhĩ Kỳ', '2026-06-14T11:00:00', 'pending', '', '', '', 'group', ''],
+    ['m9', 'Đức', 'Curacao', '2026-06-15T00:00:00', 'pending', '', '', '', 'group', ''],
+    ['m10', 'Hà Lan', 'Nhật Bản', '2026-06-15T03:00:00', 'pending', '', '', '', 'group', ''],
+    ['m11', 'Bờ Biển Ngà', 'Ecuador', '2026-06-15T06:00:00', 'pending', '', '', '', 'group', ''],
+    ['m12', 'Thụy Điển', 'Tunisia', '2026-06-15T09:00:00', 'pending', '', '', '', 'group', ''],
+    ['m13', 'Tây Ban Nha', 'Cabo Verde', '2026-06-15T23:00:00', 'pending', '', '', '', 'group', ''],
+    ['m14', 'Bỉ', 'Ai Cập', '2026-06-16T02:00:00', 'pending', '', '', '', 'group', ''],
+    ['m15', 'Saudi Arabia', 'Uruguay', '2026-06-16T05:00:00', 'pending', '', '', '', 'group', ''],
+    ['m16', 'Iran', 'New Zealand', '2026-06-16T08:00:00', 'pending', '', '', '', 'group', ''],
+    ['m17', 'Pháp', 'Senegal', '2026-06-17T02:00:00', 'pending', '', '', '', 'group', ''],
+    ['m18', 'Iraq', 'Na Uy', '2026-06-17T05:00:00', 'pending', '', '', '', 'group', ''],
+    ['m19', 'Argentina', 'Algeria', '2026-06-17T08:00:00', 'pending', '', '', '', 'group', ''],
+    ['m20', 'Áo', 'Jordan', '2026-06-17T11:00:00', 'pending', '', '', '', 'group', ''],
+    ['m21', 'Bồ Đào Nha', 'CHDC Congo', '2026-06-18T00:00:00', 'pending', '', '', '', 'group', ''],
+    ['m22', 'Anh', 'Croatia', '2026-06-18T03:00:00', 'pending', '', '', '', 'group', ''],
+    ['m23', 'Ghana', 'Panama', '2026-06-18T06:00:00', 'pending', '', '', '', 'group', ''],
+    ['m24', 'Uzbekistan', 'Colombia', '2026-06-18T09:00:00', 'pending', '', '', '', 'group', ''],
+    ['m25', 'CH Séc', 'Nam Phi', '2026-06-18T23:00:00', 'pending', '', '', '', 'group', ''],
+    ['m26', 'Thụy Sĩ', 'Bosnia', '2026-06-19T02:00:00', 'pending', '', '', '', 'group', ''],
+    ['m27', 'Canada', 'Qatar', '2026-06-19T05:00:00', 'pending', '', '', '', 'group', ''],
+    ['m28', 'Mexico', 'Hàn Quốc', '2026-06-19T08:00:00', 'pending', '', '', '', 'group', ''],
+    ['m29', 'Mỹ', 'Úc', '2026-06-20T02:00:00', 'pending', '', '', '', 'group', ''],
+    ['m30', 'Scotland', 'Marocco', '2026-06-20T05:00:00', 'pending', '', '', '', 'group', ''],
+    ['m31', 'Brazil', 'Haiti', '2026-06-20T07:30:00', 'pending', '', '', '', 'group', ''],
+    ['m32', 'Thổ Nhĩ Kỳ', 'Paraguay', '2026-06-20T10:00:00', 'pending', '', '', '', 'group', ''],
+    ['m33', 'Hà Lan', 'Thụy Điển', '2026-06-21T00:00:00', 'pending', '', '', '', 'group', ''],
+    ['m34', 'Đức', 'Bờ Biển Ngà', '2026-06-21T03:00:00', 'pending', '', '', '', 'group', ''],
+    ['m35', 'Ecuador', 'Curacao', '2026-06-21T07:00:00', 'pending', '', '', '', 'group', ''],
+    ['m36', 'Tunisia', 'Nhật Bản', '2026-06-21T11:00:00', 'pending', '', '', '', 'group', ''],
+    ['m37', 'Tây Ban Nha', 'Saudi Arabia', '2026-06-21T23:00:00', 'pending', '', '', '', 'group', ''],
+    ['m38', 'Bỉ', 'Iran', '2026-06-22T02:00:00', 'pending', '', '', '', 'group', ''],
+    ['m39', 'Uruguay', 'Cabo Verde', '2026-06-22T05:00:00', 'pending', '', '', '', 'group', ''],
+    ['m40', 'New Zealand', 'Ai Cập', '2026-06-22T08:00:00', 'pending', '', '', '', 'group', ''],
+    ['m41', 'Argentina', 'Áo', '2026-06-23T00:00:00', 'pending', '', '', '', 'group', ''],
+    ['m42', 'Pháp', 'Iraq', '2026-06-23T04:00:00', 'pending', '', '', '', 'group', ''],
+    ['m43', 'Na Uy', 'Senegal', '2026-06-23T07:00:00', 'pending', '', '', '', 'group', ''],
+    ['m44', 'Jordan', 'Algeria', '2026-06-23T10:00:00', 'pending', '', '', '', 'group', ''],
+    ['m45', 'Bồ Đào Nha', 'Uzbekistan', '2026-06-24T00:00:00', 'pending', '', '', '', 'group', ''],
+    ['m46', 'Anh', 'Ghana', '2026-06-24T03:00:00', 'pending', '', '', '', 'group', ''],
+    ['m47', 'Panama', 'Croatia', '2026-06-24T06:00:00', 'pending', '', '', '', 'group', ''],
+    ['m48', 'Colombia', 'CHDC Congo', '2026-06-24T09:00:00', 'pending', '', '', '', 'group', ''],
+    ['m49', 'Bosnia', 'Qatar', '2026-06-25T02:00:00', 'pending', '', '', '', 'group', ''],
+    ['m50', 'Thụy Sĩ', 'Canada', '2026-06-25T02:00:00', 'pending', '', '', '', 'group', ''],
+    ['m51', 'Marocco', 'Haiti', '2026-06-25T05:00:00', 'pending', '', '', '', 'group', ''],
+    ['m52', 'Scotland', 'Brazil', '2026-06-25T05:00:00', 'pending', '', '', '', 'group', ''],
+    ['m53', 'Nam Phi', 'Hàn Quốc', '2026-06-25T08:00:00', 'pending', '', '', '', 'group', ''],
+    ['m54', 'CH Séc', 'Mexico', '2026-06-25T08:00:00', 'pending', '', '', '', 'group', ''],
+    ['m55', 'Curacao', 'Bờ Biển Ngà', '2026-06-26T03:00:00', 'pending', '', '', '', 'group', ''],
+    ['m56', 'Ecuador', 'Đức', '2026-06-26T03:00:00', 'pending', '', '', '', 'group', ''],
+    ['m57', 'Tunisia', 'Hà Lan', '2026-06-26T06:00:00', 'pending', '', '', '', 'group', ''],
+    ['m58', 'Nhật Bản', 'Thụy Điển', '2026-06-26T06:00:00', 'pending', '', '', '', 'group', ''],
+    ['m59', 'Thổ Nhĩ Kỳ', 'Mỹ', '2026-06-26T09:00:00', 'pending', '', '', '', 'group', ''],
+    ['m60', 'Paraguay', 'Úc', '2026-06-26T09:00:00', 'pending', '', '', '', 'group', ''],
+    ['m61', 'Na Uy', 'Pháp', '2026-06-27T02:00:00', 'pending', '', '', '', 'group', ''],
+    ['m62', 'Senegal', 'Iraq', '2026-06-27T02:00:00', 'pending', '', '', '', 'group', ''],
+    ['m63', 'Cabo Verde', 'Saudi Arabia', '2026-06-27T07:00:00', 'pending', '', '', '', 'group', ''],
+    ['m64', 'Uruguay', 'Tây Ban Nha', '2026-06-27T07:00:00', 'pending', '', '', '', 'group', ''],
+    ['m65', 'New Zealand', 'Bỉ', '2026-06-27T10:00:00', 'pending', '', '', '', 'group', ''],
+    ['m66', 'Ai Cập', 'Iran', '2026-06-27T10:00:00', 'pending', '', '', '', 'group', ''],
+    ['m67', 'Panama', 'Anh', '2026-06-28T04:00:00', 'pending', '', '', '', 'group', ''],
+    ['m68', 'Croatia', 'Ghana', '2026-06-28T04:00:00', 'pending', '', '', '', 'group', ''],
+    ['m69', 'Colombia', 'Bồ Đào Nha', '2026-06-28T06:30:00', 'pending', '', '', '', 'group', ''],
+    ['m70', 'CHDC Congo', 'Uzbekistan', '2026-06-28T06:30:00', 'pending', '', '', '', 'group', ''],
+    ['m71', 'Algeria', 'Áo', '2026-06-28T09:00:00', 'pending', '', '', '', 'group', ''],
+    ['m72', 'Jordan', 'Argentina', '2026-06-28T09:00:00', 'pending', '', '', '', 'group', ''],
+    ['r32_1', 'Á quân Bảng A', 'Á quân Bảng B', '2026-06-29T02:00:00', 'pending', '', '', '', 'r32', ''],
+    ['r32_4', 'Nhất Bảng C', 'Á quân Bảng F', '2026-06-30T00:00:00', 'pending', '', '', '', 'r32', ''],
+    ['r32_2', 'Nhất Bảng E', 'Hạng 3 A/B/C/D/F', '2026-06-30T03:30:00', 'pending', '', '', '', 'r32', ''],
+    ['r32_3', 'Nhất Bảng F', 'Á quân Bảng C', '2026-06-30T08:00:00', 'pending', '', '', '', 'r32', ''],
+    ['r32_6', 'Á quân Bảng E', 'Á quân Bảng I', '2026-07-01T00:00:00', 'pending', '', '', '', 'r32', ''],
+    ['r32_5', 'Nhất Bảng I', 'Hạng 3 C/D/F/G/H', '2026-07-01T04:00:00', 'pending', '', '', '', 'r32', ''],
+    ['r32_7', 'Nhất Bảng A', 'Hạng 3 C/E/F/H/I', '2026-07-01T08:00:00', 'pending', '', '', '', 'r32', ''],
+    ['r32_8', 'Nhất Bảng L', 'Hạng 3 E/H/I/J/K', '2026-07-01T23:00:00', 'pending', '', '', '', 'r32', ''],
+    ['r32_11', 'Nhất Bảng G', 'Hạng 3 A/E/H/I/J', '2026-07-02T03:00:00', 'pending', '', '', '', 'r32', ''],
+    ['r32_10', 'Nhất Bảng D', 'Hạng 3 B/E/F/I/J', '2026-07-02T07:00:00', 'pending', '', '', '', 'r32', ''],
+    ['r32_12', 'Nhất Bảng H', 'Á quân Bảng J', '2026-07-03T02:00:00', 'pending', '', '', '', 'r32', ''],
+    ['r32_9', 'Á quân Bảng K', 'Á quân Bảng L', '2026-07-03T06:00:00', 'pending', '', '', '', 'r32', ''],
+    ['r32_13', 'Nhất Bảng B', 'Hạng 3 E/F/G/I/J', '2026-07-03T10:00:00', 'pending', '', '', '', 'r32', ''],
+    ['r32_16', 'Á quân Bảng D', 'Á quân Bảng G', '2026-07-04T01:00:00', 'pending', '', '', '', 'r32', ''],
+    ['r32_14', 'Nhất Bảng J', 'Á quân Bảng H', '2026-07-04T05:00:00', 'pending', '', '', '', 'r32', ''],
+    ['r32_15', 'Nhất Bảng K', 'Hạng 3 D/E/I/J/L', '2026-07-04T08:30:00', 'pending', '', '', '', 'r32', ''],
+    ['r16_2', 'Thắng 73', 'Thắng 75', '2026-07-05T00:00:00', 'pending', '', '', '', 'r16', ''],
+    ['r16_1', 'Thắng 74', 'Thắng 77', '2026-07-05T04:00:00', 'pending', '', '', '', 'r16', ''],
+    ['r16_3', 'Thắng 76', 'Thắng 78', '2026-07-06T03:00:00', 'pending', '', '', '', 'r16', ''],
+    ['r16_4', 'Thắng 79', 'Thắng 80', '2026-07-06T07:00:00', 'pending', '', '', '', 'r16', ''],
+    ['r16_5', 'Thắng 83', 'Thắng 84', '2026-07-07T02:00:00', 'pending', '', '', '', 'r16', ''],
+    ['r16_6', 'Thắng 81', 'Thắng 82', '2026-07-07T07:00:00', 'pending', '', '', '', 'r16', ''],
+    ['r16_7', 'Thắng 86', 'Thắng 88', '2026-07-07T23:00:00', 'pending', '', '', '', 'r16', ''],
+    ['r16_8', 'Thắng 85', 'Thắng 87', '2026-07-08T03:00:00', 'pending', '', '', '', 'r16', ''],
+    ['qf_1', 'Thắng 89', 'Thắng 90', '2026-07-10T03:00:00', 'pending', '', '', '', 'qf', ''],
+    ['qf_2', 'Thắng 93', 'Thắng 94', '2026-07-11T02:00:00', 'pending', '', '', '', 'qf', ''],
+    ['qf_3', 'Thắng 91', 'Thắng 92', '2026-07-12T04:00:00', 'pending', '', '', '', 'qf', ''],
+    ['qf_4', 'Thắng 95', 'Thắng 96', '2026-07-12T08:00:00', 'pending', '', '', '', 'qf', ''],
+    ['sf_1', 'Thắng 97', 'Thắng 98', '2026-07-15T02:00:00', 'pending', '', '', '', 'sf', ''],
+    ['sf_2', 'Thắng 99', 'Thắng 100', '2026-07-16T02:00:00', 'pending', '', '', '', 'sf', ''],
+    ['third', 'Thua 101', 'Thua 102', '2026-07-19T04:00:00', 'pending', '', '', '', 'third', ''],
+    ['final', 'Thắng 101', 'Thắng 102', '2026-07-20T02:00:00', 'pending', '', '', '', 'final', ''],
+  ];
+  
+  // 3. Ghi đè danh sách trận đấu và hồi phục tỷ số cũ nếu có
+  for (var i = 0; i < DEFAULT_MATCHES.length; i++) {
+    var matchRow = DEFAULT_MATCHES[i];
+    var mId = matchRow[0];
+    if (oldScoresMap[mId]) {
+      matchRow[4] = oldScoresMap[mId].status;  // status
+      matchRow[5] = oldScoresMap[mId].score1;  // score1
+      matchRow[6] = oldScoresMap[mId].score2;  // score2
+      matchRow[7] = oldScoresMap[mId].outcome; // outcome
+    }
+    matchesSheet.appendRow(matchRow);
+  }
+  
+  // 4. Tính toán lại điểm số dựa trên kết quả cũ
+  recalculatePoints(sheet);
+}
