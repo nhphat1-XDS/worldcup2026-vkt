@@ -865,10 +865,12 @@ elif selected_tab == "🏆 Bảng Xếp Hạng":
             "<table class='leaderboard-table'>"
             "<thead>"
             "<tr>"
-            "<th style='text-align: center; width: 100px;'>Vị trí</th>"
+            "<th style='text-align: center; width: 80px;'>Vị trí</th>"
             "<th>Họ và Tên</th>"
             "<th>Đơn vị / Phòng ban</th>"
-            "<th style='text-align: center; width: 120px;'>Số điểm</th>"
+            "<th style='text-align: center; width: 110px;'>Đoán đúng</th>"
+            "<th style='text-align: center; width: 110px;'>Đoán sai</th>"
+            "<th style='text-align: center; width: 110px;'>Số điểm</th>"
             "</tr>"
             "</thead>"
             "<tbody>"
@@ -888,7 +890,19 @@ elif selected_tab == "🏆 Bảng Xếp Hạng":
                 row_class = "class='top-3'"
                 rank_html = "<span class='rank-badge rank-3'>🥉</span>"
                 
-            html_code += f"<tr {row_class}><td style='text-align: center;'>{rank_html}</td><td style='font-weight: 600;'>{u['name']}</td><td>{u['unit']}</td><td class='points-column' style='text-align: center;'>{u['points']}</td></tr>"
+            correct_scores = u.get("correctScores", 0)
+            correct_outcomes = u.get("correctOutcomes", 0)
+            
+            html_code += (
+                f"<tr {row_class}>"
+                f"<td style='text-align: center;'>{rank_html}</td>"
+                f"<td style='font-weight: 600;'>{u['name']}</td>"
+                f"<td>{u['unit']}</td>"
+                f"<td style='text-align: center; color: #00e676; font-weight: 700;'>{correct_scores} trận</td>"
+                f"<td style='text-align: center; color: #ff5252; font-weight: 700;'>{correct_outcomes} trận</td>"
+                f"<td class='points-column' style='text-align: center;'>{u['points']}</td>"
+                f"</tr>"
+            )
             
         html_code += "</tbody></table></div>"
         st.markdown(html_code, unsafe_allow_html=True)
