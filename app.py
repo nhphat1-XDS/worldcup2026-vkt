@@ -557,6 +557,7 @@ def recalculate_local_points(matches, users, predictions):
         u["points"] = 0
         u["correctScores"] = 0
         u["correctOutcomes"] = 0
+        u["unpredicted"] = 0
         
     for match in matches:
         if match.get("status") != "finished":
@@ -591,9 +592,9 @@ def recalculate_local_points(matches, users, predictions):
                     u["points"] -= 1
                     u["correctOutcomes"] += 1
             else:
-                # Không dự đoán cho trận đã kết thúc -> Mặc định đoán sai tỷ số (-1đ)
+                # Không dự đoán cho trận đã kết thúc -> Mặc định phạt -1đ và tính vào unpredicted
                 u["points"] -= 1
-                u["correctOutcomes"] += 1
+                u["unpredicted"] += 1
 
 # --- KHỞI TẠO STATE & TẢI DỮ LIỆU ---
 if 'logged_in' not in st.session_state:
@@ -670,7 +671,8 @@ if not st.session_state.logged_in:
                                         "isAdmin": False,
                                         "points": 0,
                                         "correctScores": 0,
-                                        "correctOutcomes": 0
+                                        "correctOutcomes": 0,
+                                        "unpredicted": 0
                                     })
                                     write_local_db(matches, users, predictions)
                             st.rerun()
@@ -868,9 +870,10 @@ elif selected_tab == "🏆 Bảng Xếp Hạng":
             "<th style='text-align: center; width: 80px;'>Vị trí</th>"
             "<th>Họ và Tên</th>"
             "<th>Đơn vị / Phòng ban</th>"
-            "<th style='text-align: center; width: 110px;'>Đoán đúng</th>"
-            "<th style='text-align: center; width: 110px;'>Đoán sai</th>"
-            "<th style='text-align: center; width: 110px;'>Số điểm</th>"
+            "<th style='text-align: center; width: 105px;'>Đoán đúng</th>"
+            "<th style='text-align: center; width: 105px;'>Đoán sai</th>"
+            "<th style='text-align: center; width: 105px;'>Không đoán</th>"
+            "<th style='text-align: center; width: 105px;'>Số điểm</th>"
             "</tr>"
             "</thead>"
             "<tbody>"
@@ -892,6 +895,7 @@ elif selected_tab == "🏆 Bảng Xếp Hạng":
                 
             correct_scores = u.get("correctScores", 0)
             correct_outcomes = u.get("correctOutcomes", 0)
+            unpredicted = u.get("unpredicted", 0)
             
             html_code += (
                 f"<tr {row_class}>"
@@ -900,6 +904,7 @@ elif selected_tab == "🏆 Bảng Xếp Hạng":
                 f"<td>{u['unit']}</td>"
                 f"<td style='text-align: center; color: #00e676; font-weight: 700;'>{correct_scores} trận</td>"
                 f"<td style='text-align: center; color: #ff5252; font-weight: 700;'>{correct_outcomes} trận</td>"
+                f"<td style='text-align: center; color: #ffd700; font-weight: 700;'>{unpredicted} trận</td>"
                 f"<td class='points-column' style='text-align: center;'>{u['points']}</td>"
                 f"</tr>"
             )
