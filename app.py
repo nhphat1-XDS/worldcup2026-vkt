@@ -860,20 +860,19 @@ elif selected_tab == "🏆 Bảng Xếp Hạng":
     if not player_users:
         st.info("Chưa có thành viên nào tham gia dự đoán.")
     else:
-        # Tạo bảng xếp hạng HTML cao cấp
-        html_code = """
-        <div class="leaderboard-container">
-            <table class="leaderboard-table">
-                <thead>
-                    <tr>
-                        <th style="text-align: center; width: 100px;">Vị trí</th>
-                        <th>Họ và Tên</th>
-                        <th>Đơn vị / Phòng ban</th>
-                        <th style="text-align: center; width: 120px;">Số điểm</th>
-                    </tr>
-                </thead>
-                <tbody>
-        """
+        html_code = (
+            "<div class='leaderboard-container'>"
+            "<table class='leaderboard-table'>"
+            "<thead>"
+            "<tr>"
+            "<th style='text-align: center; width: 100px;'>Vị trí</th>"
+            "<th>Họ và Tên</th>"
+            "<th>Đơn vị / Phòng ban</th>"
+            "<th style='text-align: center; width: 120px;'>Số điểm</th>"
+            "</tr>"
+            "</thead>"
+            "<tbody>"
+        )
         for idx, u in enumerate(player_users):
             rank = idx + 1
             row_class = ""
@@ -889,20 +888,9 @@ elif selected_tab == "🏆 Bảng Xếp Hạng":
                 row_class = "class='top-3'"
                 rank_html = "<span class='rank-badge rank-3'>🥉</span>"
                 
-            html_code += f"""
-                <tr {row_class}>
-                    <td style="text-align: center;">{rank_html}</td>
-                    <td style="font-weight: 600;">{u['name']}</td>
-                    <td>{u['unit']}</td>
-                    <td class="points-column" style="text-align: center;">{u['points']}</td>
-                </tr>
-            """
+            html_code += f"<tr {row_class}><td style='text-align: center;'>{rank_html}</td><td style='font-weight: 600;'>{u['name']}</td><td>{u['unit']}</td><td class='points-column' style='text-align: center;'>{u['points']}</td></tr>"
             
-        html_code += """
-                </tbody>
-            </table>
-        </div>
-        """
+        html_code += "</tbody></table></div>"
         st.markdown(html_code, unsafe_allow_html=True)
 
 
