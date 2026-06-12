@@ -379,19 +379,19 @@
       "name": "Lê Đình Thắng",
       "unit": "XDS",
       "isAdmin": false,
-      "points": 0,
+      "points": -1,
       "correctScores": 0,
       "correctOutcomes": 0,
-      "unpredicted": 0
+      "unpredicted": 1
     },
     {
       "name": "Chu Lợi",
       "unit": "XDS",
       "isAdmin": false,
-      "points": 0,
+      "points": -1,
       "correctScores": 0,
       "correctOutcomes": 0,
-      "unpredicted": 0
+      "unpredicted": 1
     }
   ],
   "predictions": {
@@ -404,6 +404,10 @@
     "Nguyễn Hữu Phát-Xây dựng số": {
       "m2": {
         "score1": 1,
+        "score2": 1
+      },
+      "m3": {
+        "score1": 2,
         "score2": 1
       }
     }
