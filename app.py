@@ -1084,7 +1084,13 @@ if selected_tab == "⚽ Dự Đoán Của Tôi":
                     if st.button("💾 Lưu Dự Đoán", use_container_width=True, type="primary"):
                         if user_key not in predictions:
                             predictions[user_key] = {}
+                        
+                        # Ghi nhận thời gian thực hiện dự đoán (giờ Việt Nam)
+                        vn_tz = timezone(timedelta(hours=7))
+                        now_str = datetime.now(vn_tz).strftime("%d/%m/%Y %H:%M:%S")
+                        
                         for mId, vals in new_preds.items():
+                            vals["created_at"] = now_str
                             predictions[user_key][mId] = vals
                         recalculate_local_points(matches, users, predictions)
                         
@@ -1321,10 +1327,12 @@ elif selected_tab == "⚙️ Quản Trị (BTC)" and st.session_state.is_admin:
                                 parts = u_key.split("-")
                                 name = parts[0]
                                 unit = parts[1] if len(parts) > 1 else ""
+                                created_at = pred.get("created_at", "N/A")
                                 rows_list.append({
                                     "Thành viên": name,
                                     "Đơn vị": unit,
-                                    "Dự đoán": f"{p1} - {p2}"
+                                    "Dự đoán": f"{p1} - {p2}",
+                                    "Thời gian dự đoán": created_at
                                 })
                             except:
                                 continue
