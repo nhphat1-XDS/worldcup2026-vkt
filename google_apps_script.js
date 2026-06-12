@@ -553,3 +553,124 @@ function updateMatchesOnly() {
   // 4. Tính toán lại điểm số dựa trên kết quả cũ
   recalculatePoints(sheet);
 }
+
+// Hàm tự động cào và cập nhật kết quả từ 24h.com.vn vào Google Sheets
+function syncResultsFrom24h() {
+  var url = 'https://www.24h.com.vn/world-cup-2026/ket-qua-thi-dau-bong-da-world-cup-2026-moi-nhat-c860a1747405.html';
+  try {
+    var response = UrlFetchApp.fetch(url, {
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+      },
+      "muteHttpExceptions": true
+    });
+    
+    if (response.getResponseCode() !== 200) {
+      Logger.log("Lỗi fetch URL: " + response.getResponseCode());
+      return "Lỗi kết nối tới 24h.com.vn (HTTP " + response.getResponseCode() + ")";
+    }
+    
+    var html = response.getContentText("UTF-8");
+    var parts = html.split('class="box-items');
+    if (parts.length < 105) {
+      Logger.log("Số lượng trận đấu cào được không đủ 104 trận (chỉ tìm thấy " + (parts.length - 1) + ")");
+      return "Không tìm thấy đủ 104 trận đấu trên trang kết quả.";
+    }
+    
+    var sheet = SpreadsheetApp.getActiveSpreadsheet();
+    var matchesSheet = sheet.getSheetByName("Matches");
+    var matches = getRowsData(matchesSheet);
+    
+    var updated = false;
+    var updateMsgs = [];
+    
+    for (var idx = 0; idx < matches.length; idx++) {
+      var m = matches[idx];
+      if (m.status === "pending") {
+        var part = parts[idx + 1]; // Phần tử 0 là phần trước trận 1
+        var scoreMatch = part.match(/class="box-score"[\s\S]*?class="box-t[\s\S]*?>([\s\S]*?)<\/div>/);
+        
+        if (scoreMatch) {
+          var scoreStr = scoreMatch[1].trim();
+          if (scoreStr.indexOf('-') !== -1 && scoreStr.length > 1) {
+            var scoreParts = scoreStr.split('-');
+            var s1Str = scoreParts[0].trim();
+            var s2Str = scoreParts[1].trim();
+            
+            if (s1Str !== "" && s2Str !== "") {
+              var s1 = parseInt(s1Str);
+              var s2 = parseInt(s2Str);
+              
+              if (!isNaN(s1) && !isNaN(s2)) {
+                var matchRowIdx = idx + 2; // +2 vì row 1 là header
+                
+                matchesSheet.getRange(matchRowIdx, 5).setValue("finished"); // status
+                matchesSheet.getRange(matchRowIdx, 6).setValue(s1);         // score1
+                matchesSheet.getRange(matchRowIdx, 7).setValue(s2);         // score2
+                
+                var outcome = s1 > s2 ? "team1" : (s1 < s2 ? "team2" : "draw");
+                matchesSheet.getRange(matchRowIdx, 8).setValue(outcome);    // outcome
+                
+                // Cập nhật đội đi tiếp (Knockout)
+                var winner = s1 > s2 ? m.team1 : m.team2;
+                var loser = s1 > s2 ? m.team2 : m.team1;
+                var nextMatchId = m.nextMatchId;
+                
+                if (nextMatchId) {
+                  var nextMatchRowIdx = getMatchRowIndex(matches, nextMatchId);
+                  if (nextMatchRowIdx !== -1) {
+                    var lastChar = m.id.charAt(m.id.length - 1);
+                    if (["1", "3", "5", "7", "9"].includes(lastChar)) {
+                      matchesSheet.getRange(nextMatchRowIdx, 2).setValue(winner); // team1
+                    } else {
+                      matchesSheet.getRange(nextMatchRowIdx, 3).setValue(winner); // team2
+                    }
+                  }
+                }
+                
+                // Tranh hạng ba
+                if (m.id === "sf_1") {
+                  var thirdRowIdx = getMatchRowIndex(matches, "third");
+                  if (thirdRowIdx !== -1) matchesSheet.getRange(thirdRowIdx, 2).setValue(loser);
+                } else if (m.id === "sf_2") {
+                  var thirdRowIdx = getMatchRowIndex(matches, "third");
+                  if (thirdRowIdx !== -1) matchesSheet.getRange(thirdRowIdx, 3).setValue(loser);
+                }
+                
+                updated = true;
+                updateMsgs.push(m.team1 + " " + s1 + "-" + s2 + " " + m.team2);
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    if (updated) {
+      recalculatePoints(sheet);
+      return "Đồng bộ thành công: " + updateMsgs.join(", ");
+    }
+    
+    return "Không có kết quả mới nào cần cập nhật.";
+  } catch (e) {
+    Logger.log("Lỗi đồng bộ: " + e.toString());
+    return "Lỗi đồng bộ: " + e.toString();
+  }
+}
+
+// Tạo trigger chạy ngầm tự động mỗi 15 phút
+function createAutoSyncTrigger() {
+  var triggers = ScriptApp.getProjectTriggers();
+  for (var i = 0; i < triggers.length; i++) {
+    if (triggers[i].getHandlerFunction() === "syncResultsFrom24h") {
+      ScriptApp.deleteTrigger(triggers[i]);
+    }
+  }
+  
+  ScriptApp.newTrigger("syncResultsFrom24h")
+    .timeBased()
+    .everyMinutes(15)
+    .create();
+    
+  Logger.log("Đã đăng ký trigger chạy ngầm syncResultsFrom24h tự động mỗi 15 phút.");
+}
