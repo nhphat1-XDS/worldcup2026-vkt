@@ -3,8 +3,12 @@ import requests
 import json
 import os
 import urllib.parse
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 import pandas as pd
+import time
+import urllib.request
+import ssl
+from bs4 import BeautifulSoup
 
 # --- CẤU HÌNH TRANG STREAMLIT ---
 st.set_page_config(
@@ -596,6 +600,97 @@ def recalculate_local_points(matches, users, predictions):
                 u["points"] -= 1
                 u["unpredicted"] += 1
 
+def apply_match_result(match, s1, s2, matches):
+    match["status"] = "finished"
+    match["score1"] = s1
+    match["score2"] = s2
+    match["outcome"] = "team1" if s1 > s2 else ("team2" if s1 < s2 else "draw")
+    
+    # Knockout auto-advance logic
+    winner = match["team1"] if s1 > s2 else match["team2"]
+    loser = match["team2"] if s1 > s2 else match["team1"]
+    
+    next_match_id = match.get("nextMatchId")
+    if next_match_id:
+        next_match = next((m for m in matches if m["id"] == next_match_id), None)
+        if next_match:
+            last_char = match["id"][-1]
+            if last_char in ['1', '3', '5', '7', '9']:
+                next_match["team1"] = winner
+            else:
+                next_match["team2"] = winner
+                
+    # Tranh hạng 3
+    if match["id"] == "sf_1":
+        third_match = next((m for m in matches if m["id"] == "third"), None)
+        if third_match: third_match["team1"] = loser
+    elif match["id"] == "sf_2":
+        third_match = next((m for m in matches if m["id"] == "third"), None)
+        if third_match: third_match["team2"] = loser
+
+def sync_results_from_24h(matches, users, predictions, is_local):
+    url = 'https://www.24h.com.vn/world-cup-2026/ket-qua-thi-dau-bong-da-world-cup-2026-moi-nhat-c860a1747405.html'
+    context = ssl._create_unverified_context()
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'})
+    
+    try:
+        with urllib.request.urlopen(req, context=context, timeout=8) as res:
+            soup = BeautifulSoup(res.read(), 'html.parser')
+        match_divs = soup.find_all('div', class_='box-items')
+        
+        if not match_divs or len(match_divs) != len(matches):
+            return False, f"Không thể lấy đúng danh sách trận đấu từ 24h (tìm thấy {len(match_divs)} trận)."
+            
+        updated = False
+        update_msgs = []
+        
+        for idx, m in enumerate(matches):
+            if m["status"] == "pending":
+                div = match_divs[idx]
+                score_div = div.find('div', class_='box-score')
+                score_str = score_div.get_text(strip=True) if score_div else ''
+                
+                # Check nếu có tỷ số dạng X - Y (chứ không phải "-")
+                if '-' in score_str and len(score_str.strip()) > 1:
+                    parts = score_str.split('-')
+                    if len(parts) == 2:
+                        try:
+                            s1 = int(parts[0].strip())
+                            s2 = int(parts[1].strip())
+                            
+                            # Cập nhật trận đấu này
+                            if is_local:
+                                apply_match_result(m, s1, s2, matches)
+                            else:
+                                api_url = get_api_url()
+                                if api_url:
+                                    res_api = requests.post(api_url, json={
+                                        "action": "admin_update_match",
+                                        "matchId": m["id"],
+                                        "status": "finished",
+                                        "score1": s1,
+                                        "score2": s2
+                                    }, timeout=10)
+                                    if res_api.status_code == 200:
+                                        apply_match_result(m, s1, s2, matches)
+                                    else:
+                                        continue
+                            
+                            updated = True
+                            update_msgs.append(f"{m['team1']} {s1}-{s2} {m['team2']}")
+                        except:
+                            pass
+                            
+        if updated:
+            if is_local:
+                recalculate_local_points(matches, users, predictions)
+                write_local_db(matches, users, predictions)
+            return True, f"Đồng bộ thành công: {', '.join(update_msgs)}"
+        return False, "Không có kết quả mới nào cần cập nhật."
+        
+    except Exception as e:
+        return False, f"Lỗi kết nối tới 24h.com.vn: {e}"
+
 # --- KHỞI TẠO STATE & TẢI DỮ LIỆU ---
 if 'logged_in' not in st.session_state:
     st.session_state.logged_in = False
@@ -604,6 +699,35 @@ if 'logged_in' not in st.session_state:
     st.session_state.is_admin = False
 
 matches, users, predictions, is_local = read_db()
+
+# --- TỰ ĐỘNG ĐỒNG BỘ KẾT QUẢ TỪ 24H.COM.VN (LAZY SYNC) ---
+if 'last_auto_sync' not in st.session_state:
+    st.session_state.last_auto_sync = 0
+
+current_time_epoch = time.time()
+has_finished_pending_match = False
+
+# Quy đổi thời gian hiện tại về múi giờ Việt Nam (UTC+7) để so sánh chính xác với lịch thi đấu
+vn_tz = timezone(timedelta(hours=7))
+now_vn = datetime.now(vn_tz).replace(tzinfo=None)
+
+for m in matches:
+    if m["status"] == "pending":
+        try:
+            match_dt = datetime.fromisoformat(m["date"])
+            # So sánh thời gian hiện tại với giờ đá trận đấu
+            if (now_vn - match_dt).total_seconds() > 6600: # Sau 110 phút (thời gian đá xong)
+                has_finished_pending_match = True
+                break
+        except:
+            pass
+
+if has_finished_pending_match and (current_time_epoch - st.session_state.last_auto_sync > 300): # Tối thiểu 5 phút
+    st.session_state.last_auto_sync = current_time_epoch
+    success, msg = sync_results_from_24h(matches, users, predictions, is_local)
+    if success:
+        st.toast(msg, icon="⚽")
+        st.rerun()
 
 # --- GIAO DIỆN HEADER CHÍNH ---
 col_logo, col_title, col_status = st.columns([0.1, 0.7, 0.2])
@@ -686,7 +810,22 @@ user_preds = predictions.get(user_key, {})
 # Nút Đăng xuất ở thanh bên
 st.sidebar.markdown(f"**Xin chào:** {st.session_state.username}")
 st.sidebar.markdown(f"**Đơn vị:** {st.session_state.unit}")
-if st.sidebar.button("Đăng xuất"):
+
+# Nút đồng bộ thủ công ở thanh bên
+st.sidebar.markdown("---")
+st.sidebar.markdown("### ⚽ Kết Quả Trận Đấu")
+if st.sidebar.button("🔄 Cập nhật từ 24h.com.vn", use_container_width=True):
+    with st.sidebar.status("Đang lấy kết quả mới nhất..."):
+        success, msg = sync_results_from_24h(matches, users, predictions, is_local)
+    if success:
+        st.sidebar.success(msg)
+        time.sleep(1.5)
+        st.rerun()
+    else:
+        st.sidebar.info(msg)
+
+st.sidebar.markdown("---")
+if st.sidebar.button("Đăng xuất", use_container_width=True):
     st.session_state.logged_in = False
     st.session_state.username = ""
     st.session_state.unit = ""
@@ -960,36 +1099,16 @@ elif selected_tab == "⚙️ Quản Trị (BTC)" and st.session_state.is_admin:
                         status_val = "finished" if is_fin else "pending"
                         
                         if is_local:
-                            match["status"] = status_val
-                            match["score1"] = int(admin_score_1) if is_fin else None
-                            match["score2"] = int(admin_score_2) if is_fin else None
-                            
                             if is_fin:
                                 s1 = int(admin_score_1)
                                 s2 = int(admin_score_2)
-                                match["outcome"] = "team1" if s1 > s2 else ("team2" if s1 < s2 else "draw")
+                                apply_match_result(match, s1, s2, matches)
+                            else:
+                                match["status"] = "pending"
+                                match["score1"] = None
+                                match["score2"] = None
+                                match["outcome"] = None
                                 
-                                # Knockout auto-advance logic
-                                winner = match["team1"] if s1 > s2 else match["team2"]
-                                loser = match["team2"] if s1 > s2 else match["team1"]
-                                
-                                next_match_id = match.get("nextMatchId")
-                                if next_match_id:
-                                    next_match = next((m for m in matches if m["id"] == next_match_id), None)
-                                    if next_match:
-                                        last_char = match["id"][-1]
-                                        if last_char in ['1', '3', '5', '7']:
-                                            next_match["team1"] = winner
-                                        else:
-                                            next_match["team2"] = winner
-                                # Tranh hạng 3
-                                if match["id"] == "sf_1":
-                                    third_match = next((m for m in matches if m["id"] == "third"), None)
-                                    if third_match: third_match["team1"] = loser
-                                elif match["id"] == "sf_2":
-                                    third_match = next((m for m in matches if m["id"] == "third"), None)
-                                    if third_match: third_match["team2"] = loser
-                                    
                             recalculate_local_points(matches, users, predictions)
                             write_local_db(matches, users, predictions)
                             st.success("Đã cập nhật tỷ số và tính lại điểm thành công!")
