@@ -1,0 +1,399 @@
+{
+  "matches": [
+    {
+      "id": "m1",
+      "team1": "Mexico",
+      "team2": "Nam Phi",
+      "date": "2026-06-12T02:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "group"
+    },
+    {
+      "id": "m2",
+      "team1": "Hàn Quốc",
+      "team2": "CH Séc",
+      "date": "2026-06-12T09:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "group"
+    },
+    {
+      "id": "m3",
+      "team1": "Canada",
+      "team2": "Bosnia",
+      "date": "2026-06-13T02:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "group"
+    },
+    {
+      "id": "m4",
+      "team1": "Mỹ",
+      "team2": "Paraguay",
+      "date": "2026-06-13T08:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "group"
+    },
+    {
+      "id": "m5",
+      "team1": "Qatar",
+      "team2": "Thụy Sĩ",
+      "date": "2026-06-14T02:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "group"
+    },
+    {
+      "id": "m6",
+      "team1": "Brazil",
+      "team2": "Maroc",
+      "date": "2026-06-14T05:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "group"
+    },
+    {
+      "id": "m7",
+      "team1": "Haiti",
+      "team2": "Scotland",
+      "date": "2026-06-14T08:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "group"
+    },
+    {
+      "id": "m8",
+      "team1": "Úc",
+      "team2": "Thổ Nhĩ Kỳ",
+      "date": "2026-06-14T11:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "group"
+    },
+    {
+      "id": "m9",
+      "team1": "Đức",
+      "team2": "Curacao",
+      "date": "2026-06-15T00:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "group"
+    },
+    {
+      "id": "m10",
+      "team1": "Hà Lan",
+      "team2": "Nhật Bản",
+      "date": "2026-06-15T03:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "group"
+    },
+    {
+      "id": "m11",
+      "team1": "Bờ Biển Ngà",
+      "team2": "Ecuador",
+      "date": "2026-06-15T06:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "group"
+    },
+    {
+      "id": "m12",
+      "team1": "Thụy Điển",
+      "team2": "Tunisia",
+      "date": "2026-06-15T09:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "group"
+    },
+    {
+      "id": "m13",
+      "team1": "Tây Ban Nha",
+      "team2": "Cabo Verde",
+      "date": "2026-06-15T23:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "group"
+    },
+    {
+      "id": "m14",
+      "team1": "Bỉ",
+      "team2": "Ai Cập",
+      "date": "2026-06-16T02:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "group"
+    },
+    {
+      "id": "m15",
+      "team1": "Saudi Arabia",
+      "team2": "Uruguay",
+      "date": "2026-06-16T05:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "group"
+    },
+    {
+      "id": "r16_1",
+      "team1": "Tây Ban Nha",
+      "team2": "Thụy Sĩ",
+      "date": "2026-06-27T18:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "r16",
+      "nextMatchId": "qf_1"
+    },
+    {
+      "id": "r16_2",
+      "team1": "Đức",
+      "team2": "Nhật Bản",
+      "date": "2026-06-27T21:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "r16",
+      "nextMatchId": "qf_1"
+    },
+    {
+      "id": "r16_3",
+      "team1": "Argentina",
+      "team2": "Úc",
+      "date": "2026-06-28T18:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "r16",
+      "nextMatchId": "qf_2"
+    },
+    {
+      "id": "r16_4",
+      "team1": "Hà Lan",
+      "team2": "Mỹ",
+      "date": "2026-06-28T21:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "r16",
+      "nextMatchId": "qf_2"
+    },
+    {
+      "id": "r16_5",
+      "team1": "Anh",
+      "team2": "Senegal",
+      "date": "2026-06-29T18:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "r16",
+      "nextMatchId": "qf_3"
+    },
+    {
+      "id": "r16_6",
+      "team1": "Pháp",
+      "team2": "Hàn Quốc",
+      "date": "2026-06-29T21:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "r16",
+      "nextMatchId": "qf_3"
+    },
+    {
+      "id": "r16_7",
+      "team1": "Bồ Đào Nha",
+      "team2": "Croatia",
+      "date": "2026-06-30T18:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "r16",
+      "nextMatchId": "qf_4"
+    },
+    {
+      "id": "r16_8",
+      "team1": "Brazil",
+      "team2": "Maroc",
+      "date": "2026-06-30T21:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "r16",
+      "nextMatchId": "qf_4"
+    },
+    {
+      "id": "qf_1",
+      "team1": "Thắng 1/8 Trận 1",
+      "team2": "Thắng 1/8 Trận 2",
+      "date": "2026-07-03T18:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "qf",
+      "nextMatchId": "sf_1"
+    },
+    {
+      "id": "qf_2",
+      "team1": "Thắng 1/8 Trận 3",
+      "team2": "Thắng 1/8 Trận 4",
+      "date": "2026-07-03T21:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "qf",
+      "nextMatchId": "sf_1"
+    },
+    {
+      "id": "qf_3",
+      "team1": "Thắng 1/8 Trận 5",
+      "team2": "Thắng 1/8 Trận 6",
+      "date": "2026-07-04T18:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "qf",
+      "nextMatchId": "sf_2"
+    },
+    {
+      "id": "qf_4",
+      "team1": "Thắng 1/8 Trận 7",
+      "team2": "Thắng 1/8 Trận 8",
+      "date": "2026-07-04T21:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "qf",
+      "nextMatchId": "sf_2"
+    },
+    {
+      "id": "sf_1",
+      "team1": "Thắng Tứ Kết 1",
+      "team2": "Thắng Tứ Kết 2",
+      "date": "2026-07-07T20:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "sf",
+      "nextMatchId": "final"
+    },
+    {
+      "id": "sf_2",
+      "team1": "Thắng Tứ Kết 3",
+      "team2": "Thắng Tứ Kết 4",
+      "date": "2026-07-08T20:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "sf",
+      "nextMatchId": "final"
+    },
+    {
+      "id": "third",
+      "team1": "Thua Bán Kết 1",
+      "team2": "Thua Bán Kết 2",
+      "date": "2026-07-11T20:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "third"
+    },
+    {
+      "id": "final",
+      "team1": "Thắng Bán Kết 1",
+      "team2": "Thắng Bán Kết 2",
+      "date": "2026-07-12T20:00:00",
+      "status": "pending",
+      "score1": null,
+      "score2": null,
+      "outcome": null,
+      "round": "final"
+    }
+  ],
+  "users": [
+    {
+      "name": "Nguyen Van Test",
+      "unit": "Kiem Thu",
+      "isAdmin": false,
+      "points": 0,
+      "correctScores": 0,
+      "correctOutcomes": 0
+    },
+    {
+      "name": "Nguyễn Hữu Phát",
+      "unit": "XDS",
+      "isAdmin": false,
+      "points": 0,
+      "correctScores": 0,
+      "correctOutcomes": 0
+    },
+    {
+      "name": "Lợi Chu",
+      "unit": "Xây dựng số",
+      "isAdmin": false,
+      "points": 0,
+      "correctScores": 0,
+      "correctOutcomes": 0
+    }
+  ],
+  "predictions": {
+    "Nguyễn Hữu Phát-XDS": {
+      "m1": {
+        "score1": 0,
+        "score2": 1
+      }
+    },
+    "Nguyen Van Test-Kiem Thu": {
+      "m1": {
+        "score1": 2,
+        "score2": 1
+      }
+    }
+  }
+}
