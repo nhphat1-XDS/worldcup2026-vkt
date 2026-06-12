@@ -703,6 +703,11 @@ def apply_match_result(match, s1, s2, matches):
         third_match = next((m for m in matches if m["id"] == "third"), None)
         if third_match: third_match["team2"] = loser
 
+def normalize_name(name):
+    if not name:
+        return ""
+    return "".join(c.lower() for c in name if c.isalnum())
+
 def sync_results_from_24h(matches, users, predictions, is_local):
     url = 'https://www.24h.com.vn/world-cup-2026/ket-qua-thi-dau-bong-da-world-cup-2026-moi-nhat-c860a1747405.html'
     context = ssl._create_unverified_context()
@@ -713,33 +718,63 @@ def sync_results_from_24h(matches, users, predictions, is_local):
             soup = BeautifulSoup(res.read(), 'html.parser')
         match_divs = soup.find_all('div', class_='box-items')
         
-        if not match_divs or len(match_divs) != len(matches):
-            return False, f"Không thể lấy đúng danh sách trận đấu từ 24h (tìm thấy {len(match_divs)} trận)."
+        if not match_divs:
+            return False, "Không thể tải danh sách trận đấu từ 24h.com.vn."
             
+        parsed_results = []
+        for div in match_divs:
+            team_spans = div.find_all('span', class_='team-name')
+            if len(team_spans) >= 2:
+                team1 = team_spans[0].get_text(strip=True)
+                team2 = team_spans[1].get_text(strip=True)
+                
+                score_div = div.find('div', class_='box-score')
+                if not score_div:
+                    continue
+                    
+                score_t = score_div.find('div', class_='box-t')
+                score_str = score_t.get_text(strip=True) if score_t else score_div.get_text(strip=True)
+                
+                parsed_results.append({
+                    "team1": team1,
+                    "team2": team2,
+                    "score_str": score_str
+                })
+                
         updated = False
         update_msgs = []
         
-        for idx, m in enumerate(matches):
+        for m in matches:
             if m["status"] == "pending":
-                div = match_divs[idx]
-                score_div = div.find('div', class_='box-score')
-                score_str = score_div.get_text(strip=True) if score_div else ''
+                db_t1_norm = normalize_name(m["team1"])
+                db_t2_norm = normalize_name(m["team2"])
                 
-                # Check nếu có tỷ số dạng X - Y (chứ không phải "-")
-                if '-' in score_str and len(score_str.strip()) > 1:
-                    parts = score_str.split('-')
-                    if len(parts) == 2:
-                        try:
-                            s1 = int(parts[0].strip())
-                            s2 = int(parts[1].strip())
-                            
-                            # Cập nhật trận đấu này
-                            apply_match_result(m, s1, s2, matches)
-                            updated = True
-                            update_msgs.append(f"{m['team1']} {s1}-{s2} {m['team2']}")
-                        except:
-                            pass
-                            
+                match_found = None
+                for web_m in parsed_results:
+                    w_t1_norm = normalize_name(web_m["team1"])
+                    w_t2_norm = normalize_name(web_m["team2"])
+                    
+                    # So khớp mềm
+                    if (db_t1_norm == w_t1_norm or db_t1_norm in w_t1_norm or w_t1_norm in db_t1_norm) and \
+                       (db_t2_norm == w_t2_norm or db_t2_norm in w_t2_norm or w_t2_norm in db_t2_norm):
+                        match_found = web_m
+                        break
+                        
+                if match_found:
+                    score_str = match_found["score_str"]
+                    if '-' in score_str and len(score_str.strip()) > 1:
+                        parts = score_str.split('-')
+                        if len(parts) == 2:
+                            try:
+                                s1 = int(parts[0].strip())
+                                s2 = int(parts[1].strip())
+                                
+                                apply_match_result(m, s1, s2, matches)
+                                updated = True
+                                update_msgs.append(f"{m['team1']} {s1}-{s2} {m['team2']}")
+                            except:
+                                pass
+                                
         if updated:
             recalculate_local_points(matches, users, predictions)
             if not is_local:
@@ -751,6 +786,7 @@ def sync_results_from_24h(matches, users, predictions, is_local):
         
     except Exception as e:
         return False, f"Lỗi kết nối tới 24h.com.vn: {e}"
+
 
 # --- KHỞI TẠO STATE & TẢI DỮ LIỆU ---
 if 'logged_in' not in st.session_state:
