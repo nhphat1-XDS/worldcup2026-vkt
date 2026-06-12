@@ -5,10 +5,10 @@
       "team1": "Mexico",
       "team2": "Nam Phi",
       "date": "2026-06-12T02:00:00",
-      "status": "pending",
-      "score1": null,
-      "score2": null,
-      "outcome": null,
+      "status": "finished",
+      "score1": 2,
+      "score2": 0,
+      "outcome": "team1",
       "round": "group"
     },
     {
@@ -361,18 +361,9 @@
       "name": "Nguyễn Hữu Phát",
       "unit": "XDS",
       "isAdmin": false,
-      "points": 0,
+      "points": -1,
       "correctScores": 0,
-      "correctOutcomes": 0,
-      "unpredicted": 0
-    },
-    {
-      "name": "Nguyễn Hữu Phát",
-      "unit": "Xây dựng số",
-      "isAdmin": false,
-      "points": 0,
-      "correctScores": 0,
-      "correctOutcomes": 0,
+      "correctOutcomes": 1,
       "unpredicted": 0
     }
   ],
@@ -381,20 +372,6 @@
       "m1": {
         "score1": 0,
         "score2": 1
-      }
-    },
-    "Nguyễn Hữu Phát-Xây dựng số": {
-      "m2": {
-        "score1": 1,
-        "score2": 1
-      },
-      "m3": {
-        "score1": 2,
-        "score2": 1
-      },
-      "m4": {
-        "score1": 2,
-        "score2": 0
       }
     }
   }
