@@ -29,6 +29,15 @@ st.markdown("""
         font-family: 'Outfit', sans-serif !important;
     }
 
+    /* Đảm bảo chữ của st.radio luôn có màu trắng rõ nét */
+    div[data-testid="stRadio"] label p, 
+    div[data-testid="stRadio"] label span, 
+    div[data-testid="stRadio"] p {
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        opacity: 1 !important;
+    }
+
     /* Nền tối sâu kết hợp ảnh nền World Cup 2026 và lớp phủ mờ ảo */
     .stApp {
         background-image: linear-gradient(
@@ -540,8 +549,13 @@ def read_db():
             if res.status_code == 200:
                 data = res.json()
                 return data["matches"], data["users"], data["predictions"], False
+            else:
+                st.session_state.db_error = f"Google Sheets API trả về mã lỗi {res.status_code}"
         except Exception as e:
+            st.session_state.db_error = f"Lỗi kết nối mạng: {str(e)}"
             st.sidebar.warning(f"Lỗi kết nối Cloud DB, tự động chuyển về Offline Local: {e}")
+    else:
+        st.session_state.db_error = "Thiếu cấu hình 'GSHEETS_API_URL' trong Advanced Settings -> Secrets của trang Streamlit"
             
     if not os.path.exists(LOCAL_DB_FILE):
         os.makedirs(os.path.dirname(LOCAL_DB_FILE), exist_ok=True)
@@ -774,6 +788,11 @@ with col_status:
         st.markdown("<span class='status-badge pending'>Chế độ Ngoại tuyến (Local DB)</span>", unsafe_allow_html=True)
     else:
         st.markdown("<span class='status-badge finished' style='background: rgba(0, 230, 118, 0.15); color: #00e676; border-color: rgba(0,230,118,0.3);'>Chế độ Đám mây (Google Sheets)</span>", unsafe_allow_html=True)
+
+# Hiển thị thông tin lỗi kết nối chi tiết để người dùng tự khắc phục
+if is_local:
+    db_err_msg = st.session_state.get("db_error", "Không xác định")
+    st.error(f"⚠️ **Hệ thống đang chạy ở Chế độ Ngoại tuyến (Local DB) do mất kết nối dữ liệu:**\n\n`{db_err_msg}`\n\n👉 **Cách khắc phục:** Vui lòng kiểm tra và điền cấu hình `GSHEETS_API_URL` trong mục **Advanced settings -> Secrets** trên Streamlit Cloud của bạn. Dữ liệu trên Google Sheets vẫn an toàn 100%, chỉ cần kết nối lại là hiển thị đầy đủ ngay lập tức.")
 
 # --- MÀN HÌNH ĐĂNG NHẬP ---
 if not st.session_state.logged_in:
