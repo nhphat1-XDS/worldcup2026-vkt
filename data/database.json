@@ -16,10 +16,10 @@
       "team1": "Hàn Quốc",
       "team2": "CH Séc",
       "date": "2026-06-12T09:00:00",
-      "status": "pending",
-      "score1": null,
-      "score2": null,
-      "outcome": null,
+      "status": "finished",
+      "score1": 2,
+      "score2": 1,
+      "outcome": "team1",
       "round": "group"
     },
     {
@@ -361,44 +361,44 @@
       "name": "Nguyễn Hữu Phát",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -1,
+      "points": -2,
       "correctScores": 0,
-      "correctOutcomes": 1,
+      "correctOutcomes": 2,
       "unpredicted": 0
     },
     {
       "name": "Lê Đình Thắng",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -1,
+      "points": -2,
       "correctScores": 0,
-      "correctOutcomes": 0,
+      "correctOutcomes": 1,
       "unpredicted": 1
     },
     {
       "name": "Chu Lợi",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -1,
+      "points": -2,
       "correctScores": 0,
       "correctOutcomes": 0,
-      "unpredicted": 1
+      "unpredicted": 2
     },
     {
       "name": "Lợi Chu",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -1,
+      "points": -2,
       "correctScores": 0,
-      "correctOutcomes": 0,
+      "correctOutcomes": 1,
       "unpredicted": 1
     },
     {
       "name": "HB Hải",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -1,
-      "correctScores": 0,
+      "points": 1,
+      "correctScores": 1,
       "correctOutcomes": 0,
       "unpredicted": 1
     }
