@@ -864,7 +864,7 @@ if st.sidebar.button("Đăng xuất", use_container_width=True):
     st.rerun()
 
 # --- THIẾT LẬP CÁC TAB ---
-tabs = ["⚽ Dự Đoán Của Tôi", "🏆 Bảng Xếp Hạng", "📊 Dự Đoán Thành Viên"]
+tabs = ["⚽ Dự Đoán Của Tôi", "🏆 Bảng Xếp Hạng"]
 if st.session_state.is_admin:
     tabs.append("⚙️ Quản Trị (BTC)")
     
