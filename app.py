@@ -9,6 +9,7 @@ import time
 import urllib.request
 import ssl
 from bs4 import BeautifulSoup
+import base64
 
 GITHUB_REPO = "nhphat1-XDS/worldcup2026-vkt"
 DB_PATH_ON_GITHUB = "data/database.json"
