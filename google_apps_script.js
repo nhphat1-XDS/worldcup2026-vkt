@@ -596,6 +596,12 @@ function updateMatchesOnly() {
 }
 
 // Hàm tự động cào và cập nhật kết quả từ 24h.com.vn vào Google Sheets
+function normalizeName(name) {
+  if (!name) return "";
+  return name.toLowerCase().replace(/[^a-z0-9àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/g, "");
+}
+
+// Hàm tự động cào và cập nhật kết quả từ 24h.com.vn vào Google Sheets
 function syncResultsFrom24h() {
   var url = 'https://www.24h.com.vn/world-cup-2026/ket-qua-thi-dau-bong-da-world-cup-2026-moi-nhat-c860a1747405.html';
   try {
@@ -613,9 +619,35 @@ function syncResultsFrom24h() {
     
     var html = response.getContentText("UTF-8");
     var parts = html.split('class="box-items');
-    if (parts.length < 105) {
-      Logger.log("Số lượng trận đấu cào được không đủ 104 trận (chỉ tìm thấy " + (parts.length - 1) + ")");
-      return "Không tìm thấy đủ 104 trận đấu trên trang kết quả.";
+    if (parts.length < 2) {
+      Logger.log("Không tìm thấy trận đấu nào trên trang 24h.com.vn.");
+      return "Không tìm thấy trận đấu nào trên trang 24h.com.vn.";
+    }
+    
+    var parsedMatches = [];
+    for (var i = 1; i < parts.length; i++) {
+      var part = parts[i];
+      var teamRegex = /class="[^"]*?team-name[^"]*?"[^>]*?>([\s\S]*?)<\/span>/g;
+      var t1 = "";
+      var t2 = "";
+      var m1 = teamRegex.exec(part);
+      if (m1) t1 = m1[1].replace(/<[^>]*>/g, "").trim();
+      var m2 = teamRegex.exec(part);
+      if (m2) t2 = m2[1].replace(/<[^>]*>/g, "").trim();
+      
+      var scoreMatch = part.match(/class="box-score"[\s\S]*?class="box-t[\s\S]*?>([\s\S]*?)<\/div>/);
+      var scoreStr = "";
+      if (scoreMatch) {
+        scoreStr = scoreMatch[1].replace(/<[^>]*>/g, "").trim();
+      }
+      
+      if (t1 && t2) {
+        parsedMatches.push({
+          team1: t1,
+          team2: t2,
+          scoreStr: scoreStr
+        });
+      }
     }
     
     var sheet = SpreadsheetApp.getActiveSpreadsheet();
@@ -628,11 +660,23 @@ function syncResultsFrom24h() {
     for (var idx = 0; idx < matches.length; idx++) {
       var m = matches[idx];
       if (m.status === "pending") {
-        var part = parts[idx + 1]; // Phần tử 0 là phần trước trận 1
-        var scoreMatch = part.match(/class="box-score"[\s\S]*?class="box-t[\s\S]*?>([\s\S]*?)<\/div>/);
+        var db_t1_norm = normalizeName(m.team1);
+        var db_t2_norm = normalizeName(m.team2);
         
-        if (scoreMatch) {
-          var scoreStr = scoreMatch[1].trim();
+        var matchFound = null;
+        for (var j = 0; j < parsedMatches.length; j++) {
+          var w_t1_norm = normalizeName(parsedMatches[j].team1);
+          var w_t2_norm = normalizeName(parsedMatches[j].team2);
+          
+          if ((db_t1_norm === w_t1_norm || w_t1_norm.indexOf(db_t1_norm) !== -1 || db_t1_norm.indexOf(w_t1_norm) !== -1) &&
+              (db_t2_norm === w_t2_norm || w_t2_norm.indexOf(db_t2_norm) !== -1 || db_t2_norm.indexOf(w_t2_norm) !== -1)) {
+            matchFound = parsedMatches[j];
+            break;
+          }
+        }
+        
+        if (matchFound) {
+          var scoreStr = matchFound.scoreStr;
           if (scoreStr.indexOf('-') !== -1 && scoreStr.length > 1) {
             var scoreParts = scoreStr.split('-');
             var s1Str = scoreParts[0].trim();
@@ -698,6 +742,7 @@ function syncResultsFrom24h() {
     return "Lỗi đồng bộ: " + e.toString();
   }
 }
+
 
 // Tạo trigger chạy ngầm tự động mỗi 15 phút
 function createAutoSyncTrigger() {
