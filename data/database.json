@@ -383,6 +383,15 @@
       "correctScores": 0,
       "correctOutcomes": 0,
       "unpredicted": 0
+    },
+    {
+      "name": "Chu Lợi",
+      "unit": "XDS",
+      "isAdmin": false,
+      "points": 0,
+      "correctScores": 0,
+      "correctOutcomes": 0,
+      "unpredicted": 0
     }
   ],
   "predictions": {
