@@ -1190,6 +1190,15 @@
       "correctScores": 1,
       "correctOutcomes": 0,
       "unpredicted": 1
+    },
+    {
+      "name": "Nguyễn Thị  Hồng Thanh",
+      "unit": "XDS",
+      "isAdmin": false,
+      "points": 0,
+      "correctScores": 0,
+      "correctOutcomes": 0,
+      "unpredicted": 0
     }
   ],
   "predictions": {
