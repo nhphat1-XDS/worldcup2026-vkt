@@ -833,7 +833,7 @@ if st.sidebar.button("Đăng xuất", use_container_width=True):
     st.rerun()
 
 # --- THIẾT LẬP CÁC TAB ---
-tabs = ["⚽ Dự Đoán Của Tôi", "🏆 Bảng Xếp Hạng"]
+tabs = ["⚽ Dự Đoán Của Tôi", "🏆 Bảng Xếp Hạng", "📊 Dự Đoán Thành Viên"]
 if st.session_state.is_admin:
     tabs.append("⚙️ Quản Trị (BTC)")
     
@@ -1052,7 +1052,130 @@ elif selected_tab == "🏆 Bảng Xếp Hạng":
         st.markdown(html_code, unsafe_allow_html=True)
 
 
-# ================= TAB 3: SƠ ĐỒ THI ĐẤU =================
+# ================= TAB 3: DỰ ĐOÁN THÀNH VIÊN =================
+elif selected_tab == "📊 Dự Đoán Thành Viên":
+    st.write("---")
+    st.subheader("📊 Dự Đoán Của Các Thành Viên")
+    st.write("Xem tỷ số dự đoán của tất cả thành viên cho từng trận đấu. Bạn phải dự đoán trận đấu đó trước thì mới xem được dự đoán của người khác.")
+    
+    # Tạo danh sách chọn trận đấu
+    match_options = []
+    for m in matches:
+        date_formatted = datetime.fromisoformat(m["date"]).strftime("%d/%m %H:%M")
+        status_text = "Đã kết thúc" if m["status"] == "finished" else "Chưa diễn ra"
+        match_options.append(f"{m['id']} : {m['team1']} vs {m['team2']} ({date_formatted} - {status_text})")
+        
+    selected_match_opt = st.selectbox("Chọn trận đấu muốn xem dự đoán:", match_options)
+    
+    if selected_match_opt:
+        selected_match_id = selected_match_opt.split(" : ")[0]
+        selected_match = next((m for m in matches if m["id"] == selected_match_id), None)
+        
+        if selected_match:
+            # Kiểm tra xem người dùng hiện tại đã dự đoán trận này chưa
+            current_user_key = f"{st.session_state.username}-{st.session_state.unit}"
+            current_user_preds = predictions.get(current_user_key, {})
+            current_user_pred = current_user_preds.get(selected_match_id)
+            
+            has_self_pred = False
+            # Nếu người dùng hiện tại đã dự đoán (có tỷ số score1, score2 hợp lệ)
+            if current_user_pred and current_user_pred.get("score1") is not None and current_user_pred.get("score2") is not None:
+                has_self_pred = True
+                
+            # Hoặc là Admin, hoặc trận đấu đã kết thúc -> được quyền xem
+            is_allowed_to_view = has_self_pred or st.session_state.is_admin or selected_match["status"] == "finished"
+            
+            # 1. Vẽ thống kê tổng hợp nếu được phép xem
+            if is_allowed_to_view:
+                # Tính toán thống kê dự đoán
+                total_preds = 0
+                team1_wins = 0
+                draws = 0
+                team2_wins = 0
+                score_counts = {}
+                rows_list = []
+                
+                for u in users:
+                    if u["name"].lower() == "admin":
+                        continue
+                    u_key = f"{u['name'].strip()}-{u['unit'].strip()}"
+                    pred = predictions.get(u_key, {}).get(selected_match_id)
+                    
+                    if pred and pred.get("score1") is not None and pred.get("score2") is not None:
+                        try:
+                            p1 = int(pred["score1"])
+                            p2 = int(pred["score2"])
+                            total_preds += 1
+                            if p1 > p2: team1_wins += 1
+                            elif p1 < p2: team2_wins += 1
+                            else: draws += 1
+                            
+                            score_str = f"{p1}-{p2}"
+                            score_counts[score_str] = score_counts.get(score_str, 0) + 1
+                            
+                            rows_list.append({
+                                "Thành viên": u["name"],
+                                "Đơn vị": u["unit"],
+                                "Dự đoán": f"{p1} - {p2}"
+                            })
+                        except:
+                            pass
+                    else:
+                        rows_list.append({
+                            "Thành viên": u["name"],
+                            "Đơn vị": u["unit"],
+                            "Dự đoán": "Chưa dự đoán"
+                        })
+                
+                # Hiển thị biểu đồ thống kê
+                if total_preds > 0:
+                    st.write("")
+                    col_stat1, col_stat2 = st.columns([1, 1.2])
+                    with col_stat1:
+                        st.markdown(f"**Tổng số người đã dự đoán:** <span style='color:#ffd700; font-size:1.2rem; font-weight:800;'>{total_preds}</span>", unsafe_allow_html=True)
+                        
+                        pct_t1 = round((team1_wins / total_preds) * 100)
+                        pct_draw = round((draws / total_preds) * 100)
+                        pct_t2 = round((team2_wins / total_preds) * 100)
+                        
+                        st.write("**Tỉ lệ dự đoán kết quả:**")
+                        st.progress(team1_wins / total_preds, text=f"{selected_match['team1']} thắng: {pct_t1}%")
+                        st.progress(draws / total_preds, text=f"Hòa: {pct_draw}%")
+                        st.progress(team2_wins / total_preds, text=f"{selected_match['team2']} thắng: {pct_t2}%")
+                        
+                    with col_stat2:
+                        st.write("**Tỷ số được dự đoán nhiều nhất:**")
+                        popular_scores = sorted([{"score": k, "count": v} for k, v in score_counts.items()], key=lambda x: x["count"], reverse=True)
+                        cols_pop = st.columns(min(len(popular_scores), 4) if popular_scores else 1)
+                        if popular_scores:
+                            for idx, item in enumerate(popular_scores[:4]):
+                                with cols_pop[idx]:
+                                    st.markdown(f"<div style='background:rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius:10px; padding:10px; text-align:center;'><span style='font-size:1.1rem; font-weight:900; color:#ffd700;'>{item['score']}</span><br/><span style='font-size:0.75rem; color:#e2e8f0;'>({item['count']} người)</span></div>", unsafe_allow_html=True)
+                        else:
+                            st.info("Chưa có tỷ số cụ thể.")
+                
+                # Hiển thị danh sách chi tiết dưới dạng DataFrame
+                st.write("---")
+                st.write("**Danh sách chi tiết dự đoán:**")
+                if rows_list:
+                    df_preds = pd.DataFrame(rows_list)
+                    # Sắp xếp theo tên thành viên
+                    df_preds = df_preds.sort_values(by="Thành viên")
+                    st.dataframe(df_preds, hide_index=True, use_container_width=True)
+                else:
+                    st.info("Chưa có thành viên nào dự đoán.")
+            else:
+                # 2. Không được phép xem vì bản thân chưa dự đoán
+                st.write("")
+                st.markdown(
+                    f"<div style='background: rgba(255, 82, 82, 0.1); border: 1px solid rgba(255, 82, 82, 0.3); border-radius: 12px; padding: 20px; text-align: center;'>"
+                    f"<h3 style='color: #ff5252; margin: 0 0 10px 0;'>🔒 Nội dung bị khóa</h3>"
+                    f"<p style='color: #ffffff; font-weight: 500; font-size: 1rem; margin: 0;'>"
+                    f"Bạn chưa lưu dự đoán cho trận đấu này. Vui lòng quay lại tab <b>⚽ Dự Đoán Của Tôi</b>, nhập dự đoán của bạn cho trận đấu <b>{selected_match['team1']} vs {selected_match['team2']}</b> và bấm <b>Lưu</b> trước thì mới có thể xem được dự đoán của các thành viên khác!</p>"
+                    f"</div>", 
+                    unsafe_allow_html=True
+                )
+
 # ================= TAB 4: QUẢN TRỊ VIÊN (ADMIN) =================
 elif selected_tab == "⚙️ Quản Trị (BTC)" and st.session_state.is_admin:
     st.write("---")
