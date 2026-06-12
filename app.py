@@ -29,9 +29,17 @@ st.markdown("""
         font-family: 'Outfit', sans-serif !important;
     }
 
-    /* Nền tối sâu và các hiệu ứng phát sáng */
+    /* Nền tối sâu kết hợp ảnh nền World Cup 2026 và lớp phủ mờ ảo */
     .stApp {
-        background: radial-gradient(circle at 50% 0%, #0d1e36 0%, #071224 50%, #020712 100%) !important;
+        background-image: linear-gradient(
+            rgba(13, 30, 54, 0.82) 0%, 
+            rgba(7, 18, 36, 0.90) 50%, 
+            rgba(2, 7, 18, 0.96) 100%
+        ), url("https://raw.githubusercontent.com/nhphat1-XDS/worldcup2026-vkt/main/public/worldcup2026_bg.png") !important;
+        background-size: cover !important;
+        background-position: center top !important;
+        background-repeat: no-repeat !important;
+        background-attachment: fixed !important;
     }
     
     /* Cải thiện hiển thị nhãn widget của Streamlit (Độ tương phản cao) */
