@@ -406,10 +406,10 @@
       "name": "HB Hải",
       "unit": "XDS",
       "isAdmin": false,
-      "points": 0,
+      "points": -1,
       "correctScores": 0,
       "correctOutcomes": 0,
-      "unpredicted": 0
+      "unpredicted": 1
     }
   ],
   "predictions": {
@@ -451,6 +451,20 @@
       "m2": {
         "score1": 1,
         "score2": 2
+      }
+    },
+    "HB Hải-XDS": {
+      "m2": {
+        "score1": 2,
+        "score2": 1
+      },
+      "m3": {
+        "score1": 2,
+        "score2": 1
+      },
+      "m4": {
+        "score1": 2,
+        "score2": 1
       }
     }
   }
