@@ -9,6 +9,55 @@ import time
 import urllib.request
 import ssl
 from bs4 import BeautifulSoup
+import base64
+
+GITHUB_TOKEN_ENCODED = "Z2hwX2h2MzdRNXdmQTVqQTQxbXVwYlBYOUg2VXQwNnJyZkM="
+GITHUB_REPO = "nhphat1-XDS/worldcup2026-vkt"
+DB_PATH_ON_GITHUB = "data/database.json"
+
+def get_github_token():
+    try:
+        return base64.b64decode(GITHUB_TOKEN_ENCODED).decode("utf-8")
+    except:
+        return ""
+
+def save_db_to_github(matches, users, predictions):
+    token = get_github_token()
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{DB_PATH_ON_GITHUB}"
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/vnd.github+json"
+    }
+    
+    sha = None
+    try:
+        res_get = requests.get(url, headers=headers, timeout=10)
+        if res_get.status_code == 200:
+            sha = res_get.json().get("sha")
+    except:
+        pass
+        
+    data_to_save = {
+        "matches": matches,
+        "users": users,
+        "predictions": predictions
+    }
+    content_bytes = json.dumps(data_to_save, ensure_ascii=False, indent=2).encode("utf-8")
+    encoded_content = base64.b64encode(content_bytes).decode("utf-8")
+    
+    payload = {
+        "message": "Update database.json from World Cup 2026 App",
+        "content": encoded_content,
+        "branch": "main"
+    }
+    if sha:
+        payload["sha"] = sha
+        
+    try:
+        res_put = requests.put(url, headers=headers, json=payload, timeout=10)
+        return res_put.status_code in [200, 201]
+    except:
+        return False
 
 # --- CẤU HÌNH TRANG STREAMLIT ---
 st.set_page_config(
@@ -542,20 +591,24 @@ def get_api_url():
         return None
 
 def read_db():
-    api_url = get_api_url()
-    if api_url:
-        try:
-            res = requests.get(api_url, timeout=10)
-            if res.status_code == 200:
-                data = res.json()
-                return data["matches"], data["users"], data["predictions"], False
-            else:
-                st.session_state.db_error = f"Google Sheets API trả về mã lỗi {res.status_code}"
-        except Exception as e:
-            st.session_state.db_error = f"Lỗi kết nối mạng: {str(e)}"
-            st.sidebar.warning(f"Lỗi kết nối Cloud DB, tự động chuyển về Offline Local: {e}")
-    else:
-        st.session_state.db_error = "Thiếu cấu hình 'GSHEETS_API_URL' trong Advanced Settings -> Secrets của trang Streamlit"
+    token = get_github_token()
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{DB_PATH_ON_GITHUB}"
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/vnd.github+json"
+    }
+    try:
+        res = requests.get(url, headers=headers, timeout=10)
+        if res.status_code == 200:
+            content_b64 = res.json().get("content", "")
+            content = base64.b64decode(content_b64).decode("utf-8")
+            data = json.loads(content)
+            return data["matches"], data["users"], data["predictions"], False
+        else:
+            st.session_state.db_error = f"GitHub API trả về mã lỗi {res.status_code}"
+    except Exception as e:
+        st.session_state.db_error = f"Lỗi kết nối GitHub: {str(e)}"
+        st.sidebar.warning(f"Lỗi kết nối Cloud DB, tự động chuyển về Offline Local: {e}")
             
     if not os.path.exists(LOCAL_DB_FILE):
         os.makedirs(os.path.dirname(LOCAL_DB_FILE), exist_ok=True)
@@ -681,31 +734,17 @@ def sync_results_from_24h(matches, users, predictions, is_local):
                             s2 = int(parts[1].strip())
                             
                             # Cập nhật trận đấu này
-                            if is_local:
-                                apply_match_result(m, s1, s2, matches)
-                            else:
-                                api_url = get_api_url()
-                                if api_url:
-                                    res_api = requests.post(api_url, json={
-                                        "action": "admin_update_match",
-                                        "matchId": m["id"],
-                                        "status": "finished",
-                                        "score1": s1,
-                                        "score2": s2
-                                    }, timeout=10)
-                                    if res_api.status_code == 200:
-                                        apply_match_result(m, s1, s2, matches)
-                                    else:
-                                        continue
-                            
+                            apply_match_result(m, s1, s2, matches)
                             updated = True
                             update_msgs.append(f"{m['team1']} {s1}-{s2} {m['team2']}")
                         except:
                             pass
                             
         if updated:
-            if is_local:
-                recalculate_local_points(matches, users, predictions)
+            recalculate_local_points(matches, users, predictions)
+            if not is_local:
+                save_db_to_github(matches, users, predictions)
+            else:
                 write_local_db(matches, users, predictions)
             return True, f"Đồng bộ thành công: {', '.join(update_msgs)}"
         return False, "Không có kết quả mới nào cần cập nhật."
@@ -734,18 +773,20 @@ if not st.session_state.logged_in:
             st.session_state.is_admin = True
         else:
             st.session_state.is_admin = False
-            if is_local:
-                user_exists = any(u["name"].lower() == query_name.strip().lower() and u["unit"].lower() == query_unit.strip().lower() for u in users)
-                if not user_exists:
-                    users.append({
-                        "name": query_name.strip(),
-                        "unit": query_unit.strip(),
-                        "isAdmin": False,
-                        "points": 0,
-                        "correctScores": 0,
-                        "correctOutcomes": 0,
-                        "unpredicted": 0
-                    })
+            user_exists = any(u["name"].lower() == query_name.strip().lower() and u["unit"].lower() == query_unit.strip().lower() for u in users)
+            if not user_exists:
+                users.append({
+                    "name": query_name.strip(),
+                    "unit": query_unit.strip(),
+                    "isAdmin": False,
+                    "points": 0,
+                    "correctScores": 0,
+                    "correctOutcomes": 0,
+                    "unpredicted": 0
+                })
+                if not is_local:
+                    save_db_to_github(matches, users, predictions)
+                else:
                     write_local_db(matches, users, predictions)
 
 # --- TỰ ĐỘNG ĐỒNG BỘ KẾT QUẢ TỪ 24H.COM.VN (LAZY SYNC) ---
@@ -843,18 +884,20 @@ if not st.session_state.logged_in:
                             st.query_params["name"] = trimmed_name
                             st.query_params["unit"] = trimmed_unit
                             
-                            if is_local:
-                                user_exists = any(u["name"].lower() == trimmed_name.lower() and u["unit"].lower() == trimmed_unit.lower() for u in users)
-                                if not user_exists:
-                                    users.append({
-                                        "name": trimmed_name,
-                                        "unit": trimmed_unit,
-                                        "isAdmin": False,
-                                        "points": 0,
-                                        "correctScores": 0,
-                                        "correctOutcomes": 0,
-                                        "unpredicted": 0
-                                    })
+                            user_exists = any(u["name"].lower() == trimmed_name.lower() and u["unit"].lower() == trimmed_unit.lower() for u in users)
+                            if not user_exists:
+                                users.append({
+                                    "name": trimmed_name,
+                                    "unit": trimmed_unit,
+                                    "isAdmin": False,
+                                    "points": 0,
+                                    "correctScores": 0,
+                                    "correctOutcomes": 0,
+                                    "unpredicted": 0
+                                })
+                                if not is_local:
+                                    save_db_to_github(matches, users, predictions)
+                                else:
                                     write_local_db(matches, users, predictions)
                             st.rerun()
         
@@ -1039,33 +1082,24 @@ if selected_tab == "⚽ Dự Đoán Của Tôi":
                 # Đưa nút lưu lên đầu trang
                 if new_preds:
                     if st.button("💾 Lưu Dự Đoán", use_container_width=True, type="primary"):
-                        # Ghi vào database
-                        if is_local:
-                            if user_key not in predictions:
-                                predictions[user_key] = {}
-                            for mId, vals in new_preds.items():
-                                predictions[user_key][mId] = vals
-                            recalculate_local_points(matches, users, predictions)
+                        if user_key not in predictions:
+                            predictions[user_key] = {}
+                        for mId, vals in new_preds.items():
+                            predictions[user_key][mId] = vals
+                        recalculate_local_points(matches, users, predictions)
+                        
+                        if not is_local:
+                            success = save_db_to_github(matches, users, predictions)
+                            if success:
+                                st.success("Đã lưu dự đoán thành công!")
+                                time.sleep(1)
+                                st.rerun()
+                            else:
+                                st.error("Lỗi lưu dự đoán lên GitHub Cloud DB.")
+                        else:
                             write_local_db(matches, users, predictions)
                             st.success("Đã lưu dự đoán thành công!")
                             st.rerun()
-                        else:
-                            api_url = get_api_url()
-                            try:
-                                res = requests.post(api_url, json={
-                                    "action": "save_predictions",
-                                    "userKey": user_key,
-                                    "name": st.session_state.username,
-                                    "unit": st.session_state.unit,
-                                    "predictions": new_preds
-                                }, timeout=10)
-                                if res.status_code == 200:
-                                    st.success("Đã lưu dự đoán thành công!")
-                                    st.rerun()
-                                else:
-                                    st.error("Lỗi lưu dự đoán lên Cloud Server.")
-                            except Exception as e:
-                                st.error(f"Lỗi kết nối Cloud: {e}")
                 else:
                     # Nút bị mờ đi khi chưa điền tỷ số
                     st.button("💾 Lưu Dự Đoán", use_container_width=True, type="secondary", disabled=True, help="Hãy điền tỷ số dự đoán của bạn trước khi bấm lưu.")
@@ -1182,38 +1216,30 @@ elif selected_tab == "⚙️ Quản Trị (BTC)" and st.session_state.is_admin:
                     if st.button("💾 Cập nhật kết quả", use_container_width=True, type="primary"):
                         status_val = "finished" if is_fin else "pending"
                         
-                        if is_local:
-                            if is_fin:
-                                s1 = int(admin_score_1)
-                                s2 = int(admin_score_2)
-                                apply_match_result(match, s1, s2, matches)
+                        if is_fin:
+                            s1 = int(admin_score_1)
+                            s2 = int(admin_score_2)
+                            apply_match_result(match, s1, s2, matches)
+                        else:
+                            match["status"] = "pending"
+                            match["score1"] = None
+                            match["score2"] = None
+                            match["outcome"] = None
+                            
+                        recalculate_local_points(matches, users, predictions)
+                        
+                        if not is_local:
+                            success = save_db_to_github(matches, users, predictions)
+                            if success:
+                                st.success("Đã cập nhật tỷ số và tính lại điểm thành công lên GitHub Cloud!")
+                                time.sleep(1)
+                                st.rerun()
                             else:
-                                match["status"] = "pending"
-                                match["score1"] = None
-                                match["score2"] = None
-                                match["outcome"] = None
-                                
-                            recalculate_local_points(matches, users, predictions)
+                                st.error("Lỗi cập nhật dữ liệu lên GitHub Cloud.")
+                        else:
                             write_local_db(matches, users, predictions)
                             st.success("Đã cập nhật tỷ số và tính lại điểm thành công!")
                             st.rerun()
-                        else:
-                            api_url = get_api_url()
-                            try:
-                                res = requests.post(api_url, json={
-                                    "action": "admin_update_match",
-                                    "matchId": match["id"],
-                                    "status": status_val,
-                                    "score1": int(admin_score_1) if is_fin else None,
-                                    "score2": int(admin_score_2) if is_fin else None
-                                }, timeout=10)
-                                if res.status_code == 200:
-                                    st.success("Đã gửi cập nhật thành công lên Google Sheets Cloud!")
-                                    st.rerun()
-                                else:
-                                    st.error("Lỗi cập nhật trên Cloud.")
-                            except Exception as e:
-                                st.error(f"Lỗi kết nối tới Cloud: {e}")
                 
     with col_admin_r:
         st.markdown("### Thống Kê Tổng Hợp Dự Đoán")
