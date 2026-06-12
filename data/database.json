@@ -374,6 +374,15 @@
       "correctScores": 0,
       "correctOutcomes": 0,
       "unpredicted": 1
+    },
+    {
+      "name": "Lê Đình Thắng",
+      "unit": "XDS",
+      "isAdmin": false,
+      "points": 0,
+      "correctScores": 0,
+      "correctOutcomes": 0,
+      "unpredicted": 0
     }
   ],
   "predictions": {
