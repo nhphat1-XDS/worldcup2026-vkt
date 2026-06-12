@@ -397,10 +397,10 @@
       "name": "Lợi Chu",
       "unit": "XDS",
       "isAdmin": false,
-      "points": 0,
+      "points": -1,
       "correctScores": 0,
       "correctOutcomes": 0,
-      "unpredicted": 0
+      "unpredicted": 1
     }
   ],
   "predictions": {
@@ -428,6 +428,10 @@
       "m2": {
         "score1": 1,
         "score2": 1
+      },
+      "m4": {
+        "score1": 1,
+        "score2": 0
       }
     }
   }
