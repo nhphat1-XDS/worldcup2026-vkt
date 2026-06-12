@@ -365,6 +365,15 @@
       "correctScores": 0,
       "correctOutcomes": 0,
       "unpredicted": 0
+    },
+    {
+      "name": "Nguyễn Hữu Phát",
+      "unit": "Xây dựng số",
+      "isAdmin": false,
+      "points": 0,
+      "correctScores": 0,
+      "correctOutcomes": 0,
+      "unpredicted": 0
     }
   ],
   "predictions": {
