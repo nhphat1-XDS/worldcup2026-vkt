@@ -1241,6 +1241,47 @@ elif selected_tab == "⚙️ Quản Trị (BTC)" and st.session_state.is_admin:
                             st.success("Đã cập nhật tỷ số và tính lại điểm thành công!")
                             st.rerun()
                 
+        st.write("---")
+        st.markdown("### 👥 Quản Lý Thành Viên")
+        
+        non_admin_users = [u for u in users if u["name"].lower() != "admin"]
+        if non_admin_users:
+            user_options = [f"{u['name']} ({u['unit']})" for u in non_admin_users]
+            selected_user_to_delete = st.selectbox("Chọn thành viên muốn xóa", user_options)
+            
+            if st.button("🗑️ Xóa Thành Viên", use_container_width=True, type="secondary"):
+                parts = selected_user_to_delete.split(" (")
+                u_name = parts[0].strip()
+                u_unit = parts[1].replace(")", "").strip()
+                
+                # Cập nhật danh sách users
+                users = [u for u in users if not (u["name"] == u_name and u["unit"] == u_unit)]
+                
+                # Xóa dự đoán
+                user_key = f"{u_name}-{u_unit}"
+                if user_key in predictions:
+                    del predictions[user_key]
+                    
+                # Tính toán lại điểm số
+                recalculate_local_points(matches, users, predictions)
+                
+                # Lưu database
+                if not is_local:
+                    success = save_db_to_github(matches, users, predictions)
+                    if success:
+                        st.success(f"Đã xóa thành viên '{selected_user_to_delete}' thành công!")
+                        time.sleep(1.5)
+                        st.rerun()
+                    else:
+                        st.error("Lỗi xóa thành viên trên GitHub Cloud DB.")
+                else:
+                    write_local_db(matches, users, predictions)
+                    st.success(f"Đã xóa thành viên '{selected_user_to_delete}' thành công!")
+                    time.sleep(1.5)
+                    st.rerun()
+        else:
+            st.info("Chưa có thành viên nào đăng ký tham gia.")
+                
     with col_admin_r:
         st.markdown("### Thống Kê Tổng Hợp Dự Đoán")
         
