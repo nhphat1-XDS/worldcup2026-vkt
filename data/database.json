@@ -365,14 +365,95 @@
       "correctScores": 0,
       "correctOutcomes": 1,
       "unpredicted": 0
+    },
+    {
+      "name": "Lê Đình Thắng",
+      "unit": "XDS",
+      "isAdmin": false,
+      "points": -1,
+      "correctScores": 0,
+      "correctOutcomes": 0,
+      "unpredicted": 1
+    },
+    {
+      "name": "Chu Lợi",
+      "unit": "XDS",
+      "isAdmin": false,
+      "points": -1,
+      "correctScores": 0,
+      "correctOutcomes": 0,
+      "unpredicted": 1
+    },
+    {
+      "name": "Lợi Chu",
+      "unit": "XDS",
+      "isAdmin": false,
+      "points": -1,
+      "correctScores": 0,
+      "correctOutcomes": 0,
+      "unpredicted": 1
+    },
+    {
+      "name": "HB Hải",
+      "unit": "XDS",
+      "isAdmin": false,
+      "points": -1,
+      "correctScores": 0,
+      "correctOutcomes": 0,
+      "unpredicted": 1
     }
   ],
   "predictions": {
     "Nguyễn Hữu Phát-XDS": {
       "m1": {
         "score1": 0,
-        "score2": 1,
-        "created_at": "12/06/2026 09:43:33"
+        "score2": 1
+      },
+      "m2": {
+        "score1": 1,
+        "score2": 1
+      },
+      "m3": {
+        "score1": 2,
+        "score2": 1
+      },
+      "m4": {
+        "score1": 2,
+        "score2": 0
+      }
+    },
+    "Lê Đình Thắng-XDS": {
+      "m2": {
+        "score1": 1,
+        "score2": 1
+      },
+      "m4": {
+        "score1": 1,
+        "score2": 0
+      },
+      "m3": {
+        "score1": 1,
+        "score2": 1
+      }
+    },
+    "Lợi Chu-XDS": {
+      "m2": {
+        "score1": 1,
+        "score2": 2
+      }
+    },
+    "HB Hải-XDS": {
+      "m2": {
+        "score1": 2,
+        "score2": 1
+      },
+      "m3": {
+        "score1": 2,
+        "score2": 1
+      },
+      "m4": {
+        "score1": 2,
+        "score2": 1
       }
     }
   }
