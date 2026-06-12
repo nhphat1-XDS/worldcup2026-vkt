@@ -155,6 +155,47 @@ function doPost(e) {
       return ContentService.createTextOutput(JSON.stringify({ success: true }))
         .setMimeType(ContentService.MimeType.JSON);
     }
+  } else if (action === "import_database") {
+    var matches = postData.matches;
+    var users = postData.users;
+    var predictions = postData.predictions;
+    
+    // Ghi đè Matches sheet
+    var matchesSheet = sheet.getSheetByName("Matches");
+    if (matchesSheet) {
+      matchesSheet.clear();
+      matchesSheet.appendRow(["id", "team1", "team2", "date", "status", "score1", "score2", "outcome", "round", "nextMatchId"]);
+      matches.forEach(function(m) {
+        matchesSheet.appendRow([m.id, m.team1, m.team2, m.date, m.status, m.score1, m.score2, m.outcome, m.round, m.nextMatchId || ""]);
+      });
+    }
+    
+    // Ghi đè Users sheet
+    var usersSheet = sheet.getSheetByName("Users");
+    if (usersSheet) {
+      usersSheet.clear();
+      usersSheet.appendRow(["name", "unit", "isAdmin", "points", "correctScores", "correctOutcomes", "unpredicted"]);
+      users.forEach(function(u) {
+        usersSheet.appendRow([u.name, u.unit, u.isAdmin, u.points || 0, u.correctScores || 0, u.correctOutcomes || 0, u.unpredicted || 0]);
+      });
+    }
+    
+    // Ghi đè Predictions sheet
+    var predsSheet = sheet.getSheetByName("Predictions");
+    if (predsSheet) {
+      predsSheet.clear();
+      predsSheet.appendRow(["userKey", "matchId", "score1", "score2"]);
+      Object.keys(predictions).forEach(function(userKey) {
+        var userPreds = predictions[userKey];
+        Object.keys(userPreds).forEach(function(matchId) {
+          var p = userPreds[matchId];
+          predsSheet.appendRow([userKey, matchId, p.score1, p.score2]);
+        });
+      });
+    }
+    
+    return ContentService.createTextOutput(JSON.stringify({ success: true }))
+      .setMimeType(ContentService.MimeType.JSON);
   }
   
   return ContentService.createTextOutput(JSON.stringify({ error: "Invalid Action" }))
