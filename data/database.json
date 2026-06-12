@@ -367,15 +367,6 @@
       "unpredicted": 0
     },
     {
-      "name": "Nguyễn Hữu Phát",
-      "unit": "Xây dựng số",
-      "isAdmin": false,
-      "points": -1,
-      "correctScores": 0,
-      "correctOutcomes": 0,
-      "unpredicted": 1
-    },
-    {
       "name": "Lê Đình Thắng",
       "unit": "XDS",
       "isAdmin": false,
@@ -417,20 +408,6 @@
       "m1": {
         "score1": 0,
         "score2": 1
-      }
-    },
-    "Nguyễn Hữu Phát-Xây dựng số": {
-      "m2": {
-        "score1": 1,
-        "score2": 1
-      },
-      "m3": {
-        "score1": 2,
-        "score2": 1
-      },
-      "m4": {
-        "score1": 2,
-        "score2": 0
       }
     },
     "Lê Đình Thắng-XDS": {
