@@ -1226,6 +1226,15 @@
       "correctScores": 0,
       "correctOutcomes": 1,
       "unpredicted": 2
+    },
+    {
+      "name": "Tạ Ngọc Bình",
+      "unit": "XDS",
+      "isAdmin": false,
+      "points": 0,
+      "correctScores": 0,
+      "correctOutcomes": 0,
+      "unpredicted": 0
     }
   ],
   "predictions": {
