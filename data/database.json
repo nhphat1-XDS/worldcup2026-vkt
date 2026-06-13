@@ -27,10 +27,10 @@
       "team1": "Canada",
       "team2": "Bosnia",
       "date": "2026-06-13T02:00:00",
-      "status": "pending",
-      "score1": null,
-      "score2": null,
-      "outcome": null,
+      "status": "finished",
+      "score1": 1,
+      "score2": 1,
+      "outcome": "draw",
       "round": "group"
     },
     {
@@ -1150,17 +1150,17 @@
       "name": "Nguyễn Hữu Phát",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -2,
+      "points": -3,
       "correctScores": 0,
-      "correctOutcomes": 2,
+      "correctOutcomes": 3,
       "unpredicted": 0
     },
     {
       "name": "Lê Đình Thắng",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -2,
-      "correctScores": 0,
+      "points": 0,
+      "correctScores": 1,
       "correctOutcomes": 1,
       "unpredicted": 1
     },
@@ -1168,63 +1168,63 @@
       "name": "Chu Lợi",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -2,
+      "points": -3,
       "correctScores": 0,
       "correctOutcomes": 0,
-      "unpredicted": 2
+      "unpredicted": 3
     },
     {
       "name": "Lợi Chu",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -2,
+      "points": -3,
       "correctScores": 0,
       "correctOutcomes": 1,
-      "unpredicted": 1
+      "unpredicted": 2
     },
     {
       "name": "HB Hải",
       "unit": "XDS",
       "isAdmin": false,
-      "points": 1,
+      "points": 0,
       "correctScores": 1,
-      "correctOutcomes": 0,
+      "correctOutcomes": 1,
       "unpredicted": 1
     },
     {
       "name": "Nguyễn Thị  Hồng Thanh",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -2,
+      "points": -3,
       "correctScores": 0,
       "correctOutcomes": 0,
-      "unpredicted": 2
+      "unpredicted": 3
     },
     {
       "name": "Nguyễn Thị Hồng Thanh",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -2,
+      "points": -3,
       "correctScores": 0,
       "correctOutcomes": 0,
-      "unpredicted": 2
+      "unpredicted": 3
     },
     {
       "name": "Nguyễn hồng thanh",
       "unit": "Xds",
       "isAdmin": false,
-      "points": -2,
+      "points": -3,
       "correctScores": 0,
       "correctOutcomes": 0,
-      "unpredicted": 2
+      "unpredicted": 3
     },
     {
       "name": "Thanh",
       "unit": "Xds",
       "isAdmin": false,
-      "points": -2,
+      "points": -3,
       "correctScores": 0,
-      "correctOutcomes": 0,
+      "correctOutcomes": 1,
       "unpredicted": 2
     }
   ],
