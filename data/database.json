@@ -1213,10 +1213,10 @@
       "name": "Phi Ngoc Anh Khai",
       "unit": "XDS",
       "isAdmin": false,
-      "points": 0,
+      "points": -4,
       "correctScores": 0,
       "correctOutcomes": 0,
-      "unpredicted": 0
+      "unpredicted": 4
     }
   ],
   "predictions": {
@@ -1442,6 +1442,13 @@
         "score1": 1,
         "score2": 2,
         "created_at": "13/06/2026 13:16:35"
+      }
+    },
+    "Phi Ngoc Anh Khai-XDS": {
+      "m7": {
+        "score1": 1,
+        "score2": 3,
+        "created_at": "13/06/2026 15:18:50"
       }
     }
   }
