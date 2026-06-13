@@ -219,7 +219,9 @@ st.markdown("""
         text-align: center !important;
         font-size: 1.15rem !important;
         font-weight: 800 !important;
-        padding: 4px 0 !important;
+        padding: 0px !important;
+        height: 38px !important;
+        line-height: 38px !important;
         box-shadow: 0 3px 8px rgba(0,0,0,0.3) !important;
         transition: border-color 0.2s ease !important;
     }
@@ -436,6 +438,20 @@ st.markdown("""
         color: #ffd700 !important;
         font-size: 1.1rem !important;
         text-shadow: 0 0 10px rgba(255, 215, 0, 0.3) !important;
+    }
+    
+    /* Thiết lập xếp chồng cột trên thiết bị di động (mobile) */
+    @media (max-width: 768px) {
+        /* Chỉ xếp chồng các cột cấp cao (grid trận đấu, khung đăng nhập, trang admin) */
+        div[data-testid="stHorizontalBlock"]:not(div[data-testid="stVerticalBlockBorderContainer"] div[data-testid="stHorizontalBlock"]) > div[data-testid="column"] {
+            width: 100% !important;
+            flex: 1 1 100% !important;
+            min-width: 100% !important;
+        }
+        /* Ẩn các cột trống phụ ở trang đăng nhập để tránh khoảng trắng thừa */
+        div[data-testid="stHorizontalBlock"]:not(div[data-testid="stVerticalBlockBorderContainer"] div[data-testid="stHorizontalBlock"]) > div[data-testid="column"]:not(:has(div[data-testid="element-container"])) {
+            display: none !important;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -970,9 +986,10 @@ if st.sidebar.button("Đăng xuất", use_container_width=True):
     st.rerun()
 
 # --- THIẾT LẬP CÁC TAB ---
-tabs = ["⚽ Dự Đoán Của Tôi", "🏆 Bảng Xếp Hạng"]
 if st.session_state.is_admin:
-    tabs.append("⚙️ Quản Trị (BTC)")
+    tabs = ["🏆 Bảng Xếp Hạng", "⚙️ Quản Trị (BTC)"]
+else:
+    tabs = ["⚽ Dự Đoán Của Tôi", "🏆 Bảng Xếp Hạng"]
     
 selected_tab = st.radio("Thanh điều hướng", tabs, horizontal=True, label_visibility="collapsed")
 
