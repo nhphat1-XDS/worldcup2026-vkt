@@ -1204,10 +1204,10 @@
       "name": "Thanh",
       "unit": "Xds",
       "isAdmin": false,
-      "points": 0,
+      "points": -4,
       "correctScores": 0,
       "correctOutcomes": 0,
-      "unpredicted": 0
+      "unpredicted": 4
     }
   ],
   "predictions": {
@@ -1411,6 +1411,23 @@
         "score1": 3,
         "score2": 0,
         "created_at": "13/06/2026 09:57:23"
+      }
+    },
+    "Thanh-Xds": {
+      "m5": {
+        "score1": 1,
+        "score2": 2,
+        "created_at": "13/06/2026 13:08:37"
+      },
+      "m6": {
+        "score1": 4,
+        "score2": 0,
+        "created_at": "13/06/2026 13:08:37"
+      },
+      "m8": {
+        "score1": 1,
+        "score2": 2,
+        "created_at": "13/06/2026 13:08:37"
       }
     }
   }
