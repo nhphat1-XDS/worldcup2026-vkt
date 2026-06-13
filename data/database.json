@@ -1201,15 +1201,6 @@
       "unpredicted": 4
     },
     {
-      "name": "Thanh",
-      "unit": "Xds",
-      "isAdmin": false,
-      "points": -4,
-      "correctScores": 0,
-      "correctOutcomes": 2,
-      "unpredicted": 2
-    },
-    {
       "name": "Tạ Ngọc Bình",
       "unit": "XDS",
       "isAdmin": false,
@@ -1381,23 +1372,6 @@
         "score1": 2,
         "score2": 1,
         "created_at": "12/06/2026 12:11:33"
-      }
-    },
-    "Thanh-Xds": {
-      "m3": {
-        "score1": 2,
-        "score2": 11,
-        "created_at": "12/06/2026 22:48:16"
-      },
-      "m4": {
-        "score1": 0,
-        "score2": 0,
-        "created_at": "12/06/2026 22:48:16"
-      },
-      "m6": {
-        "score1": 5,
-        "score2": 0,
-        "created_at": "12/06/2026 22:48:16"
       }
     },
     "Chu Lợi-XDS": {
