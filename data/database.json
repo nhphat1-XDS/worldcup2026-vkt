@@ -115,10 +115,10 @@
       "team1": "Bờ Biển Ngà",
       "team2": "Ecuador",
       "date": "2026-06-15T06:00:00",
-      "status": "pending",
-      "score1": null,
-      "score2": null,
-      "outcome": null,
+      "status": "finished",
+      "score1": 1,
+      "score2": 0,
+      "outcome": "team1",
       "round": "group"
     },
     {
@@ -1150,73 +1150,73 @@
       "name": "Nguyễn Hữu Phát",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -10,
+      "points": -11,
       "correctScores": 0,
-      "correctOutcomes": 10,
+      "correctOutcomes": 11,
       "unpredicted": 0
     },
     {
       "name": "Lê Đình Thắng",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -7,
+      "points": -8,
       "correctScores": 1,
-      "correctOutcomes": 5,
+      "correctOutcomes": 6,
       "unpredicted": 4
     },
     {
       "name": "Chu Lợi",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -10,
+      "points": -11,
       "correctScores": 0,
       "correctOutcomes": 1,
-      "unpredicted": 9
+      "unpredicted": 10
     },
     {
       "name": "Lợi Chu",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -10,
+      "points": -11,
       "correctScores": 0,
       "correctOutcomes": 1,
-      "unpredicted": 9
+      "unpredicted": 10
     },
     {
       "name": "HB Hải",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -7,
+      "points": -8,
       "correctScores": 1,
       "correctOutcomes": 2,
-      "unpredicted": 7
+      "unpredicted": 8
     },
     {
       "name": "Tạ Ngọc Bình",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -7,
+      "points": -8,
       "correctScores": 1,
       "correctOutcomes": 2,
-      "unpredicted": 7
+      "unpredicted": 8
     },
     {
       "name": "Thanh",
       "unit": "Xds",
       "isAdmin": false,
-      "points": -10,
+      "points": -11,
       "correctScores": 0,
-      "correctOutcomes": 6,
+      "correctOutcomes": 7,
       "unpredicted": 4
     },
     {
       "name": "Phi Ngoc Anh Khai",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -10,
+      "points": -11,
       "correctScores": 0,
       "correctOutcomes": 1,
-      "unpredicted": 9
+      "unpredicted": 10
     }
   ],
   "predictions": {
