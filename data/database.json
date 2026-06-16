@@ -1165,15 +1165,6 @@
       "unpredicted": 4
     },
     {
-      "name": "Chu Lợi",
-      "unit": "XDS",
-      "isAdmin": false,
-      "points": -16,
-      "correctScores": 0,
-      "correctOutcomes": 1,
-      "unpredicted": 15
-    },
-    {
       "name": "Lợi Chu",
       "unit": "XDS",
       "isAdmin": false,
@@ -1431,13 +1422,6 @@
         "score1": 2,
         "score2": 1,
         "created_at": "12/06/2026 12:11:33"
-      }
-    },
-    "Chu Lợi-XDS": {
-      "m4": {
-        "score1": 2,
-        "score2": 2,
-        "created_at": "13/06/2026 08:12:41"
       }
     },
     "Tạ Ngọc Bình-XDS": {
