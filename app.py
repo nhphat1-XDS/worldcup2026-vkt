@@ -210,35 +210,51 @@ st.markdown("""
         text-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
     }
     
-    /* Cải biến ô nhập số st.number_input (Sáng sủa, chữ to rõ) */
-    div[data-testid="stNumberInput"] input {
-        color: #ffffff !important;
+    /* Cải biến ô nhập số st.number_input (Sáng sủa, chữ to rõ, không bị lỗi hiển thị) */
+    div[data-testid="stNumberInput"] > div {
         background-color: rgba(13, 22, 38, 0.95) !important;
         border: 2px solid rgba(255, 255, 255, 0.2) !important;
         border-radius: 10px !important;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.3) !important;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+    }
+    div[data-testid="stNumberInput"] > div:focus-within {
+        border-color: #00e676 !important;
+        box-shadow: 0 0 10px rgba(0, 230, 118, 0.3) !important;
+    }
+    div[data-testid="stNumberInput"] input {
+        color: #ffffff !important;
+        background-color: transparent !important;
+        border: none !important;
+        width: 100% !important;
         text-align: center !important;
         font-size: 1.15rem !important;
         font-weight: 800 !important;
         padding: 0px !important;
         height: 38px !important;
         line-height: 38px !important;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.3) !important;
-        transition: border-color 0.2s ease !important;
+        outline: none !important;
+        box-shadow: none !important;
     }
     div[data-testid="stNumberInput"] input:focus {
-        border-color: #00e676 !important;
-        box-shadow: 0 0 10px rgba(0, 230, 118, 0.3) !important;
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
     }
     /* Hiển thị tỷ số rõ ràng khi ô nhập bị disabled */
     div[data-testid="stNumberInput"] input:disabled {
         color: #00e676 !important;
         -webkit-text-fill-color: #00e676 !important;
-        background-color: rgba(13, 22, 38, 0.75) !important;
+        background-color: transparent !important;
         opacity: 1 !important;
-        border-color: rgba(0, 230, 118, 0.3) !important;
         font-weight: 900 !important;
     }
-    /* Ẩn nút tăng giảm của number input Streamlit */
+    div[data-testid="stNumberInput"] > div:has(input:disabled) {
+        background-color: rgba(13, 22, 38, 0.75) !important;
+        border-color: rgba(0, 230, 118, 0.3) !important;
+        opacity: 1 !important;
+    }
+    /* Ẩn các nút tăng giảm mặc định */
     div[data-testid="stNumberInput"] button {
         display: none !important;
     }
