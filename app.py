@@ -211,6 +211,11 @@ st.markdown("""
     }
     
     /* Cải biến ô nhập số st.number_input (Sáng sủa, chữ to rõ, không bị lỗi hiển thị) */
+    div[data-testid="stNumberInput"] div div {
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
     div[data-testid="stNumberInput"] > div {
         background-color: rgba(13, 22, 38, 0.95) !important;
         border: 2px solid rgba(255, 255, 255, 0.2) !important;
