@@ -211,29 +211,32 @@ st.markdown("""
     }
     
     /* Cải biến ô nhập số st.number_input (Sáng sủa, chữ to rõ, không bị lỗi hiển thị) */
+    div[data-testid="stNumberInput"] [data-baseweb="input"],
+    div[data-testid="stNumberInput"] [data-baseweb="input"] > div,
     div[data-testid="stNumberInput"] div div {
         background-color: transparent !important;
         border: none !important;
         box-shadow: none !important;
     }
     div[data-testid="stNumberInput"] > div {
-        background-color: rgba(13, 22, 38, 0.95) !important;
-        border: 2px solid rgba(255, 255, 255, 0.2) !important;
+        background-color: #ffffff !important; /* Luôn là nền trắng nổi bật */
+        border: 2px solid #cbd5e1 !important; /* Viền xám nhạt tinh tế */
         border-radius: 10px !important;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.3) !important;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.1) !important;
         transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
     }
     div[data-testid="stNumberInput"] > div:focus-within {
-        border-color: #00e676 !important;
-        box-shadow: 0 0 10px rgba(0, 230, 118, 0.3) !important;
+        border-color: #00e676 !important; /* Viền xanh khi đang chọn */
+        box-shadow: 0 0 10px rgba(0, 230, 118, 0.25) !important;
     }
     div[data-testid="stNumberInput"] input {
-        color: #ffffff !important;
+        color: #0f172a !important; /* Chữ màu xanh đen Slate 900 rất dễ nhìn */
+        -webkit-text-fill-color: #0f172a !important; /* Ép màu chữ trên iOS */
         background-color: transparent !important;
         border: none !important;
         width: 100% !important;
         text-align: center !important;
-        font-size: 1.15rem !important;
+        font-size: 1.25rem !important; /* Chữ to rõ ràng hơn */
         font-weight: 800 !important;
         padding: 0px !important;
         height: 38px !important;
@@ -248,15 +251,15 @@ st.markdown("""
     }
     /* Hiển thị tỷ số rõ ràng khi ô nhập bị disabled */
     div[data-testid="stNumberInput"] input:disabled {
-        color: #00e676 !important;
-        -webkit-text-fill-color: #00e676 !important;
+        color: #059669 !important; /* Màu xanh lá đậm để biểu thị trạng thái đã khóa nhưng vẫn rõ ràng */
+        -webkit-text-fill-color: #059669 !important; /* Ép màu chữ trên iOS khi disabled */
         background-color: transparent !important;
         opacity: 1 !important;
         font-weight: 900 !important;
     }
     div[data-testid="stNumberInput"] > div:has(input:disabled) {
-        background-color: rgba(13, 22, 38, 0.75) !important;
-        border-color: rgba(0, 230, 118, 0.3) !important;
+        background-color: #f1f5f9 !important; /* Nền xám nhạt khi bị khóa */
+        border-color: #cbd5e1 !important;
         opacity: 1 !important;
     }
     /* Ẩn các nút tăng giảm mặc định */
