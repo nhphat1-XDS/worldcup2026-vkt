@@ -1159,7 +1159,7 @@
       "name": "Lê Đình Thắng",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -21,
+      "points": -23,
       "correctScores": 1,
       "correctOutcomes": 19,
       "unpredicted": 4
@@ -1168,7 +1168,7 @@
       "name": "Lợi Chu",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -18,
+      "points": -22,
       "correctScores": 2,
       "correctOutcomes": 7,
       "unpredicted": 15
@@ -1177,7 +1177,7 @@
       "name": "HB Hải",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -18,
+      "points": -22,
       "correctScores": 2,
       "correctOutcomes": 9,
       "unpredicted": 13
@@ -1186,7 +1186,7 @@
       "name": "Tạ Ngọc Bình",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -21,
+      "points": -23,
       "correctScores": 1,
       "correctOutcomes": 2,
       "unpredicted": 21
@@ -1195,7 +1195,7 @@
       "name": "Thanh",
       "unit": "Xds",
       "isAdmin": false,
-      "points": -18,
+      "points": -22,
       "correctScores": 2,
       "correctOutcomes": 18,
       "unpredicted": 4
@@ -1204,7 +1204,7 @@
       "name": "Phi Ngoc Anh Khai",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -21,
+      "points": -23,
       "correctScores": 1,
       "correctOutcomes": 8,
       "unpredicted": 15
@@ -2446,6 +2446,46 @@
         "score1": 1,
         "score2": 2,
         "created_at": "15/06/2026 16:10:56"
+      },
+      "m25": {
+        "score1": 2,
+        "score2": 2,
+        "created_at": "18/06/2026 17:03:23"
+      },
+      "m26": {
+        "score1": 1,
+        "score2": 2,
+        "created_at": "18/06/2026 17:03:23"
+      },
+      "m27": {
+        "score1": 0,
+        "score2": 0,
+        "created_at": "18/06/2026 17:03:23"
+      },
+      "m28": {
+        "score1": 2,
+        "score2": 2,
+        "created_at": "18/06/2026 17:03:23"
+      },
+      "m29": {
+        "score1": 1,
+        "score2": 1,
+        "created_at": "18/06/2026 17:03:23"
+      },
+      "m30": {
+        "score1": 1,
+        "score2": 1,
+        "created_at": "18/06/2026 17:03:23"
+      },
+      "m31": {
+        "score1": 3,
+        "score2": 0,
+        "created_at": "18/06/2026 17:03:23"
+      },
+      "m32": {
+        "score1": 1,
+        "score2": 1,
+        "created_at": "18/06/2026 17:03:23"
       }
     },
     "Phi Ngoc Anh Khai-XDS": {
