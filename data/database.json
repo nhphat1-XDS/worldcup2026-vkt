@@ -258,10 +258,10 @@
       "team1": "Uzbekistan",
       "team2": "Colombia",
       "date": "2026-06-18T09:00:00",
-      "status": "pending",
-      "score1": null,
-      "score2": null,
-      "outcome": null,
+      "status": "finished",
+      "score1": 1,
+      "score2": 3,
+      "outcome": "team2",
       "round": "group"
     },
     {
@@ -1150,63 +1150,63 @@
       "name": "Nguyễn Hữu Phát",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -23,
+      "points": -24,
       "correctScores": 0,
-      "correctOutcomes": 23,
+      "correctOutcomes": 24,
       "unpredicted": 0
     },
     {
       "name": "Lê Đình Thắng",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -20,
+      "points": -21,
       "correctScores": 1,
-      "correctOutcomes": 18,
+      "correctOutcomes": 19,
       "unpredicted": 4
     },
     {
       "name": "Lợi Chu",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -17,
+      "points": -18,
       "correctScores": 2,
-      "correctOutcomes": 6,
+      "correctOutcomes": 7,
       "unpredicted": 15
     },
     {
       "name": "HB Hải",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -17,
+      "points": -18,
       "correctScores": 2,
-      "correctOutcomes": 8,
+      "correctOutcomes": 9,
       "unpredicted": 13
     },
     {
       "name": "Tạ Ngọc Bình",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -20,
+      "points": -21,
       "correctScores": 1,
       "correctOutcomes": 2,
-      "unpredicted": 20
+      "unpredicted": 21
     },
     {
       "name": "Thanh",
       "unit": "Xds",
       "isAdmin": false,
-      "points": -17,
+      "points": -18,
       "correctScores": 2,
-      "correctOutcomes": 17,
+      "correctOutcomes": 18,
       "unpredicted": 4
     },
     {
       "name": "Phi Ngoc Anh Khai",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -20,
+      "points": -21,
       "correctScores": 1,
-      "correctOutcomes": 7,
+      "correctOutcomes": 8,
       "unpredicted": 15
     }
   ],
