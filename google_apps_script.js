@@ -416,7 +416,7 @@ function recalculatePoints(sheet) {
         var p2 = parseInt(pred.score2);
         if (!isNaN(p1) && !isNaN(p2)) {
           if (p1 === act1 && p2 === act2) {
-            user.points += 2;
+            user.points += 0;
             user.correctScores += 1;
           } else {
             user.points -= 1;
