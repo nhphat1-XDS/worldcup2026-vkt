@@ -702,7 +702,7 @@ def recalculate_local_points(matches, users, predictions):
                     pred1 = int(pred["score1"])
                     pred2 = int(pred["score2"])
                     if pred1 == act1 and pred2 == act2:
-                        u["points"] += 2
+                        u["points"] += 0
                         u["correctScores"] += 1
                     else:
                         u["points"] -= 1
@@ -1037,7 +1037,7 @@ if selected_tab == "⚽ Dự Đoán Của Tôi":
             with col_pts1:
                 st.metric("Tổng Điểm Số", f"{user_rank_info['points']} điểm")
             with col_pts2:
-                st.metric("Số Trận Đoán Đúng (+2đ)", f"{user_rank_info['correctScores']} trận")
+                st.metric("Số Trận Đoán Đúng (+0đ)", f"{user_rank_info['correctScores']} trận")
             with col_pts3:
                 st.metric("Số Trận Đoán Sai (-1đ)", f"{user_rank_info['correctOutcomes']} trận")
             st.write("---")
@@ -1115,7 +1115,7 @@ if selected_tab == "⚽ Dự Đoán Của Tôi":
                             p1 = int(pred["score1"])
                             p2 = int(pred["score2"])
                             if p1 == act1 and p2 == act2:
-                                st.markdown("<div style='text-align:center;'><span class='point-badge correct'>🏆 Đúng tỷ số (+2đ)</span></div>", unsafe_allow_html=True)
+                                st.markdown("<div style='text-align:center;'><span class='point-badge correct'>🏆 Đúng tỷ số (+0đ)</span></div>", unsafe_allow_html=True)
                             else:
                                 st.markdown("<div style='text-align:center;'><span class='point-badge wrong'>❌ Sai tỷ số (-1đ)</span></div>", unsafe_allow_html=True)
                         else:
