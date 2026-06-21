@@ -1208,6 +1208,15 @@
       "correctScores": 2,
       "correctOutcomes": 19,
       "unpredicted": 15
+    },
+    {
+      "name": "Lợi Chu",
+      "unit": "XSD",
+      "isAdmin": false,
+      "points": 0,
+      "correctScores": 0,
+      "correctOutcomes": 0,
+      "unpredicted": 0
     }
   ],
   "predictions": {
