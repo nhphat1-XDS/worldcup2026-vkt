@@ -401,10 +401,10 @@
       "team1": "Tây Ban Nha",
       "team2": "Saudi Arabia",
       "date": "2026-06-21T23:00:00",
-      "status": "pending",
-      "score1": null,
-      "score2": null,
-      "outcome": null,
+      "status": "finished",
+      "score1": 4,
+      "score2": 0,
+      "outcome": "team1",
       "round": "group"
     },
     {
@@ -1150,73 +1150,73 @@
       "name": "Nguyễn Hữu Phát",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -34,
+      "points": -35,
       "correctScores": 2,
-      "correctOutcomes": 34,
+      "correctOutcomes": 35,
       "unpredicted": 0
     },
     {
       "name": "Lê Đình Thắng",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -34,
+      "points": -35,
       "correctScores": 2,
-      "correctOutcomes": 30,
+      "correctOutcomes": 31,
       "unpredicted": 4
     },
     {
       "name": "Lợi Chu",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -33,
+      "points": -34,
       "correctScores": 3,
-      "correctOutcomes": 18,
+      "correctOutcomes": 19,
       "unpredicted": 15
     },
     {
       "name": "HB Hải",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -33,
+      "points": -34,
       "correctScores": 3,
-      "correctOutcomes": 20,
+      "correctOutcomes": 21,
       "unpredicted": 13
     },
     {
       "name": "Tạ Ngọc Bình",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -35,
+      "points": -36,
       "correctScores": 1,
       "correctOutcomes": 2,
-      "unpredicted": 33
+      "unpredicted": 34
     },
     {
       "name": "Thanh",
       "unit": "Xds",
       "isAdmin": false,
-      "points": -33,
+      "points": -34,
       "correctScores": 3,
-      "correctOutcomes": 29,
+      "correctOutcomes": 30,
       "unpredicted": 4
     },
     {
       "name": "Phi Ngoc Anh Khai",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -34,
+      "points": -35,
       "correctScores": 2,
-      "correctOutcomes": 19,
+      "correctOutcomes": 20,
       "unpredicted": 15
     },
     {
       "name": "Lợi Chu",
       "unit": "XSD",
       "isAdmin": false,
-      "points": 0,
+      "points": -37,
       "correctScores": 0,
       "correctOutcomes": 0,
-      "unpredicted": 0
+      "unpredicted": 37
     }
   ],
   "predictions": {
