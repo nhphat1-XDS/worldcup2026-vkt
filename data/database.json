@@ -533,10 +533,10 @@
       "team1": "Bosnia",
       "team2": "Qatar",
       "date": "2026-06-25T02:00:00",
-      "status": "pending",
-      "score1": null,
-      "score2": null,
-      "outcome": null,
+      "status": "finished",
+      "score1": 3,
+      "score2": 1,
+      "outcome": "team1",
       "round": "group"
     },
     {
@@ -544,10 +544,10 @@
       "team1": "Thụy Sĩ",
       "team2": "Canada",
       "date": "2026-06-25T02:00:00",
-      "status": "pending",
-      "score1": null,
-      "score2": null,
-      "outcome": null,
+      "status": "finished",
+      "score1": 2,
+      "score2": 1,
+      "outcome": "team1",
       "round": "group"
     },
     {
@@ -555,10 +555,10 @@
       "team1": "Marocco",
       "team2": "Haiti",
       "date": "2026-06-25T05:00:00",
-      "status": "pending",
-      "score1": null,
-      "score2": null,
-      "outcome": null,
+      "status": "finished",
+      "score1": 4,
+      "score2": 2,
+      "outcome": "team1",
       "round": "group"
     },
     {
@@ -566,10 +566,10 @@
       "team1": "Scotland",
       "team2": "Brazil",
       "date": "2026-06-25T05:00:00",
-      "status": "pending",
-      "score1": null,
-      "score2": null,
-      "outcome": null,
+      "status": "finished",
+      "score1": 0,
+      "score2": 3,
+      "outcome": "team2",
       "round": "group"
     },
     {
@@ -1150,73 +1150,73 @@
       "name": "Nguyễn Hữu Phát",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -44,
+      "points": -48,
       "correctScores": 4,
-      "correctOutcomes": 43,
+      "correctOutcomes": 47,
       "unpredicted": 1
     },
     {
       "name": "Lê Đình Thắng",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -44,
-      "correctScores": 4,
-      "correctOutcomes": 40,
+      "points": -47,
+      "correctScores": 5,
+      "correctOutcomes": 43,
       "unpredicted": 4
     },
     {
       "name": "Lợi Chu",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -43,
+      "points": -47,
       "correctScores": 5,
-      "correctOutcomes": 28,
+      "correctOutcomes": 32,
       "unpredicted": 15
     },
     {
       "name": "HB Hải",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -44,
+      "points": -48,
       "correctScores": 4,
-      "correctOutcomes": 31,
+      "correctOutcomes": 35,
       "unpredicted": 13
     },
     {
       "name": "Tạ Ngọc Bình",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -47,
+      "points": -51,
       "correctScores": 1,
       "correctOutcomes": 2,
-      "unpredicted": 45
+      "unpredicted": 49
     },
     {
       "name": "Thanh",
       "unit": "Xds",
       "isAdmin": false,
-      "points": -45,
-      "correctScores": 3,
-      "correctOutcomes": 40,
+      "points": -48,
+      "correctScores": 4,
+      "correctOutcomes": 43,
       "unpredicted": 5
     },
     {
       "name": "Phi Ngoc Anh Khai",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -46,
+      "points": -50,
       "correctScores": 2,
-      "correctOutcomes": 31,
+      "correctOutcomes": 35,
       "unpredicted": 15
     },
     {
       "name": "Lợi Chu",
       "unit": "XSD",
       "isAdmin": false,
-      "points": -48,
+      "points": -52,
       "correctScores": 0,
       "correctOutcomes": 0,
-      "unpredicted": 48
+      "unpredicted": 52
     }
   ],
   "predictions": {
