@@ -1150,9 +1150,9 @@
       "name": "Nguyễn Hữu Phát",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -66,
+      "points": -67,
       "correctScores": 5,
-      "correctOutcomes": 61,
+      "correctOutcomes": 62,
       "unpredicted": 5
     },
     {
@@ -1160,7 +1160,7 @@
       "unit": "XDS",
       "isAdmin": false,
       "points": -64,
-      "correctScores": 7,
+      "correctScores": 8,
       "correctOutcomes": 60,
       "unpredicted": 4
     },
@@ -1169,7 +1169,7 @@
       "unit": "XDS",
       "isAdmin": false,
       "points": -65,
-      "correctScores": 6,
+      "correctScores": 7,
       "correctOutcomes": 50,
       "unpredicted": 15
     },
@@ -1177,37 +1177,37 @@
       "name": "HB Hải",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -66,
+      "points": -67,
       "correctScores": 5,
-      "correctOutcomes": 53,
+      "correctOutcomes": 54,
       "unpredicted": 13
     },
     {
       "name": "Tạ Ngọc Bình",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -70,
+      "points": -71,
       "correctScores": 1,
       "correctOutcomes": 2,
-      "unpredicted": 68
+      "unpredicted": 69
     },
     {
       "name": "Thanh",
       "unit": "Xds",
       "isAdmin": false,
-      "points": -65,
+      "points": -66,
       "correctScores": 6,
-      "correctOutcomes": 60,
+      "correctOutcomes": 61,
       "unpredicted": 5
     },
     {
       "name": "Phi Ngoc Anh Khai",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -67,
+      "points": -68,
       "correctScores": 4,
       "correctOutcomes": 44,
-      "unpredicted": 23
+      "unpredicted": 24
     }
   ],
   "predictions": {
@@ -1546,6 +1546,26 @@
         "score1": 1,
         "score2": 3,
         "created_at": "28/06/2026 11:02:52"
+      },
+      "r32_1": {
+        "score1": 1,
+        "score2": 2,
+        "created_at": "28/06/2026 15:32:09"
+      },
+      "r32_4": {
+        "score1": 3,
+        "score2": 1,
+        "created_at": "28/06/2026 15:32:09"
+      },
+      "r32_2": {
+        "score1": 2,
+        "score2": 0,
+        "created_at": "28/06/2026 15:32:09"
+      },
+      "r32_3": {
+        "score1": 2,
+        "score2": 1,
+        "created_at": "28/06/2026 15:32:09"
       }
     },
     "Lê Đình Thắng-XDS": {
