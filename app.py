@@ -212,11 +212,22 @@ st.markdown("""
     
     /* Cải biến ô nhập số st.number_input (Sáng sủa, chữ to rõ, không bị lỗi hiển thị) */
     div[data-testid="stNumberInput"] [data-baseweb="input"],
-    div[data-testid="stNumberInput"] [data-baseweb="input"] > div,
     div[data-testid="stNumberInput"] div div {
         background-color: transparent !important;
         border: none !important;
         box-shadow: none !important;
+    }
+    /* Ẩn các div bọc nút cộng/trừ để giải phóng không gian cho input */
+    div[data-testid="stNumberInput"] [data-baseweb="input"] > div:has(button),
+    div[data-testid="stNumberInput"] [data-baseweb="input"] > div:first-child:not(:has(input)),
+    div[data-testid="stNumberInput"] [data-baseweb="input"] > div:last-child:not(:has(input)) {
+        display: none !important;
+    }
+    /* Ép div bọc input và chính input chiếm 100% chiều rộng */
+    div[data-testid="stNumberInput"] [data-baseweb="input"] > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex-grow: 1 !important;
     }
     div[data-testid="stNumberInput"] > div {
         background-color: #ffffff !important; /* Luôn là nền trắng nổi bật */
@@ -1081,7 +1092,7 @@ if selected_tab == "⚽ Dự Đoán Của Tôi":
                     
                     # Đội và Inputs
                     st.write("")
-                    col_t1, col_score, col_t2 = st.columns([0.38, 0.24, 0.38])
+                    col_t1, col_score, col_t2 = st.columns([0.34, 0.32, 0.34])
                     with col_t1:
                         st.markdown(f"<div style='text-align:right; font-size:0.95rem; font-weight:700; color:#ffffff; line-height:1.2;'>{get_flag_html(match['team1'])} {match['team1']}</div>", unsafe_allow_html=True)
                     with col_score:
@@ -1093,7 +1104,7 @@ if selected_tab == "⚽ Dự Đoán Của Tôi":
                         default_1 = int(val1) if val1 != "" else None
                         default_2 = int(val2) if val2 != "" else None
                         
-                        col_in1, col_in2 = st.columns(2)
+                        col_in1, col_in2 = st.columns(2, gap="small")
                         with col_in1:
                             score1 = st.number_input("", min_value=0, max_value=20, step=1, value=default_1, key=f"p1_{m_id}", disabled=is_disabled, label_visibility="collapsed")
                         with col_in2:
