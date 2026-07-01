@@ -863,10 +863,10 @@
       "team1": "Mexico",
       "team2": "Ecuador",
       "date": "2026-07-01T08:00:00",
-      "status": "pending",
-      "score1": null,
-      "score2": null,
-      "outcome": null,
+      "status": "finished",
+      "score1": 2,
+      "score2": 0,
+      "outcome": "team1",
       "round": "r32"
     },
     {
@@ -1150,54 +1150,54 @@
       "name": "Nguyễn Hữu Phát",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -72,
+      "points": -73,
       "correctScores": 5,
-      "correctOutcomes": 67,
+      "correctOutcomes": 68,
       "unpredicted": 5
     },
     {
       "name": "Lê Đình Thắng",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -69,
+      "points": -70,
       "correctScores": 8,
-      "correctOutcomes": 60,
+      "correctOutcomes": 61,
       "unpredicted": 9
     },
     {
       "name": "Lợi Chu",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -70,
+      "points": -71,
       "correctScores": 7,
-      "correctOutcomes": 54,
+      "correctOutcomes": 55,
       "unpredicted": 16
     },
     {
       "name": "HB Hải",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -72,
+      "points": -73,
       "correctScores": 5,
       "correctOutcomes": 54,
-      "unpredicted": 18
+      "unpredicted": 19
     },
     {
       "name": "Tạ Ngọc Bình",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -76,
+      "points": -77,
       "correctScores": 1,
       "correctOutcomes": 2,
-      "unpredicted": 74
+      "unpredicted": 75
     },
     {
       "name": "Thanh",
       "unit": "Xds",
       "isAdmin": false,
-      "points": -69,
+      "points": -70,
       "correctScores": 8,
-      "correctOutcomes": 63,
+      "correctOutcomes": 64,
       "unpredicted": 6
     },
     {
@@ -1205,7 +1205,7 @@
       "unit": "XDS",
       "isAdmin": false,
       "points": -73,
-      "correctScores": 4,
+      "correctScores": 5,
       "correctOutcomes": 46,
       "unpredicted": 27
     }
