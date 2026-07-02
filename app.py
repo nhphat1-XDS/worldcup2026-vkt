@@ -740,11 +740,26 @@ def apply_match_result(match, s1, s2, matches):
     if next_match_id:
         next_match = next((m for m in matches if m["id"] == next_match_id), None)
         if next_match:
-            last_char = match["id"][-1]
-            if last_char in ['1', '3', '5', '7', '9']:
-                next_match["team1"] = winner
+            r32_positions = {
+                'r32_1': 'team1', 'r32_3': 'team2',
+                'r32_2': 'team2', 'r32_5': 'team1',
+                'r32_4': 'team1', 'r32_6': 'team2',
+                'r32_7': 'team1', 'r32_8': 'team2',
+                'r32_9': 'team1', 'r32_10': 'team2',
+                'r32_11': 'team1', 'r32_12': 'team2',
+                'r32_13': 'team1', 'r32_15': 'team2',
+                'r32_14': 'team1', 'r32_16': 'team2'
+            }
+            m_id = match["id"]
+            if m_id in r32_positions:
+                pos = r32_positions[m_id]
+                next_match[pos] = winner
             else:
-                next_match["team2"] = winner
+                last_char = m_id[-1]
+                if last_char in ['1', '3', '5', '7', '9']:
+                    next_match["team1"] = winner
+                else:
+                    next_match["team2"] = winner
                 
     # Tranh hạng 3
     if match["id"] == "sf_1":
@@ -754,92 +769,138 @@ def apply_match_result(match, s1, s2, matches):
         third_match = next((m for m in matches if m["id"] == "third"), None)
         if third_match: third_match["team2"] = loser
 
-def normalize_name(name):
+ALIASES = {
+    "Morocco": ["maroc", "ma rốc", "marốc", "morocco", "marocco"],
+    "Marocco": ["maroc", "ma rốc", "marốc", "morocco", "marocco"],
+    "Mỹ": ["mỹ", "my", "hoa kỳ", "usa", "united states", "america"],
+    "Bờ Biển Ngà": ["bờ biển ngà", "bo bien nga", "ivory coast", "cote divoire", "côte d'ivoire", "cote d’ivoire"],
+    "Cabo Verde": ["cabo verde", "cape verde", "quần đảo cape verde"],
+    "CHDC Congo": ["chdc congo", "congo dr", "dr congo", "cộng hòa dân chủ congo", "dân chủ congo"],
+    "Saudi Arabia": ["saudi arabia", "ả rập xê út", "saudi", "arabia"],
+    "CH Séc": ["ch séc", "ch sec", "czechia", "czech republic", "séc"],
+    "Hàn Quốc": ["hàn quốc", "han quoc", "south korea", "korea"],
+    "Thụy Sĩ": ["thụy sĩ", "thuy si", "switzerland"],
+    "Thụy Điển": ["thụy điển", "thuy dien", "sweden"],
+    "Thổ Nhĩ Kỳ": ["thổ nhĩ kỳ", "tho nhi ky", "turkey"],
+    "Bosnia": ["bosnia", "bosna", "bosnia & herzegovina", "bosnia và herzegovina"],
+    "New Zealand": ["new zealand", "tân tây lan"],
+    "Uzbekistan": ["uzbekistan", "uzbek"],
+    "Argentina": ["argentina", "ác-hen-ti-na"]
+}
+
+def clean_name(name):
     if not name:
         return ""
-    return "".join(c.lower() for c in name if c.isalnum())
+    name = name.lower()
+    vietnamese_map = {
+        'à':'a','á':'a','ả':'a','ã':'a','ạ':'a','ă':'a','ằ':'a','ắ':'a','ẳ':'a','ẵ':'a','ặ':'a','â':'a','ầ':'a','ấ':'a','ẩ':'a','ẫ':'a','ậ':'a',
+        'è':'e','é':'e','ẻ':'e','ẽ':'e','ẹ':'e','ê':'e','ề':'e','ế':'e','ể':'e','ễ':'e','ệ':'e',
+        'ì':'i','í':'i','ỉ':'i','ĩ':'i','ị':'i',
+        'ò':'o','ó':'o','ỏ':'o','õ':'o','ọ':'o','ô':'o','ồ':'o','ố':'o','ổ':'o','ỗ':'o','ộ':'o','ơ':'o','ờ':'o','ớ':'o','ở':'o','ỡ':'o','ợ':'o',
+        'ù':'u','ú':'u','ủ':'u','ũ':'u','ụ':'u','ư':'u','ừ':'u','ứ':'u','ử':'u','ữ':'u','ự':'u',
+        'ỳ':'y','ý':'y','ỷ':'y','ỹ':'y','ỵ':'y',
+        'đ':'d'
+    }
+    for k, v in vietnamese_map.items():
+        name = name.replace(k, v)
+    return "".join(c for c in name if c.isalnum())
+
+def is_same_team(db_name, web_name):
+    db_clean = clean_name(db_name)
+    web_clean = clean_name(web_name)
+    if db_clean == web_clean or db_clean in web_clean or web_clean in db_clean:
+        return True
+        
+    for standard_name, aliases in ALIASES.items():
+        db_matched = (clean_name(standard_name) == db_clean or 
+                      any(clean_name(al) == db_clean for al in aliases))
+        if db_matched:
+            web_matched = any(clean_name(al) == web_clean for al in aliases) or (clean_name(standard_name) == web_clean)
+            if web_matched:
+                return True
+    return False
 
 def sync_results_from_24h(matches, users, predictions, is_local):
-    url = 'https://www.24h.com.vn/world-cup-2026/ket-qua-thi-dau-bong-da-world-cup-2026-moi-nhat-c860a1747405.html'
+    urls = [
+        'https://www.24h.com.vn/world-cup-2026/ket-qua-thi-dau-bong-da-world-cup-2026-moi-nhat-c860a1747405.html',
+        'https://www.24h.com.vn/world-cup-2026/lich-thi-dau-bong-da-world-cup-2026-moi-nhat-c860a1747376.html'
+    ]
     context = ssl._create_unverified_context()
-    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'})
     
-    try:
-        with urllib.request.urlopen(req, context=context, timeout=8) as res:
-            soup = BeautifulSoup(res.read(), 'html.parser')
-        match_divs = soup.find_all('div', class_='box-items')
-        
-        if not match_divs:
-            return False, "Không thể tải danh sách trận đấu từ 24h.com.vn."
+    parsed_results = []
+    seen_matches = set()
+    
+    for url in urls:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'})
+        try:
+            with urllib.request.urlopen(req, context=context, timeout=8) as res:
+                soup = BeautifulSoup(res.read(), 'html.parser')
+            match_divs = soup.find_all('div', class_='box-items')
             
-        parsed_results = []
-        for div in match_divs:
-            team_spans = div.find_all('span', class_='team-name')
-            if len(team_spans) >= 2:
-                team1 = team_spans[0].get_text(strip=True)
-                team2 = team_spans[1].get_text(strip=True)
-                
-                score_div = div.find('div', class_='box-score')
-                if not score_div:
-                    continue
+            for div in match_divs:
+                team_spans = div.find_all('span', class_='team-name')
+                if len(team_spans) >= 2:
+                    team1 = team_spans[0].get_text(strip=True)
+                    team2 = team_spans[1].get_text(strip=True)
                     
-                score_t = score_div.find('div', class_='box-t')
-                score_str = score_t.get_text(strip=True) if score_t else score_div.get_text(strip=True)
-                
-                parsed_results.append({
-                    "team1": team1,
-                    "team2": team2,
-                    "score_str": score_str
-                })
-                
-        updated = False
-        update_msgs = []
-        
-        for m in matches:
-            if m["status"] == "pending":
-                db_t1_norm = normalize_name(m["team1"])
-                db_t2_norm = normalize_name(m["team2"])
-                
-                match_found = None
-                for web_m in parsed_results:
-                    w_t1_norm = normalize_name(web_m["team1"])
-                    w_t2_norm = normalize_name(web_m["team2"])
-                    
-                    # So khớp mềm
-                    if (db_t1_norm == w_t1_norm or db_t1_norm in w_t1_norm or w_t1_norm in db_t1_norm) and \
-                       (db_t2_norm == w_t2_norm or db_t2_norm in w_t2_norm or w_t2_norm in db_t2_norm):
-                        match_found = web_m
-                        break
+                    score_div = div.find('div', class_='box-score')
+                    if not score_div:
+                        continue
                         
-                if match_found:
-                    score_str = match_found["score_str"]
-                    # Chỉ lấy tỷ số 90 phút chính thức, bỏ phần hiệp phụ/pen trong ngoặc đơn
-                    if '(' in score_str:
-                        score_str = score_str.split('(')[0].strip()
-                    if '-' in score_str and len(score_str.strip()) > 1:
-                        parts = score_str.split('-')
-                        if len(parts) == 2:
-                            try:
-                                s1 = int(parts[0].strip())
-                                s2 = int(parts[1].strip())
-                                
-                                apply_match_result(m, s1, s2, matches)
-                                updated = True
-                                update_msgs.append(f"{m['team1']} {s1}-{s2} {m['team2']}")
-                            except:
-                                pass
-                                
-        if updated:
-            recalculate_local_points(matches, users, predictions)
-            if not is_local:
-                save_db_to_github(matches, users, predictions)
-            else:
-                write_local_db(matches, users, predictions)
-            return True, f"Đồng bộ thành công: {', '.join(update_msgs)}"
-        return False, "Không có kết quả mới nào cần cập nhật."
+                    score_t = score_div.find('div', class_='box-t')
+                    score_str = score_t.get_text(strip=True) if score_t else score_div.get_text(strip=True)
+                    
+                    match_key = f"{team1} vs {team2}"
+                    if match_key not in seen_matches:
+                        seen_matches.add(match_key)
+                        parsed_results.append({
+                            "team1": team1,
+                            "team2": team2,
+                            "score_str": score_str
+                        })
+        except Exception as e:
+            pass
+            
+    if not parsed_results:
+        return False, "Không thể tải danh sách trận đấu từ 24h.com.vn."
         
-    except Exception as e:
-        return False, f"Lỗi kết nối tới 24h.com.vn: {e}"
+    updated = False
+    update_msgs = []
+    
+    for m in matches:
+        if m["status"] == "pending":
+            match_found = None
+            for web_m in parsed_results:
+                if is_same_team(m["team1"], web_m["team1"]) and is_same_team(m["team2"], web_m["team2"]):
+                    match_found = web_m
+                    break
+                    
+            if match_found:
+                score_str = match_found["score_str"]
+                # Chỉ lấy tỷ số 90 phút chính thức, bỏ phần hiệp phụ/pen trong ngoặc đơn
+                if '(' in score_str:
+                    score_str = score_str.split('(')[0].strip()
+                if '-' in score_str and len(score_str.strip()) > 1:
+                    parts = score_str.split('-')
+                    if len(parts) == 2:
+                        try:
+                            s1 = int(parts[0].strip())
+                            s2 = int(parts[1].strip())
+                            
+                            apply_match_result(m, s1, s2, matches)
+                            updated = True
+                            update_msgs.append(f"{m['team1']} {s1}-{s2} {m['team2']}")
+                        except:
+                            pass
+                            
+    if updated:
+        recalculate_local_points(matches, users, predictions)
+        if not is_local:
+            save_db_to_github(matches, users, predictions)
+        else:
+            write_local_db(matches, users, predictions)
+        return True, f"Đồng bộ thành công: {', '.join(update_msgs)}"
+    return False, "Không có kết quả mới nào cần cập nhật."
 
 
 # --- KHỞI TẠO STATE & TẢI DỮ LIỆU ---
