@@ -1082,9 +1082,15 @@ if selected_tab == "⚽ Dự Đoán Của Tôi":
                 is_finished = match["status"] == "finished"
                 pred = user_preds.get(m_id, { "score1": "", "score2": "" })
                 
-                # Check có dự đoán từ trước
+                # Check có dự đoán từ trước và kiểm tra trận đấu đã bắt đầu chưa
                 has_pred = pred.get("score1") is not None and pred.get("score1") != "" and pred.get("score2") is not None and pred.get("score2") != ""
-                is_disabled = is_finished or st.session_state.is_admin or has_pred
+                
+                match_time = datetime.fromisoformat(match["date"])
+                vn_tz = timezone(timedelta(hours=7))
+                now_vn = datetime.now(vn_tz).replace(tzinfo=None)
+                is_started = now_vn >= match_time
+                
+                is_disabled = is_finished or st.session_state.is_admin or has_pred or is_started
                 
                 with st.container(border=True):
                     # Header card (tối giản để compact hơn)
@@ -1177,12 +1183,27 @@ if selected_tab == "⚽ Dự Đoán Của Tôi":
                             predictions[user_key] = {}
                         
                         # Ghi nhận thời gian thực hiện dự đoán (giờ Việt Nam)
+                        # Kiểm tra thời gian trận đấu trước khi ghi nhận để chống bypass (Backend validation)
                         vn_tz = timezone(timedelta(hours=7))
+                        now_vn = datetime.now(vn_tz).replace(tzinfo=None)
                         now_str = datetime.now(vn_tz).strftime("%d/%m/%Y %H:%M:%S")
                         
+                        saved_count = 0
                         for mId, vals in new_preds.items():
+                            match_obj = next((m for m in matches if m["id"] == mId), None)
+                            if match_obj:
+                                match_time = datetime.fromisoformat(match_obj["date"])
+                                if now_vn >= match_time:
+                                    # Trận đấu đã bắt đầu -> bỏ qua không cho lưu
+                                    continue
                             vals["created_at"] = now_str
                             predictions[user_key][mId] = vals
+                            saved_count += 1
+                        
+                        if saved_count == 0:
+                            st.error("Lỗi: Trận đấu bạn chọn dự đoán đã bắt đầu thi đấu!")
+                            st.rerun()
+                        
                         recalculate_local_points(matches, users, predictions)
                         
                         if not is_local:
