@@ -73,10 +73,11 @@ function doPost(e) {
     var matchesSheet = sheet.getSheetByName("Matches");
     var matches = getRowsData(matchesSheet);
     
+    var nowStr = Utilities.formatDate(new Date(), "GMT+7", "yyyy-MM-dd'T'HH:mm:ss");
     Object.keys(preds).forEach(function(matchId) {
-      // Chỉ lưu nếu trận đấu chưa kết thúc và CHƯA có dự đoán nào trước đó cho trận này
+      // Chỉ lưu nếu trận đấu chưa bắt đầu, chưa kết thúc và CHƯA có dự đoán nào trước đó cho trận này
       var match = matches.find(function(m) { return m.id === matchId; });
-      if (match && match.status !== "finished" && !predMap[matchId]) {
+      if (match && match.status !== "finished" && !predMap[matchId] && nowStr < match.date) {
         var score1 = preds[matchId].score1;
         var score2 = preds[matchId].score2;
         if (score1 !== null && score2 !== null) {
