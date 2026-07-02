@@ -677,6 +677,10 @@ function syncResultsFrom24h() {
         
         if (matchFound) {
           var scoreStr = matchFound.scoreStr;
+          // Chỉ lấy tỷ số 90 phút chính thức, bỏ phần hiệp phụ/pen trong ngoặc đơn
+          if (scoreStr.indexOf('(') !== -1) {
+            scoreStr = scoreStr.split('(')[0].trim();
+          }
           if (scoreStr.indexOf('-') !== -1 && scoreStr.length > 1) {
             var scoreParts = scoreStr.split('-');
             var s1Str = scoreParts[0].trim();
