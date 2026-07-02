@@ -801,7 +801,8 @@
       "score1": 0,
       "score2": 1,
       "outcome": "team2",
-      "round": "r32"
+      "round": "r32",
+      "nextMatchId": "r16_2"
     },
     {
       "id": "r32_4",
@@ -812,7 +813,8 @@
       "score1": 2,
       "score2": 1,
       "outcome": "team1",
-      "round": "r32"
+      "round": "r32",
+      "nextMatchId": "r16_3"
     },
     {
       "id": "r32_2",
@@ -823,18 +825,20 @@
       "score1": 1,
       "score2": 1,
       "outcome": "draw",
-      "round": "r32"
+      "round": "r32",
+      "nextMatchId": "r16_1"
     },
     {
       "id": "r32_3",
       "team1": "Hà Lan",
       "team2": "Morocco",
       "date": "2026-06-30T08:00:00",
-      "status": "pending",
-      "score1": null,
-      "score2": null,
-      "outcome": null,
-      "round": "r32"
+      "status": "finished",
+      "score1": 1,
+      "score2": 1,
+      "outcome": "draw",
+      "round": "r32",
+      "nextMatchId": "r16_2"
     },
     {
       "id": "r32_6",
@@ -845,7 +849,8 @@
       "score1": 1,
       "score2": 2,
       "outcome": "team2",
-      "round": "r32"
+      "round": "r32",
+      "nextMatchId": "r16_3"
     },
     {
       "id": "r32_5",
@@ -856,7 +861,8 @@
       "score1": 3,
       "score2": 0,
       "outcome": "team1",
-      "round": "r32"
+      "round": "r32",
+      "nextMatchId": "r16_1"
     },
     {
       "id": "r32_7",
@@ -867,7 +873,8 @@
       "score1": 2,
       "score2": 0,
       "outcome": "team1",
-      "round": "r32"
+      "round": "r32",
+      "nextMatchId": "r16_4"
     },
     {
       "id": "r32_8",
@@ -878,7 +885,8 @@
       "score1": 2,
       "score2": 1,
       "outcome": "team1",
-      "round": "r32"
+      "round": "r32",
+      "nextMatchId": "r16_4"
     },
     {
       "id": "r32_11",
@@ -889,7 +897,8 @@
       "score1": 2,
       "score2": 2,
       "outcome": "draw",
-      "round": "r32"
+      "round": "r32",
+      "nextMatchId": "r16_5"
     },
     {
       "id": "r32_10",
@@ -900,7 +909,8 @@
       "score1": 2,
       "score2": 0,
       "outcome": "team1",
-      "round": "r32"
+      "round": "r32",
+      "nextMatchId": "r16_6"
     },
     {
       "id": "r32_12",
@@ -911,7 +921,8 @@
       "score1": null,
       "score2": null,
       "outcome": null,
-      "round": "r32"
+      "round": "r32",
+      "nextMatchId": "r16_5"
     },
     {
       "id": "r32_9",
@@ -922,7 +933,8 @@
       "score1": null,
       "score2": null,
       "outcome": null,
-      "round": "r32"
+      "round": "r32",
+      "nextMatchId": "r16_6"
     },
     {
       "id": "r32_13",
@@ -933,7 +945,8 @@
       "score1": null,
       "score2": null,
       "outcome": null,
-      "round": "r32"
+      "round": "r32",
+      "nextMatchId": "r16_8"
     },
     {
       "id": "r32_16",
@@ -944,7 +957,8 @@
       "score1": null,
       "score2": null,
       "outcome": null,
-      "round": "r32"
+      "round": "r32",
+      "nextMatchId": "r16_7"
     },
     {
       "id": "r32_14",
@@ -955,7 +969,8 @@
       "score1": null,
       "score2": null,
       "outcome": null,
-      "round": "r32"
+      "round": "r32",
+      "nextMatchId": "r16_7"
     },
     {
       "id": "r32_15",
@@ -966,11 +981,12 @@
       "score1": null,
       "score2": null,
       "outcome": null,
-      "round": "r32"
+      "round": "r32",
+      "nextMatchId": "r16_8"
     },
     {
       "id": "r16_2",
-      "team1": "Thắng 73",
+      "team1": "Morocco",
       "team2": "Thắng 75",
       "date": "2026-07-05T00:00:00",
       "status": "pending",
@@ -981,8 +997,8 @@
     },
     {
       "id": "r16_1",
-      "team1": "Thắng 74",
-      "team2": "Thắng 77",
+      "team1": "Pháp",
+      "team2": "Paraguay",
       "date": "2026-07-05T04:00:00",
       "status": "pending",
       "score1": null,
@@ -993,7 +1009,7 @@
     {
       "id": "r16_3",
       "team1": "Thắng 76",
-      "team2": "Thắng 78",
+      "team2": "Na Uy",
       "date": "2026-07-06T03:00:00",
       "status": "pending",
       "score1": null,
@@ -1003,8 +1019,8 @@
     },
     {
       "id": "r16_4",
-      "team1": "Thắng 79",
-      "team2": "Thắng 80",
+      "team1": "Mexico",
+      "team2": "Anh",
       "date": "2026-07-06T07:00:00",
       "status": "pending",
       "score1": null,
@@ -1014,7 +1030,7 @@
     },
     {
       "id": "r16_5",
-      "team1": "Thắng 83",
+      "team1": "Senegal",
       "team2": "Thắng 84",
       "date": "2026-07-07T02:00:00",
       "status": "pending",
@@ -1026,7 +1042,7 @@
     {
       "id": "r16_6",
       "team1": "Thắng 81",
-      "team2": "Thắng 82",
+      "team2": "Mỹ",
       "date": "2026-07-07T07:00:00",
       "status": "pending",
       "score1": null,
@@ -1150,63 +1166,63 @@
       "name": "Nguyễn Hữu Phát",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -76,
+      "points": -77,
       "correctScores": 5,
-      "correctOutcomes": 71,
+      "correctOutcomes": 72,
       "unpredicted": 5
     },
     {
       "name": "Lê Đình Thắng",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -73,
+      "points": -74,
       "correctScores": 8,
       "correctOutcomes": 64,
-      "unpredicted": 9
+      "unpredicted": 10
     },
     {
       "name": "Lợi Chu",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -73,
+      "points": -74,
       "correctScores": 8,
-      "correctOutcomes": 57,
+      "correctOutcomes": 58,
       "unpredicted": 16
     },
     {
       "name": "HB Hải",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -76,
+      "points": -77,
       "correctScores": 5,
       "correctOutcomes": 54,
-      "unpredicted": 22
+      "unpredicted": 23
     },
     {
       "name": "Tạ Ngọc Bình",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -80,
+      "points": -81,
       "correctScores": 1,
       "correctOutcomes": 2,
-      "unpredicted": 78
+      "unpredicted": 79
     },
     {
       "name": "Thanh",
       "unit": "Xds",
       "isAdmin": false,
-      "points": -72,
+      "points": -73,
       "correctScores": 9,
-      "correctOutcomes": 66,
+      "correctOutcomes": 67,
       "unpredicted": 6
     },
     {
       "name": "Phi Ngoc Anh Khai",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -75,
+      "points": -76,
       "correctScores": 6,
-      "correctOutcomes": 47,
+      "correctOutcomes": 48,
       "unpredicted": 28
     }
   ],
