@@ -813,6 +813,9 @@ def sync_results_from_24h(matches, users, predictions, is_local):
                         
                 if match_found:
                     score_str = match_found["score_str"]
+                    # Chỉ lấy tỷ số 90 phút chính thức, bỏ phần hiệp phụ/pen trong ngoặc đơn
+                    if '(' in score_str:
+                        score_str = score_str.split('(')[0].strip()
                     if '-' in score_str and len(score_str.strip()) > 1:
                         parts = score_str.split('-')
                         if len(parts) == 2:
@@ -1292,6 +1295,7 @@ elif selected_tab == "⚙️ Quản Trị (BTC)" and st.session_state.is_admin:
                     st.write(f"**Trận đấu ID:** {match['id']}")
                     date_formatted = datetime.fromisoformat(match["date"]).strftime("%d/%m/%Y %H:%M")
                     st.write(f"**Thời gian:** 📅 {date_formatted}")
+                    st.warning("⚠️ **Quy chế tính điểm:** Chỉ nhập kết quả tỷ số trong 90 phút chính thức + bù giờ (không tính hiệp phụ & penalty).")
                     
                     col_adm_score_1, col_adm_divider, col_adm_score_2 = st.columns([0.4, 0.2, 0.4])
                     with col_adm_score_1:
