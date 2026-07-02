@@ -597,60 +597,119 @@ function updateMatchesOnly() {
 }
 
 // Hàm tự động cào và cập nhật kết quả từ 24h.com.vn vào Google Sheets
-function normalizeName(name) {
+function cleanName(name) {
   if (!name) return "";
-  return name.toLowerCase().replace(/[^a-z0-9àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/g, "");
+  var str = name.toLowerCase();
+  var from = "àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ";
+  var to   = "aaaaaaaaaaaaaaaaaeeeeeeeeeeeiiiiiooooooooooooooooouuuuuuuuuuuyyyyyd";
+  for (var i = 0, l = from.length ; i < l ; i++) {
+    str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+  }
+  return str.replace(/[^a-z0-9]/g, "");
+}
+
+function isSameTeam(dbName, webName) {
+  var dbClean = cleanName(dbName);
+  var webClean = cleanName(webName);
+  if (dbClean === webClean || dbClean.indexOf(webClean) !== -1 || webClean.indexOf(dbClean) !== -1) {
+    return true;
+  }
+  
+  var aliases = {
+    "Morocco": ["maroc", "ma rốc", "marốc", "morocco", "marocco"],
+    "Marocco": ["maroc", "ma rốc", "marốc", "morocco", "marocco"],
+    "Mỹ": ["mỹ", "my", "hoa kỳ", "usa", "united states", "america"],
+    "Bờ Biển Ngà": ["bờ biển ngà", "bo bien nga", "ivory coast", "cote divoire", "côte d'ivoire", "cote d’ivoire"],
+    "Cabo Verde": ["cabo verde", "cape verde", "quần đảo cape verde"],
+    "CHDC Congo": ["chdc congo", "congo dr", "dr congo", "cộng hòa dân chủ congo", "dân chủ congo"],
+    "Saudi Arabia": ["saudi arabia", "ả rập xê út", "saudi", "arabia"],
+    "CH Séc": ["ch séc", "ch sec", "czechia", "czech republic", "séc"],
+    "Hàn Quốc": ["hàn quốc", "han quoc", "south korea", "korea"],
+    "Thụy Sĩ": ["thụy sĩ", "thuy si", "switzerland"],
+    "Thụy Điển": ["thụy điển", "thuy dien", "sweden"],
+    "Thổ Nhĩ Kỳ": ["thổ nhĩ kỳ", "tho nhi ky", "turkey"],
+    "Bosnia": ["bosnia", "bosna", "bosnia & herzegovina", "bosnia và herzegovina"],
+    "New Zealand": ["new zealand", "tân tây lan"],
+    "Uzbekistan": ["uzbekistan", "uzbek"],
+    "Argentina": ["argentina", "ác-hen-ti-na"]
+  };
+  
+  for (var standardName in aliases) {
+    var dbMatched = (cleanName(standardName) === dbClean || 
+                     aliases[standardName].some(function(al) { return cleanName(al) === dbClean; }));
+    if (dbMatched) {
+      var webMatched = (cleanName(standardName) === webClean || 
+                        aliases[standardName].some(function(al) { return cleanName(al) === webClean; }));
+      if (webMatched) return true;
+    }
+  }
+  return false;
 }
 
 // Hàm tự động cào và cập nhật kết quả từ 24h.com.vn vào Google Sheets
 function syncResultsFrom24h() {
-  var url = 'https://www.24h.com.vn/world-cup-2026/ket-qua-thi-dau-bong-da-world-cup-2026-moi-nhat-c860a1747405.html';
+  var urls = [
+    'https://www.24h.com.vn/world-cup-2026/ket-qua-thi-dau-bong-da-world-cup-2026-moi-nhat-c860a1747405.html',
+    'https://www.24h.com.vn/world-cup-2026/lich-thi-dau-bong-da-world-cup-2026-moi-nhat-c860a1747376.html'
+  ];
+  
+  var parsedMatches = [];
+  var seenMatches = {};
+  
+  for (var uIdx = 0; uIdx < urls.length; uIdx++) {
+    var url = urls[uIdx];
+    try {
+      var response = UrlFetchApp.fetch(url, {
+        "headers": {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        },
+        "muteHttpExceptions": true
+      });
+      
+      if (response.getResponseCode() === 200) {
+        var html = response.getContentText("UTF-8");
+        var parts = html.split('class="box-items');
+        
+        for (var i = 1; i < parts.length; i++) {
+          var part = parts[i];
+          var teamRegex = /class="[^"]*?team-name[^"]*?"[^>]*?>([\s\S]*?)<\/span>/g;
+          var t1 = "";
+          var t2 = "";
+          var m1 = teamRegex.exec(part);
+          if (m1) t1 = m1[1].replace(/<[^>]*>/g, "").trim();
+          var m2 = teamRegex.exec(part);
+          if (m2) t2 = m2[1].replace(/<[^>]*>/g, "").trim();
+          
+          var scoreMatch = part.match(/class="box-score"[\s\S]*?class="box-t[\s\S]*?>([\s\S]*?)<\/div>/);
+          var scoreStr = "";
+          if (scoreMatch) {
+            scoreStr = scoreMatch[1].replace(/<[^>]*>/g, "").trim();
+          }
+          
+          if (t1 && t2) {
+            var matchKey = t1 + " vs " + t2;
+            if (!seenMatches[matchKey]) {
+              seenMatches[matchKey] = true;
+              parsedMatches.push({
+                team1: t1,
+                team2: t2,
+                scoreStr: scoreStr
+              });
+            }
+          }
+        }
+      }
+    } catch (e) {
+      Logger.log("Lỗi fetch URL " + url + ": " + e.toString());
+    }
+  }
+  
+  if (parsedMatches.length === 0) {
+    Logger.log("Không tải được kết quả nào từ 24h.com.vn.");
+    return "Không tải được kết quả nào từ 24h.com.vn.";
+  }
+  
   try {
-    var response = UrlFetchApp.fetch(url, {
-      "headers": {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-      },
-      "muteHttpExceptions": true
-    });
-    
-    if (response.getResponseCode() !== 200) {
-      Logger.log("Lỗi fetch URL: " + response.getResponseCode());
-      return "Lỗi kết nối tới 24h.com.vn (HTTP " + response.getResponseCode() + ")";
-    }
-    
-    var html = response.getContentText("UTF-8");
-    var parts = html.split('class="box-items');
-    if (parts.length < 2) {
-      Logger.log("Không tìm thấy trận đấu nào trên trang 24h.com.vn.");
-      return "Không tìm thấy trận đấu nào trên trang 24h.com.vn.";
-    }
-    
-    var parsedMatches = [];
-    for (var i = 1; i < parts.length; i++) {
-      var part = parts[i];
-      var teamRegex = /class="[^"]*?team-name[^"]*?"[^>]*?>([\s\S]*?)<\/span>/g;
-      var t1 = "";
-      var t2 = "";
-      var m1 = teamRegex.exec(part);
-      if (m1) t1 = m1[1].replace(/<[^>]*>/g, "").trim();
-      var m2 = teamRegex.exec(part);
-      if (m2) t2 = m2[1].replace(/<[^>]*>/g, "").trim();
-      
-      var scoreMatch = part.match(/class="box-score"[\s\S]*?class="box-t[\s\S]*?>([\s\S]*?)<\/div>/);
-      var scoreStr = "";
-      if (scoreMatch) {
-        scoreStr = scoreMatch[1].replace(/<[^>]*>/g, "").trim();
-      }
-      
-      if (t1 && t2) {
-        parsedMatches.push({
-          team1: t1,
-          team2: t2,
-          scoreStr: scoreStr
-        });
-      }
-    }
-    
     var sheet = SpreadsheetApp.getActiveSpreadsheet();
     var matchesSheet = sheet.getSheetByName("Matches");
     var matches = getRowsData(matchesSheet);
@@ -661,16 +720,9 @@ function syncResultsFrom24h() {
     for (var idx = 0; idx < matches.length; idx++) {
       var m = matches[idx];
       if (m.status === "pending") {
-        var db_t1_norm = normalizeName(m.team1);
-        var db_t2_norm = normalizeName(m.team2);
-        
         var matchFound = null;
         for (var j = 0; j < parsedMatches.length; j++) {
-          var w_t1_norm = normalizeName(parsedMatches[j].team1);
-          var w_t2_norm = normalizeName(parsedMatches[j].team2);
-          
-          if ((db_t1_norm === w_t1_norm || w_t1_norm.indexOf(db_t1_norm) !== -1 || db_t1_norm.indexOf(w_t1_norm) !== -1) &&
-              (db_t2_norm === w_t2_norm || w_t2_norm.indexOf(db_t2_norm) !== -1 || db_t2_norm.indexOf(w_t2_norm) !== -1)) {
+          if (isSameTeam(m.team1, parsedMatches[j].team1) && isSameTeam(m.team2, parsedMatches[j].team2)) {
             matchFound = parsedMatches[j];
             break;
           }
@@ -709,11 +761,31 @@ function syncResultsFrom24h() {
                 if (nextMatchId) {
                   var nextMatchRowIdx = getMatchRowIndex(matches, nextMatchId);
                   if (nextMatchRowIdx !== -1) {
-                    var lastChar = m.id.charAt(m.id.length - 1);
-                    if (["1", "3", "5", "7", "9"].includes(lastChar)) {
-                      matchesSheet.getRange(nextMatchRowIdx, 2).setValue(winner); // team1
+                    var r32Positions = {
+                      'r32_1': 'team1', 'r32_3': 'team2',
+                      'r32_2': 'team2', 'r32_5': 'team1',
+                      'r32_4': 'team1', 'r32_6': 'team2',
+                      'r32_7': 'team1', 'r32_8': 'team2',
+                      'r32_9': 'team1', 'r32_10': 'team2',
+                      'r32_11': 'team1', 'r32_12': 'team2',
+                      'r32_13': 'team1', 'r32_15': 'team2',
+                      'r32_14': 'team1', 'r32_16': 'team2'
+                    };
+                    
+                    var pos = r32Positions[m.id];
+                    if (pos) {
+                      if (pos === 'team1') {
+                        matchesSheet.getRange(nextMatchRowIdx, 2).setValue(winner); // team1
+                      } else {
+                        matchesSheet.getRange(nextMatchRowIdx, 3).setValue(winner); // team2
+                      }
                     } else {
-                      matchesSheet.getRange(nextMatchRowIdx, 3).setValue(winner); // team2
+                      var lastChar = m.id.charAt(m.id.length - 1);
+                      if (["1", "3", "5", "7", "9"].includes(lastChar)) {
+                        matchesSheet.getRange(nextMatchRowIdx, 2).setValue(winner); // team1
+                      } else {
+                        matchesSheet.getRange(nextMatchRowIdx, 3).setValue(winner); // team2
+                      }
                     }
                   }
                 }
