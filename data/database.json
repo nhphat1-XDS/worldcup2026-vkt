@@ -986,8 +986,8 @@
     },
     {
       "id": "r16_2",
-      "team1": "Morocco",
-      "team2": "Thắng 75",
+      "team1": "Canada",
+      "team2": "Morocco",
       "date": "2026-07-05T00:00:00",
       "status": "pending",
       "score1": null,
@@ -1008,7 +1008,7 @@
     },
     {
       "id": "r16_3",
-      "team1": "Thắng 76",
+      "team1": "Brazil",
       "team2": "Na Uy",
       "date": "2026-07-06T03:00:00",
       "status": "pending",
