@@ -886,9 +886,9 @@
       "team2": "Senegal",
       "date": "2026-07-02T03:00:00",
       "status": "finished",
-      "score1": 3,
+      "score1": 2,
       "score2": 2,
-      "outcome": "team1",
+      "outcome": "draw",
       "round": "r32"
     },
     {
