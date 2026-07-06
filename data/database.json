@@ -1022,10 +1022,10 @@
       "team1": "Mexico",
       "team2": "Anh",
       "date": "2026-07-06T07:00:00",
-      "status": "pending",
-      "score1": null,
-      "score2": null,
-      "outcome": null,
+      "status": "finished",
+      "score1": 2,
+      "score2": 3,
+      "outcome": "team2",
       "round": "r16"
     },
     {
@@ -1166,63 +1166,63 @@
       "name": "Nguyễn Hữu Phát",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -85,
+      "points": -86,
       "correctScores": 5,
-      "correctOutcomes": 80,
+      "correctOutcomes": 81,
       "unpredicted": 5
     },
     {
       "name": "Lê Đình Thắng",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -80,
+      "points": -81,
       "correctScores": 10,
-      "correctOutcomes": 70,
+      "correctOutcomes": 71,
       "unpredicted": 10
     },
     {
       "name": "Lợi Chu",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -82,
+      "points": -83,
       "correctScores": 8,
       "correctOutcomes": 64,
-      "unpredicted": 18
+      "unpredicted": 19
     },
     {
       "name": "HB Hải",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -84,
+      "points": -85,
       "correctScores": 6,
       "correctOutcomes": 59,
-      "unpredicted": 25
+      "unpredicted": 26
     },
     {
       "name": "Tạ Ngọc Bình",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -89,
+      "points": -90,
       "correctScores": 1,
       "correctOutcomes": 2,
-      "unpredicted": 87
+      "unpredicted": 88
     },
     {
       "name": "Thanh",
       "unit": "Xds",
       "isAdmin": false,
-      "points": -81,
+      "points": -82,
       "correctScores": 9,
-      "correctOutcomes": 72,
+      "correctOutcomes": 73,
       "unpredicted": 9
     },
     {
       "name": "Phi Ngoc Anh Khai",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -84,
+      "points": -85,
       "correctScores": 6,
-      "correctOutcomes": 56,
+      "correctOutcomes": 57,
       "unpredicted": 28
     }
   ],
