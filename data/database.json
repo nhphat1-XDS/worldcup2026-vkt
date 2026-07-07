@@ -3267,6 +3267,26 @@
         "score1": 1,
         "score2": 2,
         "created_at": "04/07/2026 21:07:47"
+      },
+      "r16_7": {
+        "score1": 2,
+        "score2": 1,
+        "created_at": "07/07/2026 08:06:12"
+      },
+      "r16_8": {
+        "score1": 1,
+        "score2": 0,
+        "created_at": "07/07/2026 08:06:12"
+      },
+      "qf_1": {
+        "score1": 1,
+        "score2": 0,
+        "created_at": "07/07/2026 08:06:12"
+      },
+      "qf_3": {
+        "score1": 2,
+        "score2": 1,
+        "created_at": "07/07/2026 08:06:12"
       }
     },
     "Phi Ngoc Anh Khai-XDS": {
