@@ -1033,10 +1033,10 @@
       "team1": "Bỉ",
       "team2": "Mỹ",
       "date": "2026-07-07T02:00:00",
-      "status": "pending",
-      "score1": null,
-      "score2": null,
-      "outcome": null,
+      "status": "finished",
+      "score1": 4,
+      "score2": 1,
+      "outcome": "team1",
       "round": "r16"
     },
     {
@@ -1166,64 +1166,64 @@
       "name": "Nguyễn Hữu Phát",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -90,
+      "points": -91,
       "correctScores": 5,
-      "correctOutcomes": 85,
+      "correctOutcomes": 86,
       "unpredicted": 5
     },
     {
       "name": "Lê Đình Thắng",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -85,
+      "points": -86,
       "correctScores": 10,
-      "correctOutcomes": 74,
+      "correctOutcomes": 75,
       "unpredicted": 11
     },
     {
       "name": "Lợi Chu",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -86,
+      "points": -87,
       "correctScores": 9,
-      "correctOutcomes": 66,
+      "correctOutcomes": 67,
       "unpredicted": 20
     },
     {
       "name": "HB Hải",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -89,
+      "points": -90,
       "correctScores": 6,
       "correctOutcomes": 59,
-      "unpredicted": 30
+      "unpredicted": 31
     },
     {
       "name": "Tạ Ngọc Bình",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -94,
+      "points": -95,
       "correctScores": 1,
       "correctOutcomes": 2,
-      "unpredicted": 92
+      "unpredicted": 93
     },
     {
       "name": "Thanh",
       "unit": "Xds",
       "isAdmin": false,
-      "points": -86,
+      "points": -87,
       "correctScores": 9,
       "correctOutcomes": 76,
-      "unpredicted": 10
+      "unpredicted": 11
     },
     {
       "name": "Phi Ngoc Anh Khai",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -89,
+      "points": -90,
       "correctScores": 6,
       "correctOutcomes": 59,
-      "unpredicted": 30
+      "unpredicted": 31
     }
   ],
   "predictions": {
