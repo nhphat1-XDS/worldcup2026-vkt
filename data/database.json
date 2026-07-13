@@ -1111,8 +1111,8 @@
       "date": "2026-07-12T04:00:00",
       "status": "finished",
       "score1": 1,
-      "score2": 2,
-      "outcome": "team2",
+      "score2": 1,
+      "outcome": "draw",
       "round": "qf",
       "nextMatchId": "sf_2"
     },
@@ -1180,27 +1180,27 @@
       "name": "Nguyễn Hữu Phát",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -94,
-      "correctScores": 5,
-      "correctOutcomes": 89,
+      "points": -93,
+      "correctScores": 6,
+      "correctOutcomes": 88,
       "unpredicted": 5
     },
     {
       "name": "Lê Đình Thắng",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -89,
-      "correctScores": 10,
-      "correctOutcomes": 78,
+      "points": -88,
+      "correctScores": 11,
+      "correctOutcomes": 77,
       "unpredicted": 11
     },
     {
       "name": "Lợi Chu",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -89,
-      "correctScores": 10,
-      "correctOutcomes": 69,
+      "points": -88,
+      "correctScores": 11,
+      "correctOutcomes": 68,
       "unpredicted": 20
     },
     {
@@ -1234,9 +1234,9 @@
       "name": "Phi Ngoc Anh Khai",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -93,
-      "correctScores": 6,
-      "correctOutcomes": 62,
+      "points": -92,
+      "correctScores": 7,
+      "correctOutcomes": 61,
       "unpredicted": 31
     }
   ],
