@@ -1544,3 +1544,5 @@ elif selected_tab == "⚙️ Quản Trị (BTC)" and st.session_state.is_admin:
                     st.write("**Chi tiết dự đoán của thành viên:**")
                     df_preds = pd.DataFrame(rows_list)
                     st.dataframe(df_preds, hide_index=True, use_container_width=True)
+
+# Trigger Streamlit Cloud Rebuild - 06/07/2026 09:15
