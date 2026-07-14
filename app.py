@@ -1122,8 +1122,11 @@ if selected_tab == "⚽ Dự Đoán Của Tôi":
                 st.metric("Số Trận Đoán Sai (-1đ)", f"{user_rank_info['correctOutcomes']} trận")
             st.write("---")
 
-    # Bộ lọc
-    filter_val = st.segmented_control("Trạng thái trận đấu", ["Tất cả", "Chưa diễn ra", "Đã kết thúc"], default="Tất cả")
+    # Bộ lọc với cơ chế tương thích ngược an toàn
+    if hasattr(st, "segmented_control"):
+        filter_val = st.segmented_control("Trạng thái trận đấu", ["Tất cả", "Chưa diễn ra", "Đã kết thúc"], default="Tất cả")
+    else:
+        filter_val = st.radio("Trạng thái trận đấu", ["Tất cả", "Chưa diễn ra", "Đã kết thúc"], index=0, horizontal=True)
     
     # Render các cards trận đấu
     new_preds = {}
