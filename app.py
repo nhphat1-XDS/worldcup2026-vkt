@@ -661,19 +661,24 @@ def read_db():
         st.session_state.db_error = f"Lỗi kết nối GitHub: {str(e)}"
         st.sidebar.warning(f"Lỗi kết nối Cloud DB, tự động chuyển về Offline Local: {e}")
             
-    if not os.path.exists(LOCAL_DB_FILE):
+    # Dự phòng: đọc từ local db
+    if os.path.exists(LOCAL_DB_FILE):
+        try:
+            with open(LOCAL_DB_FILE, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                return data.get("matches", DEFAULT_MATCHES), data.get("users", []), data.get("predictions", {}), True
+        except:
+            pass
+            
+    # Dự phòng cuối cùng: khởi tạo file local hoặc trả về dữ liệu mặc định
+    try:
         os.makedirs(os.path.dirname(LOCAL_DB_FILE), exist_ok=True)
         initial_data = { "matches": DEFAULT_MATCHES, "users": [], "predictions": {} }
         with open(LOCAL_DB_FILE, 'w', encoding='utf-8') as f:
             json.dump(initial_data, f, ensure_ascii=False, indent=2)
-        return DEFAULT_MATCHES, [], {}, True
-        
-    try:
-        with open(LOCAL_DB_FILE, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-            return data.get("matches", DEFAULT_MATCHES), data.get("users", []), data.get("predictions", {}), True
-    except Exception as e:
-        return DEFAULT_MATCHES, [], {}, True
+    except:
+        pass
+    return DEFAULT_MATCHES, [], {}, True
 
 def write_local_db(matches, users, predictions):
     os.makedirs(os.path.dirname(LOCAL_DB_FILE), exist_ok=True)
