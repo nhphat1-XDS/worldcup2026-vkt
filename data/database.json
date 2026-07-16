@@ -2183,6 +2183,16 @@
         "score1": 2,
         "score2": 1,
         "created_at": "14/07/2026 12:46:46"
+      },
+      "third": {
+        "score1": 1,
+        "score2": 2,
+        "created_at": "16/07/2026 16:16:39"
+      },
+      "final": {
+        "score1": 1,
+        "score2": 0,
+        "created_at": "16/07/2026 16:16:39"
       }
     },
     "Lợi Chu-XDS": {
