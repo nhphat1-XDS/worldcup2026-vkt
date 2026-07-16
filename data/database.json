@@ -1145,17 +1145,17 @@
       "team1": "Anh",
       "team2": "Argentina",
       "date": "2026-07-16T02:00:00",
-      "status": "pending",
-      "score1": null,
-      "score2": null,
-      "outcome": null,
+      "status": "finished",
+      "score1": 1,
+      "score2": 2,
+      "outcome": "team2",
       "round": "sf",
       "nextMatchId": "final"
     },
     {
       "id": "third",
       "team1": "Pháp",
-      "team2": "Thua 102",
+      "team2": "Anh",
       "date": "2026-07-19T04:00:00",
       "status": "pending",
       "score1": null,
@@ -1166,7 +1166,7 @@
     {
       "id": "final",
       "team1": "Tây Ban Nha",
-      "team2": "Thắng 102",
+      "team2": "Argentina",
       "date": "2026-07-20T02:00:00",
       "status": "pending",
       "score1": null,
@@ -1180,63 +1180,63 @@
       "name": "Nguyễn Hữu Phát",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -95,
+      "points": -96,
       "correctScores": 6,
-      "correctOutcomes": 90,
+      "correctOutcomes": 91,
       "unpredicted": 5
     },
     {
       "name": "Lê Đình Thắng",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -89,
+      "points": -90,
       "correctScores": 12,
-      "correctOutcomes": 78,
+      "correctOutcomes": 79,
       "unpredicted": 11
     },
     {
       "name": "Lợi Chu",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -90,
+      "points": -91,
       "correctScores": 11,
       "correctOutcomes": 69,
-      "unpredicted": 21
+      "unpredicted": 22
     },
     {
       "name": "HB Hải",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -95,
+      "points": -96,
       "correctScores": 6,
       "correctOutcomes": 59,
-      "unpredicted": 36
+      "unpredicted": 37
     },
     {
       "name": "Tạ Ngọc Bình",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -100,
+      "points": -101,
       "correctScores": 1,
       "correctOutcomes": 2,
-      "unpredicted": 98
+      "unpredicted": 99
     },
     {
       "name": "Thanh",
       "unit": "Xds",
       "isAdmin": false,
-      "points": -92,
+      "points": -93,
       "correctScores": 9,
       "correctOutcomes": 79,
-      "unpredicted": 13
+      "unpredicted": 14
     },
     {
       "name": "Phi Ngoc Anh Khai",
       "unit": "XDS",
       "isAdmin": false,
-      "points": -94,
+      "points": -95,
       "correctScores": 7,
-      "correctOutcomes": 63,
+      "correctOutcomes": 64,
       "unpredicted": 31
     }
   ],
